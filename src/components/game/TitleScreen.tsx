@@ -32,10 +32,13 @@ export function TitleScreen({
             Abenteuer starten
           </Button>
           {canLoad ? (
-            <Button variant="secondary" size="lg" onClick={onLoad}>
-              <FolderOpen className="size-4" aria-hidden />
-              Spielstand laden
-            </Button>
+            <div className="grid gap-1.5">
+              <Button variant="secondary" size="lg" onClick={onLoad}>
+                <FolderOpen className="size-4" aria-hidden />
+                Spielstand laden
+              </Button>
+              <p className="text-center text-xs text-muted-fg">Fortsetzung am Dorfplatz</p>
+            </div>
           ) : null}
           <Button variant="secondary" size="lg" onClick={onRules}>
             <ScrollText className="size-4" aria-hidden />

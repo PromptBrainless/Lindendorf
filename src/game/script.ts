@@ -10,6 +10,7 @@ import {
   schaden,
 } from "./engine";
 import type { Runtime } from "./runtime";
+import { INTRO_ARTIFACT_CONTENT } from "./content";
 import {
   HEILTRANK,
   LEICHT,
@@ -61,6 +62,8 @@ async function szeneIntro(rt: Runtime, held: Held) {
     ],
   });
 
+  await introArtefakt(rt, held);
+
   await rt.present({
     title: "Das Tal",
     art: "forest",
@@ -111,6 +114,53 @@ async function szeneIntro(rt: Runtime, held: Held) {
   });
 }
 
+async function introArtefakt(rt: Runtime, held: Held) {
+  const wahl = await rt.present({
+    title: INTRO_ARTIFACT_CONTENT.title,
+    art: INTRO_ARTIFACT_CONTENT.art,
+    portrait: null,
+    held,
+    lines: INTRO_ARTIFACT_CONTENT.lines,
+    choices: INTRO_ARTIFACT_CONTENT.choices.map((choice) => choice.label),
+  });
+
+  if (wahl === 3) {
+    held.artefaktVerloren = true;
+    await rt.present({
+      held,
+      lines: INTRO_ARTIFACT_CONTENT.passLines,
+    });
+    return;
+  }
+
+  const contentChoice = INTRO_ARTIFACT_CONTENT.choices[wahl];
+  const wege: Array<"kampf" | "schleich" | "ueberreden"> = ["kampf", "schleich", "ueberreden"];
+  const attribut = contentChoice.attribute ?? "Stärke";
+  const wert = [held.staerke, held.geschick, held.charisma][wahl] ?? held.staerke;
+  const schwierigkeit = contentChoice.difficulty ?? MITTEL;
+  const ergebnis = probe(held, attribut, wert, schwierigkeit, "das silberne Artefakt");
+  held.artefaktWeg = wege[wahl] ?? "kampf";
+
+  if (ergebnis.erfolg) {
+    held.artefaktErhalten = true;
+    await rt.present({
+      held,
+      probe: ergebnis,
+      lines: [
+        INTRO_ARTIFACT_CONTENT.successLines[wahl],
+        "Das Silber ist kalt. In Lindendorf wird jemand wissen, woher es stammt.",
+      ],
+    });
+  } else {
+    held.artefaktVerloren = true;
+    await rt.present({
+      held,
+      probe: ergebnis,
+        lines: INTRO_ARTIFACT_CONTENT.failureLines,
+    });
+  }
+}
+
 async function szeneDorf(rt: Runtime, held: Held) {
   await rt.present({
     title: "Dorfplatz",
@@ -130,7 +180,7 @@ async function szeneDorf(rt: Runtime, held: Held) {
   let bettlerRueckkehrGesehen = false;
 
   while (!tot(held)) {
-    const glockenwegLabel = held.auftragErhalten || held.sannaGeholfen || held.holmSiegelGefunden || held.mehlsackGefunden
+    const glockenwegLabel = held.sannaGeholfen || held.holmSiegelGefunden || held.mehlsackGefunden || held.artefaktErhalten
       ? "Zum alten Glockenweg aufsteigen"
       : "Den Weg zum Hang erkunden";
     const dorfChoices = [
@@ -138,9 +188,9 @@ async function szeneDorf(rt: Runtime, held: Held) {
       "Die Taverne besuchen",
       "Brunnen und Dorfplatz",
       "Schmiede und Apotheke",
-      ...(held.auftragErhalten ? ["Nach dem roten Wachs fragen"] : []),
+      ...(held.holmBesucht ? ["Nach dem roten Wachs fragen"] : []),
       glockenwegLabel,
-      "Das Dorf Richtung Wald verlassen",
+      "Richtung Wald aufbrechen",
     ];
     const glockenwegIndex = dorfChoices.indexOf(glockenwegLabel);
     const wahl = await rt.present({
@@ -161,20 +211,20 @@ async function szeneDorf(rt: Runtime, held: Held) {
       rumorenGehoert = (await dorfPlatz(rt, held, rumorenGehoert)) || rumorenGehoert;
     } else if (wahl === 3) {
       await dorfSchmiedeApotheke(rt, held);
-    } else if (held.auftragErhalten && wahl === 4) {
+    } else if (held.holmBesucht && wahl === 4) {
       await dorfHolmSiegel(rt, held);
     } else if (wahl === glockenwegIndex) {
       await szeneGlockenweg(rt, held);
     } else {
-      if (!held.auftragErhalten) {
+      if (!held.holmBesucht) {
         const go = await rt.present({
           art: "village",
           held,
           lines: [
-            "Ohne Auftrag in den Wald zu gehen ist möglich.",
-            "Es ist nur dümmer. Die Banditen haben Gründe, und du kennst sie nicht.",
+            "Du hast noch mit niemandem im Rathaus gesprochen.",
+            "In den Wald zu gehen ist möglich. Du kennst dann aber weder den Auftrag noch die Gründe der Banditen.",
           ],
-          choices: ["Trotzdem gehen", "Noch im Dorf bleiben"],
+          choices: ["Trotzdem in den Wald gehen", "Noch im Dorf bleiben"],
         });
         if (go === 1) continue;
       }
@@ -182,10 +232,13 @@ async function szeneDorf(rt: Runtime, held: Held) {
         await dorfBettlerRueckkehr(rt, held);
         bettlerRueckkehrGesehen = true;
       }
-      if (held.auftragErhalten) {
+      if (held.holmBesucht) {
         const wissen = [
-          "Du weißt jetzt: Die Banditen sitzen im alten Steinbruch und haben Kirchensilber genommen.",
+          held.auftragErhalten
+            ? "Du weißt jetzt: Die Banditen sitzen im alten Steinbruch und haben Kirchensilber genommen."
+            : "Du weißt jetzt: Banditen sitzen im alten Steinbruch und haben das Dorf bestohlen. Du hast Holms Auftrag nicht angenommen.",
           "Der Wald führt dorthin. Der Hauptweg ist nicht der einzige Weg.",
+          ...(held.artefaktErhalten ? ["Das silberne Artefakt gehört zur Kirche. Holm wird wissen, warum es im Tal unterwegs war."] : []),
           ...(held.glockeGestoppt ? ["Die Glocke am Hang bleibt still."] : []),
           ...(held.banditenGewarnt ? ["Die Banditen wissen bereits, dass jemand kommt."] : []),
         ];
@@ -213,6 +266,7 @@ async function szeneDorf(rt: Runtime, held: Held) {
 }
 
 async function dorfBuergermeister(rt: Runtime, held: Held) {
+  held.holmBesucht = true;
   await rt.present({
     title: "Rathaus",
     art: "townhall",
@@ -223,6 +277,9 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
       "Auf dem Tisch: eine leere Kasse, ein Siegel, ein Brief mit gebrochenem Wachs.",
       "„Banditen kommen nachts. Drei Mal schon. Getreide, zwei Ziegen, das Silbergerät der Kirche.“",
       "„Ich brauche jemanden, der zum alten Steinbruch geht. Dort lagern sie.“",
+      ...(held.artefaktErhalten
+        ? ["Als Holm das silberne Artefakt sieht, verliert sein Gesicht für einen Moment jede Farbe. Es gehört zur Kirche."]
+        : []),
     ],
   });
 

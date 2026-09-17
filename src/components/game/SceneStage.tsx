@@ -4,15 +4,24 @@ import { Button } from "@/components/ui/button";
 import { ART, PORTRAITS } from "@/game/art";
 import type { SceneView } from "@/game/types";
 import { Hud } from "./Hud";
+import { KnowledgeJournal } from "./KnowledgeJournal";
 
 export function SceneStage({
   view,
   onChoose,
   onSave,
+  saveMessage,
+  onKnowledge,
+  knowledgeOpen,
+  debug,
 }: {
   view: SceneView;
   onChoose: (index: number) => void;
   onSave: () => void;
+  saveMessage: string | null;
+  onKnowledge: () => void;
+  knowledgeOpen: boolean;
+  debug: boolean;
 }) {
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -32,7 +41,8 @@ export function SceneStage({
         className="absolute inset-0 size-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/55 to-bg/20" />
-      {view.held ? <Hud held={view.held} onSave={onSave} /> : null}
+      {view.held ? <Hud held={view.held} onSave={onSave} saveMessage={saveMessage} onKnowledge={onKnowledge} /> : null}
+      {knowledgeOpen && view.held ? <KnowledgeJournal held={view.held} debug={debug} onClose={onKnowledge} /> : null}
 
       <div className="safe-bottom relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col justify-end gap-3 px-3 pb-6 pt-32 sm:gap-4 sm:px-6 sm:pb-8 sm:pt-28">
         <div className="flex items-end gap-4">
@@ -58,7 +68,7 @@ export function SceneStage({
             </div>
 
             {view.probe ? (
-              <div className="mb-3 flex items-start gap-2 rounded-md border border-border bg-surface/80 px-3 py-2 text-sm">
+              <div className="mb-3 flex items-start gap-2 rounded-md border border-border bg-surface/80 px-3 py-2 text-sm" role="status" aria-live="polite">
                 <Dices className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
                 <div>
                   <p>

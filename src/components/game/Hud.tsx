@@ -1,4 +1,4 @@
-import { Coins, FlaskConical, Heart, KeyRound, Save } from "lucide-react";
+import { BookOpen, Coins, FlaskConical, Heart, KeyRound, Save } from "lucide-react";
 import { HEILTRANK, MAX_LP, SCHLUESSEL, type Held } from "@/game/types";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +11,17 @@ function Stat({ label, value }: { label: string; value: number }) {
   );
 }
 
-export function Hud({ held, onSave }: { held: Held; onSave: () => void }) {
+export function Hud({
+  held,
+  onSave,
+  saveMessage,
+  onKnowledge,
+}: {
+  held: Held;
+  onSave: () => void;
+  saveMessage: string | null;
+  onKnowledge: () => void;
+}) {
   const hpPct = Math.max(0, Math.min(100, (held.lp / MAX_LP) * 100));
   const flags: string[] = [];
   if (held.verwundet) flags.push("verwundet");
@@ -73,6 +83,22 @@ export function Hud({ held, onSave }: { held: Held; onSave: () => void }) {
           <Save className="size-3.5" aria-hidden />
           <span className="hidden sm:inline">Speichern</span>
         </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          size="default"
+          className="pointer-events-auto h-9 shrink-0 px-2 text-xs sm:px-3"
+          onClick={onKnowledge}
+          title="Wissenstagebuch öffnen"
+        >
+          <BookOpen className="size-3.5" aria-hidden />
+          <span className="hidden sm:inline">Wissen</span>
+        </Button>
+        {saveMessage ? (
+          <p className="text-[11px] text-ok sm:max-w-52" aria-live="polite">
+            {saveMessage}
+          </p>
+        ) : null}
       </div>
     </div>
   );

@@ -38,6 +38,7 @@ export type Held = {
   banditenGewarnt: boolean;
   buergermeisterVertraut: boolean;
   verwundet: boolean;
+  holmBesucht: boolean;
   auftragErhalten: boolean;
   lagerGeloest: boolean;
   loesungsweg: Loesungsweg;
@@ -65,6 +66,9 @@ export type Held = {
   salzLiegenGelassen: boolean;
   glockeGestoppt: boolean;
   glockeGescheitert: boolean;
+  artefaktErhalten: boolean;
+  artefaktVerloren: boolean;
+  artefaktWeg: Loesungsweg;
 };
 
 export type ProbeResult = {
@@ -101,6 +105,7 @@ export function createHeld(name: string, staerke: number, geschick: number, char
     banditenGewarnt: false,
     buergermeisterVertraut: false,
     verwundet: false,
+    holmBesucht: false,
     auftragErhalten: false,
     lagerGeloest: false,
     loesungsweg: null,
@@ -128,6 +133,9 @@ export function createHeld(name: string, staerke: number, geschick: number, char
     salzLiegenGelassen: false,
     glockeGestoppt: false,
     glockeGescheitert: false,
+    artefaktErhalten: false,
+    artefaktVerloren: false,
+    artefaktWeg: null,
   };
 }
 

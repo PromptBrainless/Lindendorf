@@ -16,6 +16,9 @@ export function GameApp() {
   const [view, setView] = useState<SceneView | null>(null);
   const [held, setHeld] = useState<Held | null>(null);
   const [canLoad, setCanLoad] = useState(() => hasSavedGame());
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [knowledgeOpen, setKnowledgeOpen] = useState(false);
+  const [debug] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).has("debug"));
   const runtimeRef = useRef<Runtime | null>(null);
 
   const stopPlay = useCallback(() => {
@@ -38,6 +41,8 @@ export function GameApp() {
       stopPlay();
       const live = cloneHeld(hero);
       setHeld(live);
+      setSaveMessage(null);
+      setKnowledgeOpen(false);
       setMode("play");
       const runtime = new Runtime(setView, setHeld);
       runtimeRef.current = runtime;
@@ -66,7 +71,12 @@ export function GameApp() {
 
   const saveCurrentGame = useCallback(() => {
     const current = view?.held ?? held;
-    if (current && saveGame(current)) setCanLoad(true);
+    if (current && saveGame(current)) {
+      setCanLoad(true);
+      setSaveMessage("Gespeichert. Laden setzt am Dorfplatz fort.");
+    } else {
+      setSaveMessage("Speichern war in diesem Browser nicht möglich.");
+    }
   }, [held, view]);
 
   if (mode === "title") {
@@ -99,6 +109,10 @@ export function GameApp() {
       view={view.held ? view : held ? { ...view, held } : view}
       onChoose={(index) => runtimeRef.current?.choose(index)}
       onSave={saveCurrentGame}
+      saveMessage={saveMessage}
+      onKnowledge={() => setKnowledgeOpen((open) => !open)}
+      knowledgeOpen={knowledgeOpen}
+      debug={debug}
     />
   );
 }

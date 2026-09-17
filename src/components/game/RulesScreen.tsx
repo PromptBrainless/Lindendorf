@@ -19,6 +19,7 @@ export function RulesScreen({ onBack }: { onBack: () => void }) {
             <p>Erfolg und Misserfolg ändern Text, Gegenstände, Lebenspunkte und den weiteren Weg.</p>
             <p>Attribute (1–10): Stärke, Geschicklichkeit, Charisma. Lebenspunkte: 10. Bei 0 ist es vorbei.</p>
             <p>Inventar: Heiltrank, Schlüssel, Gold — keine Ausrüstungsslots.</p>
+            <p>Speichern: Im HUD speichern. Laden setzt dich am Dorfplatz mit deinen Entscheidungen fort.</p>
             <p>Orte: Dorf → Wald → Banditenlager → Ende. Im Lager gehen Schleichen, Reden und Kampf alle durch.</p>
           </div>
           <Button className="mt-6 w-full" onClick={onBack}>
