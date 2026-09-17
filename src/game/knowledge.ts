@@ -11,7 +11,14 @@ export type KnowledgeKey =
   | "hang_hinweis"
   | "glockenweg_bekannt"
   | "glocke_vorteil"
-  | "banditen_gewarnt";
+  | "banditen_gewarnt"
+  | "muehle_stillstand"
+  | "renniks_druck"
+  | "fluechtlinge_muehle"
+  | "wasser_truebung"
+  | "grovin_zisterne"
+  | "dennek_schuld"
+  | "versorgung_muster";
 
 export type KnowledgeState = ReadonlySet<KnowledgeKey>;
 
@@ -22,7 +29,9 @@ export function deriveKnowledge(held: Held): KnowledgeState {
     knowledge.add("holm_besucht");
     knowledge.add("banditen_bekannt");
     knowledge.add("rotes_siegel_gesehen");
+    knowledge.add("muehle_stillstand");
   }
+  if (held.muehleBesucht) knowledge.add("muehle_stillstand");
   if (held.auftragErhalten) knowledge.add("auftrag_erhalten");
   if (held.sannaGeholfen || held.mehlsackGefunden || held.holmSiegelGefunden || held.artefaktErhalten) {
     knowledge.add("hang_hinweis");
@@ -30,6 +39,17 @@ export function deriveKnowledge(held: Held): KnowledgeState {
   }
   if (held.glockeGestoppt) knowledge.add("glocke_vorteil");
   if (held.banditenGewarnt) knowledge.add("banditen_gewarnt");
+  if (held.muellerVertraut || held.renniksBeweis || held.loesungswegMuehle) knowledge.add("renniks_druck");
+  if (held.fluechtlingeEntdeckt) knowledge.add("fluechtlinge_muehle");
+  if (held.truebungBestaetigt || held.spurAmBrunnen) knowledge.add("wasser_truebung");
+  if (held.grovinGenannt || held.grovinsGrund || held.loesungswegBrunnen) knowledge.add("grovin_zisterne");
+  if (held.dennekEntlarvt) knowledge.add("dennek_schuld");
+  if (
+    (held.muehleBesucht || held.loesungswegMuehle || held.holmBesucht) &&
+    (held.truebungBestaetigt || held.loesungswegBrunnen)
+  ) {
+    knowledge.add("versorgung_muster");
+  }
   return knowledge;
 }
 
@@ -45,10 +65,49 @@ export function knowledgeLabels(held: Held): { sicher: string[]; offen: string[]
   if (knowledge.has("artefakt_erhalten")) sicher.push("Das silberne Artefakt gehört zur Kirche.");
   if (knowledge.has("glocke_vorteil")) sicher.push("Die Glocke am Hang bleibt still.");
   if (knowledge.has("banditen_gewarnt")) sicher.push("Die Banditen wissen, dass jemand kommt.");
+  if (knowledge.has("muehle_stillstand") && !held.loesungswegMuehle) sicher.push("Die Mühle liefert kein Mehl mehr.");
+  if (held.loesungswegMuehle === "schleich" || held.loesungswegMuehle === "verhandelt") {
+    sicher.push("Die Mühle mahlt wieder. Das Dorf weiß nicht genau, warum.");
+  } else if (held.loesungswegMuehle === "kampf") {
+    sicher.push("Die Mühle mahlt wieder. Am Steg hat man Blut gesehen.");
+  } else if (held.loesungswegMuehle === "verraten") {
+    sicher.push("Die Mühle hat ihren Schutzbrief. Bertoks Blick ist leer.");
+  }
+  if (knowledge.has("renniks_druck") && !held.loesungswegMuehle) sicher.push("Jemand presst die Mühle vom Ufer her.");
+  if (knowledge.has("fluechtlinge_muehle") && held.loesungswegMuehle !== "verraten") {
+    sicher.push("In der Kornkammer versteckt Bertok Lenes Schwester und deren Kinder.");
+  }
+  if (knowledge.has("wasser_truebung") && !held.loesungswegBrunnen) {
+    sicher.push("Das Brunnenwasser ist trüb und macht krank.");
+  }
+  if (held.loesungswegBrunnen === "bestochen") {
+    sicher.push("Das Wasser reicht wieder. Es reicht nicht für alle.");
+  } else if (held.loesungswegBrunnen) {
+    sicher.push("Das Brunnenwasser ist wieder klar.");
+  }
+  if (knowledge.has("dennek_schuld")) sicher.push("Dennek hat Grovin nie bezahlt.");
+  if (knowledge.has("grovin_zisterne") && !held.loesungswegBrunnen) {
+    sicher.push("Grovin leitet Dorfwasser in eine Zisterne am Waldrand.");
+  }
+  if (knowledge.has("versorgung_muster") && held.loesungswegMuehle && held.loesungswegBrunnen) {
+    sicher.push("Mehl und Wasser wurden dem Tal auf dieselbe Art genommen.");
+  }
 
   const offen: string[] = [];
   if (!knowledge.has("banditen_bekannt")) offen.push("Warum steigt Rauch aus dem Steinbruch?");
   if (!knowledge.has("glockenweg_bekannt")) offen.push("Wer benutzt die Glocke am Hang?");
   if (!knowledge.has("artefakt_erhalten")) offen.push("Was geschah mit dem silbernen Artefakt?");
+  if (knowledge.has("muehle_stillstand") && !held.loesungswegMuehle && !knowledge.has("renniks_druck")) {
+    offen.push("Warum steht die Mühle still, obwohl das Rad sich dreht?");
+  }
+  if (knowledge.has("wasser_truebung") && !held.loesungswegBrunnen && !knowledge.has("grovin_zisterne")) {
+    offen.push("Was macht das Brunnenwasser bitter?");
+  }
+  if (
+    knowledge.has("versorgung_muster") &&
+    (!held.loesungswegMuehle || !held.loesungswegBrunnen)
+  ) {
+    offen.push("Wer rechnet mit Mehl und Wasser gleichzeitig?");
+  }
   return { sicher, offen };
 }

@@ -789,6 +789,22 @@ Sondern:
 
 Wenn zwischen mehr Plot und einem besseren Satz gewählt werden muss, gewinnt der bessere Satz.
 
+## 19. Questreihen (Nebenhandlungen im bestehenden Tal)
+
+Große Nebenquest-Reihen werden nicht frei erzählt. Sie folgen dem Skill
+`.grok/skills/lindendorf-questreihe/` und dem Prompt `docs/PROMPT_QUESTREIHE.md`.
+
+Kurz:
+
+- Erst Reihe, dann eine Quest, dann Code.
+- Goldstandard sind Mühle und Brunnen.
+- Belegte Namen und Flags stehen in `docs/QUESTREGISTER.md`.
+- Hub immer nach Label, nie nach Index.
+- Nach der Quest: `npm run check:questreihe`.
+
+Eine Reihe ist 3–5 unabhängig spielbare Quests unter einer gemeinsamen Schuld,
+kein zweites Kapitel.
+
 ## Referenzen
 
 [1]: `workspace/src/game/types.ts` "Spielzustand, Attribute, Flags, Gegenstände und Szenentypen"
@@ -802,3 +818,7 @@ Wenn zwischen mehr Plot und einem besseren Satz gewählt werden muss, gewinnt de
 [5]: `workspace/attachments/how_to_be_a_hero_v01.py` "Kanonische Originalstimme und ursprünglicher Vertical Slice"
 
 [6]: `ANWEISUNGEN_MANUS.md` "Projektvorgaben, Tonalität und unveränderliche Grenzen"
+
+[7]: `docs/PROMPT_QUESTREIHE.md` "Prompt für qualitativ hohe Questreihen"
+
+[8]: `.grok/skills/lindendorf-questreihe/SKILL.md` "Sieben Phasen, Kanon, Verdrahtung, Qualität"

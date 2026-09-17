@@ -8,6 +8,9 @@ export const HEILTRANK = "Heiltrank";
 export const SCHLUESSEL = "Schlüssel";
 
 export type Loesungsweg = "kampf" | "schleich" | "ueberreden" | null;
+export type MuehleWeg = "kampf" | "schleich" | "verhandelt" | "verraten" | null;
+export type BrunnenWeg = "zerstoert" | "geoeffnet" | "verhandelt" | "bestochen" | null;
+export type Todesort = "steg" | "rennik" | "zisterne" | null;
 
 export type ArtKey =
   | "title"
@@ -75,6 +78,25 @@ export type Held = {
   artefaktErhalten: boolean;
   artefaktVerloren: boolean;
   artefaktWeg: Loesungsweg;
+  muehleBesucht: boolean;
+  spurenGefunden: boolean;
+  muellerVertraut: boolean;
+  bertokBedraengt: boolean;
+  leneBedraengt: boolean;
+  sennaBesuche: number;
+  fluechtlingeEntdeckt: boolean;
+  renniksBeweis: boolean;
+  rennikGewarnt: boolean;
+  loesungswegMuehle: MuehleWeg;
+  truebungBestaetigt: boolean;
+  spurAmBrunnen: boolean;
+  dennekEntlarvt: boolean;
+  grovinGenannt: boolean;
+  grovinsGrund: boolean;
+  grovinGeflohen: boolean;
+  grovinVersprechen: boolean;
+  loesungswegBrunnen: BrunnenWeg;
+  todesort: Todesort;
 };
 
 export type ProbeResult = {
@@ -142,6 +164,25 @@ export function createHeld(name: string, staerke: number, geschick: number, char
     artefaktErhalten: false,
     artefaktVerloren: false,
     artefaktWeg: null,
+    muehleBesucht: false,
+    spurenGefunden: false,
+    muellerVertraut: false,
+    bertokBedraengt: false,
+    leneBedraengt: false,
+    sennaBesuche: 0,
+    fluechtlingeEntdeckt: false,
+    renniksBeweis: false,
+    rennikGewarnt: false,
+    loesungswegMuehle: null,
+    truebungBestaetigt: false,
+    spurAmBrunnen: false,
+    dennekEntlarvt: false,
+    grovinGenannt: false,
+    grovinsGrund: false,
+    grovinGeflohen: false,
+    grovinVersprechen: false,
+    loesungswegBrunnen: null,
+    todesort: null,
   };
 }
 

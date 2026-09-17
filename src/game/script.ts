@@ -11,6 +11,14 @@ import {
 } from "./engine";
 import type { Runtime } from "./runtime";
 import { INTRO_ARTIFACT_CONTENT } from "./content";
+import { dorfMuehle } from "./quest-muehle";
+import { dorfTruebesWasser, kernWasser } from "./quest-brunnen";
+import {
+  echoEpilogVersorgung,
+  echoHolmVersorgung,
+  echoMaraVersorgung,
+  echoPlatzVersorgung,
+} from "./reihe-versorgung";
 import {
   HEILTRANK,
   LEICHT,
@@ -184,11 +192,17 @@ async function szeneDorf(rt: Runtime, held: Held) {
     held,
     lines: [
       "Du stehst jetzt mitten in Lindendorf. Der Platz ist klein genug, dass jedes Gespräch einen Zeugen findet.",
-      "Vor dir liegen Rathaus, Taverne, Brunnen und der Weg zum Hang.",
+      "Vor dir liegen Rathaus, Taverne, Brunnen, die Mühle und der Weg zum Hang.",
       "Aus dem Osten steigt Rauch. Dort liegt der alte Steinbruch.",
       "Noch weißt du nicht, wem du glauben kannst. Du weißt nur, wo du anfangen kannst.",
       "Der Regen hat aufgehört, aber das Wasser läuft weiter von den Dächern. Es sammelt sich in den Rillen des Platzes und trägt Stroh, Asche und etwas Dunkles zum Abfluss.",
-      "Ein Mann mit einem leeren Sack wartet vor der Mühle. Eine Frau zieht ihr Kind aus dem Weg, als du an ihm vorbeisiehst.",
+      held.loesungswegMuehle
+        ? "Vor der Mühle steht kein leerer Sack mehr. Das Rad schlägt nasser als zuvor."
+        : "Ein Mann mit einem leeren Sack wartet vor der Mühle. Eine Frau zieht ihr Kind aus dem Weg, als du an ihm vorbeisiehst.",
+      ...(held.loesungswegBrunnen
+        ? []
+        : ["Am Brunnen steht ein Eimer, den heute morgen niemand geleert hat. Das Wasser darin ist trüb."]),
+      ...echoPlatzVersorgung(held),
       "Das Tal erzählt seine Geschichte nicht auf einmal. Es gibt sie in Türen, in Pausen und in den Dingen, die niemand mehr zu reparieren versucht.",
     ],
   });
@@ -205,12 +219,12 @@ async function szeneDorf(rt: Runtime, held: Held) {
       "Mit dem Bürgermeister sprechen",
       "Die Taverne besuchen",
       "Brunnen und Dorfplatz",
+      "Zur Mühle gehen",
       "Schmiede und Apotheke",
       ...(held.holmBesucht ? ["Nach dem roten Wachs fragen"] : []),
       glockenwegLabel,
       "Richtung Wald aufbrechen",
     ];
-    const glockenwegIndex = dorfChoices.indexOf(glockenwegLabel);
     const wahl = await rt.present({
       title: "Lindendorf",
       art: "village",
@@ -219,19 +233,22 @@ async function szeneDorf(rt: Runtime, held: Held) {
       lines: ["Was tust du?"],
       choices: dorfChoices,
     });
+    const gewaehlt = dorfChoices[wahl] ?? "";
 
-    if (wahl === 0) {
+    if (gewaehlt === "Mit dem Bürgermeister sprechen") {
       await dorfBuergermeister(rt, held);
-    } else if (wahl === 1) {
+    } else if (gewaehlt === "Die Taverne besuchen") {
       lautAngekundigt =
         (await dorfTaverne(rt, held, rumorenGehoert, lautAngekundigt)) || lautAngekundigt;
-    } else if (wahl === 2) {
+    } else if (gewaehlt === "Brunnen und Dorfplatz") {
       rumorenGehoert = (await dorfPlatz(rt, held, rumorenGehoert)) || rumorenGehoert;
-    } else if (wahl === 3) {
+    } else if (gewaehlt === "Zur Mühle gehen") {
+      await dorfMuehle(rt, held);
+    } else if (gewaehlt === "Schmiede und Apotheke") {
       await dorfSchmiedeApotheke(rt, held);
-    } else if (held.holmBesucht && wahl === 4) {
+    } else if (gewaehlt === "Nach dem roten Wachs fragen") {
       await dorfHolmSiegel(rt, held);
-    } else if (wahl === glockenwegIndex) {
+    } else if (gewaehlt === glockenwegLabel) {
       await szeneGlockenweg(rt, held);
     } else {
       if (!held.holmBesucht) {
@@ -259,6 +276,21 @@ async function szeneDorf(rt: Runtime, held: Held) {
           ...(held.artefaktErhalten ? ["Das silberne Artefakt gehört zur Kirche. Holm wird wissen, warum es im Tal unterwegs war."] : []),
           ...(held.glockeGestoppt ? ["Die Glocke am Hang bleibt still."] : []),
           ...(held.banditenGewarnt ? ["Die Banditen wissen bereits, dass jemand kommt."] : []),
+          ...(held.loesungswegMuehle
+            ? held.loesungswegMuehle === "verraten"
+              ? ["Die Mühle mahlt wieder. Die Familie aus der Kornkammer ist im Rathausbuch."]
+              : ["Die Mühle mahlt wieder. Bertok sagt nicht, warum."]
+            : held.muehleBesucht
+              ? ["Die Mühle steht still, obwohl das Rad sich dreht."]
+              : []),
+          ...(held.loesungswegBrunnen
+            ? held.loesungswegBrunnen === "bestochen"
+              ? ["Das Brunnenwasser reicht wieder. Es reicht nicht für alle."]
+              : ["Das Brunnenwasser ist wieder klar."]
+            : held.truebungBestaetigt
+              ? ["Das Brunnenwasser macht krank. Jemand hat den Schacht angefasst."]
+              : []),
+          ...echoPlatzVersorgung(held),
         ];
         const aufbruch = await rt.present({
           title: "Was du weißt",
@@ -294,6 +326,8 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
       "Bürgermeister Holm hat Augen wie nasse Kiesel.",
       "Auf dem Tisch: eine leere Kasse, ein Siegel, ein Brief mit gebrochenem Wachs.",
       "„Banditen kommen nachts. Drei Mal schon. Getreide, zwei Ziegen, das Silbergerät der Kirche.“",
+      "„Seit zwei Wochen kommt kein Mehl. Bertok schließt die Mühle, bevor jemand fragen kann. Er sagt, das Wasser stehe zu niedrig. Ich glaube ihm das nicht.“",
+      ...echoHolmVersorgung(held),
       "„Ich brauche jemanden, der zum alten Steinbruch geht. Dort lagern sie.“",
       ...(held.artefaktErhalten
         ? ["Als Holm das silberne Artefakt sieht, verliert sein Gesicht für einen Moment jede Farbe. Es gehört zur Kirche."]
@@ -310,6 +344,7 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
       lines: [
         "„Du hast mein Wort und meinen Vorschuss. Geh, bevor sie merken,",
         "dass Lindendorf diesmal nicht nur jammert.“",
+        ...echoHolmVersorgung(held),
       ],
     });
     return;
@@ -441,6 +476,12 @@ async function dorfTaverne(
       ...(lautAngekundigt
         ? ["Als du eintrittst, wird an einem Tisch ein Satz nicht zu Ende gesprochen."]
         : []),
+      ...(held.loesungswegMuehle === "verraten"
+        ? ["Auf der Theke liegt wieder Brot. Mara schneidet es und sieht dich an, als hätte das Mehl einen Preis, den sie nicht nennen will."]
+        : held.loesungswegMuehle
+          ? ["Auf der Theke steht zum ersten Mal seit Tagen wieder Brot. Mara schneidet es, ohne zu fragen, woher das Mehl kommt."]
+          : ["Das Brotfach ist leer. Mara stellt Gerstenbrei hin, als wäre das eine Entscheidung und kein Mangel."]),
+      ...echoMaraVersorgung(held),
       "Über dem Ausschank hängt ein Bündel Kräuter, längst trocken genug, um bei der kleinsten Berührung zu zerfallen. Darunter steht ein Becher mit drei Rissen.",
       "Die Taverne ist warm, aber nicht freundlich. Wärme kostet Holz, und Holz kostet im Tal inzwischen mehr als Bier.",
       "Mara sieht dich an, als müsste sie in deinem Gesicht entscheiden, ob du ein weiterer Gast oder eine weitere Rechnung bist.",
@@ -713,6 +754,12 @@ async function dorfMaraHintertuer(rt: Runtime, held: Held) {
 }
 
 async function dorfPlatz(rt: Runtime, held: Held, rumorenGehoert: boolean): Promise<boolean> {
+  const choices = [
+    "Am Brunnen lauschen",
+    held.loesungswegBrunnen ? "Den Brunnen noch einmal ansehen" : "Den trüben Eimer prüfen",
+    "Dem Jungen mit der roten Schnur folgen",
+    "Zurück zum Dorf",
+  ];
   const wahl = await rt.present({
     title: "Brunnen und Dorfplatz",
     art: "village",
@@ -721,15 +768,21 @@ async function dorfPlatz(rt: Runtime, held: Held, rumorenGehoert: boolean): Prom
     lines: [
       "Der Dorfplatz ist klein genug, dass jedes Gespräch einen Zeugen findet.",
       "Am Brunnen tropft Wasser auf den Stein. Hinter dem Trog wartet ein Junge mit einer roten Schnur.",
+      held.loesungswegBrunnen
+        ? "Der Eimer am Brunnen ist nicht mehr der, den man stehen lässt."
+        : "Der Eimer am Brunnen steht halb voll. Das Wasser darin ist trüb und leicht bitter.",
       "Neben der Mauer stehen drei leere Körbe. Auf jedem ist mit Kreide ein Familienname geschrieben. Der Regen hat zwei davon fast ausgelöscht.",
       "Ein Schwein wühlt zwischen den Rinnen des Platzes. Niemand scheucht es fort. Was es findet, muss später niemand wegtragen.",
     ],
-    choices: ["Am Brunnen lauschen", "Dem Jungen mit der roten Schnur folgen", "Zurück zum Dorf"],
+    choices,
   });
-  if (wahl === 0) await dorfBrunnen(rt, held);
-  else if (wahl === 1) await dorfRoteSchnur(rt, held);
+  const gewaehlt = choices[wahl];
+  if (gewaehlt === "Am Brunnen lauschen") await dorfBrunnen(rt, held);
+  else if (gewaehlt === "Den trüben Eimer prüfen" || gewaehlt === "Den Brunnen noch einmal ansehen") {
+    await dorfTruebesWasser(rt, held);
+  } else if (gewaehlt === "Dem Jungen mit der roten Schnur folgen") await dorfRoteSchnur(rt, held);
   else if (rumorenGehoert) await rt.present({ held, lines: ["Du bleibst auf dem Platz. Die Stimmen kommen und gehen."] });
-  return wahl === 0;
+  return gewaehlt === "Am Brunnen lauschen";
 }
 
 async function dorfSchmiedeApotheke(rt: Runtime, held: Held) {
@@ -751,6 +804,10 @@ async function dorfSchmiedeApotheke(rt: Runtime, held: Held) {
 
 async function dorfWitweKern(rt: Runtime, held: Held) {
   if (held.kernGeholfen || held.kernAbgewiesen) {
+    if (!held.loesungswegBrunnen) {
+      await kernWasser(rt, held);
+      return;
+    }
     await rt.present({
       title: "Bei Witwe Kern",
       art: "apothecary",
@@ -805,6 +862,7 @@ async function dorfWitweKern(rt: Runtime, held: Held) {
         "Sie legt dir einen sauberen Verband hin. „Für den Fall, dass du doch noch krank wirst.“",
         "Am Stoff klebt grauer Staub. Kern verreibt ihn zwischen zwei Fingern und blickt zur Ostwand, als könne sie durch sie hindurch bis zum Steinbruch sehen.",
         "„Die nehmen nicht nur Essen“, sagt sie. „Sie bereiten sich darauf vor, dass jemand es zurückhaben will.“",
+        ...(held.loesungswegBrunnen ? [] : ["Draußen hustet ein Kind. Kern sieht zum Brunnen, nicht zur Schublade. „Das Wasser ist schuld. Nicht diese Schublade.“"]),
       ],
     });
   } else {
@@ -1471,6 +1529,20 @@ async function szeneWald(rt: Runtime, held: Held) {
   }
   if (held.salzGerettet) {
     ankunftszeilen.push("Zwischen den Steinen liegt Salzstaub. Jorren hat nicht übertrieben.");
+  }
+  if (held.loesungswegMuehle === "kampf") {
+    ankunftszeilen.push("Hinter dir redet man am Steg von Männern mit blutiger Nase.");
+  } else if (held.loesungswegMuehle === "verraten") {
+    ankunftszeilen.push("Im Dorf sagt man, die Mühle habe ihren Schutzbrief. Niemand sagt, wen die Wache mitgenommen hat.");
+  } else if (held.loesungswegMuehle) {
+    ankunftszeilen.push("Hinter dir mahlt die Mühle wieder. Das Dorf fragt nicht, warum.");
+  }
+  if (held.loesungswegBrunnen === "bestochen") {
+    ankunftszeilen.push("Das Wasser im Beutel schmeckt klarer. Es bleibt knapp.");
+  } else if (held.loesungswegBrunnen === "zerstoert" && held.grovinGeflohen) {
+    ankunftszeilen.push("Am Waldrand sind frische Schritte. Sie gehören nicht zum Dorf.");
+  } else if (held.loesungswegBrunnen) {
+    ankunftszeilen.push("Das Wasser im Beutel schmeckt nach Stein, nicht nach Metall.");
   }
   await rt.present({
     title: "Wald",
@@ -2171,20 +2243,52 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
 
 async function szeneEnde(rt: Runtime, held: Held) {
   if (tot(held) || held.lp <= 0) {
+    const death =
+      held.todesort === "steg"
+        ? {
+            ending: "Der Fluss nimmt, was er bekommt.",
+            lines: [
+              `${held.name} bleibt unter dem morschen Steg.`,
+              "Der Fluss nimmt, was er bekommt. In der Mühle dreht sich das Rad weiter, für niemanden im Besonderen.",
+              "Bertok findet am nächsten Morgen den leeren Karren noch immer vor der Tür. Er stellt ihn nicht weg.",
+            ],
+          }
+        : held.todesort === "rennik"
+          ? {
+              ending: "Gewicht auf fremder Waage.",
+              lines: [
+                `${held.name} bleibt im Lagerhaus am Fluss.`,
+                "Rennik wiegt weiter. Das Getreide ändert sein Gewicht nicht.",
+                "Im Dorf sagt man später, jemand sei den Uferweg hinabgegangen und nicht zurückgekommen. Mehr braucht ein Tal nicht für ein Ende.",
+              ],
+            }
+          : held.todesort === "zisterne"
+            ? {
+                ending: "Klares Wasser, stille Frage.",
+                lines: [
+                  `${held.name} bleibt an der Zisterne.`,
+                  "Die Zisterne bleibt klar und still. Das Dorf wartet weiter auf einen Boten, der nicht zurückkommt.",
+                  "Kern wiegt die Mischung ab, bis sie nicht mehr reicht. Dennek rührt im Eimer, als könnte das etwas ändern.",
+                ],
+              }
+            : {
+                ending: "Der Wald behält dich.",
+                lines: [
+                  `${held.name} bleibt zwischen Lindendorf und dem Steinbruch.`,
+                  "Der Wald nimmt das Geräusch, das Dorf behält die Angst.",
+                  "Man erzählt später von jemandem, der gegangen ist. Nicht von jemandem, der zurückkam.",
+                  "Am nächsten Morgen findet der Köhler eine Spur im nassen Laub. Er folgt ihr nicht bis zum Ende. Im Tal kennt man den Unterschied zwischen Feigheit und Erfahrung.",
+                  "Holm lässt deinen Namen in das Buch der Gemeinde schreiben, auf eine Seite zwischen unbezahlten Abgaben und zwei Kindern, die im Winter starben.",
+                  "Die Glocke am Hang schlägt einmal. Niemand weiß, wer am Seil stand.",
+                ],
+              };
     await rt.present({
       title: "Ende",
       art: "death",
       portrait: null,
       held,
-      ending: "Der Wald behält dich.",
-      lines: [
-        `${held.name} bleibt zwischen Lindendorf und dem Steinbruch.`,
-        "Der Wald nimmt das Geräusch, das Dorf behält die Angst.",
-        "Man erzählt später von jemandem, der gegangen ist. Nicht von jemandem, der zurückkam.",
-        "Am nächsten Morgen findet der Köhler eine Spur im nassen Laub. Er folgt ihr nicht bis zum Ende. Im Tal kennt man den Unterschied zwischen Feigheit und Erfahrung.",
-        "Holm lässt deinen Namen in das Buch der Gemeinde schreiben, auf eine Seite zwischen unbezahlten Abgaben und zwei Kindern, die im Winter starben.",
-        "Die Glocke am Hang schlägt einmal. Niemand weiß, wer am Seil stand.",
-      ],
+      ending: death.ending,
+      lines: death.lines,
       choices: ["Zurück ins Menü"],
     });
     return;
@@ -2371,6 +2475,23 @@ function epilog(held: Held): string[] {
   if (held.salzGerettet) bits.push("Jorren zählt das Salz nach, obwohl er weiß, dass es nicht mehr wird.");
   if (held.glockeGestoppt) bits.push("Die Kapelle schweigt über dem Weg.");
   else if (held.glockeGescheitert) bits.push("Die Glocke am Hang hat gesprochen. Niemand weiß sicher, wer alles geantwortet hat.");
+  if (held.loesungswegMuehle === "schleich" || held.loesungswegMuehle === "verhandelt") {
+    bits.push("Die Mühle mahlt wieder. Bertok reicht Säcke, ohne die Nacht zu nennen.");
+  } else if (held.loesungswegMuehle === "kampf") {
+    bits.push("Die Mühle mahlt wieder. Am Steg redet man von blutigen Nasen.");
+  } else if (held.loesungswegMuehle === "verraten") {
+    bits.push("Die Mühle hat ihren Schutzbrief. Bertok grüßt mit dem Kopf, nicht mit der Hand.");
+  }
+  if (held.loesungswegBrunnen === "bestochen") {
+    bits.push("Das Brunnenwasser reicht. Es reicht nicht für alle. Du weißt, wohin der Rest läuft.");
+  } else if (held.loesungswegBrunnen === "zerstoert" && held.grovinGeflohen) {
+    bits.push("Das Wasser ist klar. Grovin ist nur verschwunden genug für den Tag.");
+  } else if (held.loesungswegBrunnen === "verhandelt") {
+    bits.push("Grovin hat die Sperre selbst geöffnet. Holm schuldet eine alte Rechnung.");
+  } else if (held.loesungswegBrunnen) {
+    bits.push("Der Eimer am Brunnen ist wieder klar bis auf den Grund.");
+  }
+  bits.push(...echoEpilogVersorgung(held));
   if (held.verwundet) bits.push("Die Wunde bleibt eine Weile. Narben sind in Lindendorf eine Art Ausweis.");
   if (hat(held, SCHLUESSEL)) bits.push("Der Schlüssel zum Seitentor ist noch da. Türen bleiben eine Versuchung.");
   if (!bits.length) bits.push("Du gehst leichter, als du gekommen bist. Das ist selten.");
