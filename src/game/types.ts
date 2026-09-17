@@ -12,20 +12,26 @@ export type Loesungsweg = "kampf" | "schleich" | "ueberreden" | null;
 export type ArtKey =
   | "title"
   | "road"
+  | "stranger"
   | "village"
   | "townhall"
   | "tavern"
   | "well"
+  | "mill"
+  | "apothecary"
+  | "smithy"
   | "forest"
   | "ditch"
+  | "chapel"
   | "camp"
+  | "evidence"
   | "sneak"
   | "combat"
   | "gate"
   | "death"
   | "return";
 
-export type PortraitKey = "holm" | "mara" | "kess" | "miller";
+export type PortraitKey = "holm" | "mara" | "kess" | "miller" | "kern" | "sanna" | "smith" | "beggar";
 
 export type Held = {
   name: string;

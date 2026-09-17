@@ -4,6 +4,12 @@ Du arbeitest an einem **illustrierten Textabenteuer**. Es ist bereits spielbar. 
 
 Arbeite im bestehenden React/TypeScript-Projekt. Die Geschichte lebt in `src/game/script.ts`. Die Bilder liegen in `public/art/`. Die Regeln in `src/game/engine.ts`.
 
+## Aktuelle Stilrevision — 17. September 2026
+
+Die frühere Vorgabe, Texte grundsätzlich kurz zu halten, ist aufgehoben. Das gesamte Abenteuer wird zu einer ausführlichen, düsteren Dark-Fantasy-Mittelaltererzählung ausgebaut. Kernregeln, Figurenfundament und Grundfluss bleiben bestehen. Ausführliche Szenenkarten sind ausdrücklich erwünscht, wenn sie Handlung, Atmosphäre, Figurenentwicklung oder Konsequenzen tragen. Leere Ausschmückung, Wiederholung und Pathos bleiben verboten.
+
+Die vollständige Ausbauplanung steht in `ERZAEHLREVISION_DARKFANTASY.md`. Dieses Dokument hat für die neue Erzählform Vorrang vor älteren Kurztext-Hinweisen in diesem Dokument.
+
 ---
 
 ## 1. Was das Spiel ist
@@ -12,7 +18,7 @@ Lindendorf, ein armes Tal. Banditen im alten Steinbruch. Der Held ist niemand Au
 
 **Fluss (unantastbar):**
 
-Heldenerstellung → Dorf (Schleife) → Wald → Banditenlager → Ende
+Heldenerstellung → Prolog/Fremder → Dorf (Schleife) → Glockenweg oder Wald → Banditenlager → Ende
 
 **Regeln (unantastbar):**
 
@@ -44,7 +50,7 @@ Liebevoll heißt **nicht**:
 - Comedy, Memes, moderne Anachronismen, KI-Floskeln („In einer Welt…“, „doch das Schicksal…“).
 - Mehr Attribute, Skills, Level, Ausrüstungsslots, Crafting.
 - Ein zweites Dorf, ein Drache, ein Magierturm.
-- Längere Texte, die dasselbe sagen. Lieber ein Satz der sitzt als sechs die füllen.
+- Umfang ohne Funktion: Mehr Text ist nur dann zulässig, wenn er Handlung, Atmosphäre, Figurenentwicklung oder Konsequenz vertieft.
 
 **Test für jede neue Zeile:** Würde sie in der Originaldatei `attachments/how_to_be_a_hero_v01.py` nicht auffallen? Wenn sie weicher, heldenhafter oder witziger klingt als der Rest — weg.
 
@@ -52,7 +58,7 @@ Liebevoll heißt **nicht**:
 
 ## 3. Stimme (unbedingt nachahmen)
 
-Deutsch. Du. Präsens. Kurze Sätze. Konkrete Dinge. Trockene Ironie. Kein Pathos.
+Deutsch. Du. Präsens. Direkte, konkrete Sprache. Sätze dürfen ausführlich werden, solange sie klar bleiben. Trockene Ironie. Kein leerer Pathos.
 
 **So klingt das Spiel:**
 
@@ -131,7 +137,7 @@ await rt.present({ held, probe: ergebnis, lines: [...] });
 ```
 
 5. Neue Bilder: Datei nach `public/art/foo.jpg`, Key in `ArtKey` / `PortraitKey` und `src/game/art.ts` eintragen.
-6. `lines` kurz halten: **2–5 Sätze pro Karte**. Lieber zwei `present`-Schritte als eine Wand.
+6. `lines` dürfen ausführlich sein. Eine Karte soll einen zusammenhängenden Erzählbeat tragen und auf Mobilgeräten scrollbar bleiben. Bei Ortswechsel, neuer Erkenntnis oder emotionaler Umkehr einen neuen `present`-Schritt verwenden, statt alles in eine einzige Wand zu legen.
 7. Deutsch bleiben. Keine englischen Wahltexte, keine englischen Endtitel.
 
 ---
@@ -149,7 +155,7 @@ Das Dorf ist eine Schleife. Das ist gut. Mach die **zweite Begegnung** anders al
 - **Brunnen / Müllerin:** Erfolg und Misserfolg dürfen je einen Satz mehr Innenleben haben. Die zwei Münzen bleiben Almosen, kein Schatz.
 - **Wiederkehr:** Wer Mara nach dem Prahlen nochmal besucht, spürt die Stille. Wer Holm nach dem Erpressen nochmal sieht, spürt die Rechnung.
 
-Keine neuen Hauptorte im Dorf, außer du hängst **einen** kleinen, begründeten Halt an die bestehende Liste (z. B. Witwe Kerns Schwelle — nur wenn sie später im verwundeten Ende schon vorkommt). Maximal ein neuer Dorf-Knoten.
+Neue Dorfknoten sind nur zulässig, wenn sie eine eigene Figur, Entscheidung und spätere Rückwirkung tragen. Bestehende Knoten wie Apotheke, Schmiede, Mühle und Brunnen werden bevorzugt weiter vertieft, statt weitere austauschbare Orte anzuhängen.
 
 ### Stufe B — Wald, der sich erinnert
 
@@ -183,7 +189,7 @@ Die Endtitel bleiben:
 - Überlebt, nicht erledigt.
 - Genug für ein Tal.
 
-**Nicht umbenennen.** Pro Ende 1–3 zusätzliche Sätze, die Flags verweben (`held.name`, Vertrauen, Warnung, Wunde, Schlüssel, Beute). Der Epilog (`epilog()`) darf um **höchstens drei** neue Bits wachsen, jedes an ein Flag gebunden.
+**Nicht umbenennen.** Jedes Ende darf ausführlich auf den tatsächlich gespielten Weg reagieren. Zusätzliche Epilog-Bits müssen an echte Flags gebunden sein und dürfen keine Entscheidungen behaupten, die nicht gefallen sind.
 
 Beispielrichtung, nicht abschreiben:
 
@@ -195,7 +201,7 @@ Beispielrichtung, nicht abschreiben:
 
 - Ein weiterer benannter Dorfbewohner mit **einer** Funktion (Kind am Brunnen, Holzfäller in der Taverne — beide existieren schon als Stimme; sie dürfen ein Gesicht bekommen).
 - Ein optionales Fundstück im Wald, das **kein neues System** ist: Brief, Anhänger, Kirchenstempel. Höchstens als Text + Flag fürs Ende.
-- Ein neues Bild nur, wenn eine neue, wiederkehrende Figur oder ein neuer Ort sonst leer wirkt. Stil: dunkles Low-Fantasy-Öl, keine Comic-Sprites, kein Photorealismus, kein Text im Bild.
+- Neue Bilder nur für wiederkehrende Figuren, eigenständige Orte oder zentrale Enthüllungen. Stil: dunkles Low-Fantasy-Öl, keine Comic-Sprites, kein Photorealismus, kein Text im Bild. Vor neuen Motiven `BILDPLAN_DARKFANTASY.md` und `VISUELLE_STILANALYSE.md` lesen.
 
 ---
 
@@ -225,7 +231,7 @@ Bevor du aufhörst, prüfe:
 4. Keine Wahl ohne Konsequenz. Keine Konsequenz ohne späteren Widerhall (Flag oder veränderter Satz).
 5. HUD, Proben, Heiltrank, Schlüssel, Gold funktionieren noch.
 6. Keine englischen Bruchstücke, kein Emoji, keine neuen Kernregeln.
-7. Szenen-Karten bleiben lesbar: wenige Zeilen, Bild sichtbar, Porträt nur wenn jemand spricht.
+7. Szenen-Karten bleiben lesbar: klare Absätze, vertikales Scrollen ohne horizontales Überlaufen, Bild noch erkennbar, Porträt nur wenn eine Figur die Szene trägt.
 
 Wenn du unsicher bist zwischen „mehr Plot“ und „besserer Satz“: nimm den besseren Satz.
 

@@ -23,8 +23,9 @@ export function TitleScreen({
           Lindendorf
         </h1>
         <p className="mt-4 max-w-md text-base text-fg/90">
-          Ein kurzes Textabenteuer mit Würfelproben. Wenige Attribute, W10, Entscheidungen mit
-          Konsequenzen — jetzt als illustriertes Spiel.
+          Ein ausführliches Dark-Fantasy-Abenteuer über ein armes Tal, einen alten Steinbruch und
+          Entscheidungen, die länger bleiben als ihre Helden. Drei Attribute, W10 und sichtbare
+          Konsequenzen.
         </p>
         <div className="mt-8 grid gap-2">
           <Button size="lg" onClick={onStart}>
@@ -47,7 +48,7 @@ export function TitleScreen({
         </div>
         <p className="mt-6 inline-flex items-center gap-2 text-xs text-muted-fg">
           <BookOpen className="size-3.5" aria-hidden />
-          Vertical Slice 0.1 — Dorf, Wald, Steinbruch
+          Lindendorf — Dorf, Glockenweg, Wald und Steinbruch
         </p>
       </div>
     </div>

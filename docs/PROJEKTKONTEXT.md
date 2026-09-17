@@ -1,116 +1,67 @@
 # Projektkontext — How to be a Hero: Lindendorf
 
-**Snapshot:** 17. September 2026, 17:37 Uhr  
-**Status:** Vierphasen-Pilot umgesetzt und browserseitig abgenommen; Server gestoppt
+**Snapshot:** 17. September 2026, 18:10 Uhr
+**Status:** Ausführliche Dark-Fantasy-Fassung und vollständige Bildrunde umgesetzt; Server gestoppt
 
-## Projektziel
+## Verbindliche Richtung
 
-Lindendorf ist ein illustriertes deutsches Textabenteuer mit drei Attributen, W10-Proben, wenigen Gegenständen und sichtbaren Konsequenzen. Der feste Spielfluss lautet:
+Lindendorf ist jetzt ausdrücklich ein ausführlich erzähltes, düsteres Dark-Fantasy-Mittelalterabenteuer. Die frühere Kurztext-Vorgabe ist aufgehoben. Der Grundfluss und die Regeln bleiben unverändert:
 
-> Heldenerstellung → Dorf-Schleife → Wald → Banditenlager → Ende
+> Heldenerstellung → Dorf-Schleife → Glockenweg/Wald → Banditenlager → Ende
 
-Das Projekt soll den bestehenden Vertical Slice vertiefen. Es soll kein neues Regelwerk, kein zweites Dorf und kein umfassender UI-Neubau entstehen.
+Das Spiel verwendet Stärke, Geschicklichkeit und Charisma, W10-Proben, zehn Lebenspunkte, Heiltrank, Schlüssel und Gold. Der Held bleibt ein gewöhnlicher Mensch. Das Übernatürliche bleibt selten, körperlich und mehrdeutig.
 
-## Verbindliche Leitplanken
+## Erzählstand
 
-Die maßgebliche Projektdatei ist `ANWEISUNGEN_MANUS.md`. Sie verlangt kurze deutsche Präsenssätze, konkrete Sensorik, trockene Zurückhaltung und Rückwirkungen zwischen Dorf, Wald, Lager und Ende.
+Prolog, Fremdenbegegnung, Dorf, Rathaus, Taverne, Brunnen, Mühle, Schmiede, Apotheke, Bettlerquest, Glockenweg, Wald, Banditenlager und sämtliche Enden wurden ausführlich neu erzählt. Die Handlung verbindet nun gefälschtes rotes Siegel, manipulierte Glockensignale, vorgetäuschte Abgaben, gestohlene Vorräte und das verdrehte Kirchenzeichen zu einer durchgehenden Intrige.
 
-Unverändert bleiben:
+Die Geschichte ist direkter und umfangreicher, ohne Kernregeln oder Grundfluss zu verändern. Rückwirkungen aus Artefakt, Auftrag, Bettler, Sanna, Salz, Glocke, Siegel, Verletzung und Lagerlösung erscheinen in Enden und Epilog.
 
-- Stärke, Geschicklichkeit und Charisma;
-- W10 plus Attribut gegen Schwierigkeit;
-- leichte, mittlere und schwere Proben bei 8, 12 und 15;
-- zehn Lebenspunkte;
-- Heiltrank, Schlüssel und Gold;
-- der bestehende Szenenfluss;
-- die vorhandene Bildsprache und Farbwelt.
+## Neue Bildrunde
 
-Neue Flags oder Systeme sind nur zulässig, wenn eine konkrete Szene sie braucht und eine spätere Rückwirkung existiert.
+Sechs Hintergründe wurden generiert, auf 1792 × 1008 Pixel aufbereitet und integriert:
 
-## Inhaltlicher Stand
+- `stranger.jpg`: Fremder mit Kirchenartefakt;
+- `chapel.jpg`: Kapelle und Glockenweg;
+- `apothecary.jpg`: Witwe Kerns Apotheke;
+- `smithy.jpg`: Schmiede;
+- `mill.jpg`: Mühle und falscher Mehlsack;
+- `evidence.jpg`: gefälschter Brief, Wachs und Glockensignale.
 
-Bereits vorhanden sind:
+Vier Porträts wurden auf 896 × 1344 Pixel aufbereitet und integriert:
 
-- bebilderter Prolog;
-- Dorf mit Rathaus, Taverne, Brunnen, Schmiede, Apotheke und Hangzugang;
-- Bettler-, Taverne-, Schmiede-, Mühlen-, Siegel- und Glockenweg-Inhalte;
-- Wald, Banditenlager und mehrere Enden;
-- Speicher- und Ladefunktion über `localStorage`;
-- mobile Lesbarkeitsverbesserungen;
-- verständlichere Dorfankunft, dynamischere Optionen und Aufbruchskarte „Was du weißt“;
-- Intro-Hindernis mit drei Würfelwegen: Stärke, Geschicklichkeit und Charisma.
+- `kern.jpg`;
+- `sanna.jpg`;
+- `smith.jpg`;
+- `beggar.jpg`.
 
-## Letzter stabiler technischer Stand
+Alle Bilder folgen der bestehenden dunklen Low-Fantasy-Ölmalerei. Die bisherigen Hauptbilder bleiben erhalten.
 
-Der letzte bestätigte Build vor der pausierten Strukturarbeit bestand aus:
+## Struktur und Spielerführung
 
-- TypeScript-Typecheck erfolgreich;
-- ESLint der geänderten Spiel- und UI-Dateien erfolgreich;
-- Entwicklungsbuild erfolgreich;
-- Asset-, Portrait- und Questprüfung erfolgreich;
-- Browserprüfung von Intro, Dorfmenü, Save-Bestätigung und Aufbruch erfolgreich.
+`src/game/content.ts` validiert die Fremden-Szene mit Zod. `src/game/knowledge.ts` leitet Wissenspunkte aus bestehenden Held-Zuständen ab. Das Wissenstagebuch zeigt sichere Fakten, offene Fragen und optional Debugzustände über `?debug`. `scripts/check-knowledge-gates.mjs` prüft zentrale Freischaltungen.
 
-Der Vorschauprozess wurde nach der Browserabnahme beendet. Port 8080 ist frei.
+## Bestätigte Prüfungen
 
-## Pausierte Strukturarbeit
+Erfolgreich waren:
 
-Die Vierphasenarbeit wurde als schlanker, rückwärtskompatibler Pilot umgesetzt. Eine vollständige Migration des alten Skripts ist ausdrücklich nicht erfolgt.
+- `npm run typecheck`;
+- `npm run check:knowledge`;
+- gezieltes ESLint;
+- `npm run build:dev`;
+- `qa_content.py` für Held-Felder, Artkeys, Portraitkeys, Assets und Quests;
+- Stilscan auf englische Bruchstücke, Emojis und Werbefloskeln;
+- Desktop-Browserprüfung von Titel und Langprolog;
+- mobiler Chromium-Test bei 390 × 844 Pixeln.
 
-### Bereits angelegt
+Die mobile Prologkarte hat kein horizontales Überlaufen. Die Fremden-Szene scrollt vertikal, zeigt alle vier Entscheidungen und behält die neue Grafik sichtbar. Befunde stehen in `BROWSERBEFUND_DARKFANTASY.md`.
 
-- `src/game/knowledge.ts`: ableitbare Wissenspunkte und Wissenslabels;
-- `src/game/content.ts`: mit Zod validierte Content-Struktur für „Der Fremde am Weg“;
-- `src/components/game/KnowledgeJournal.tsx`: Wissenstagebuch und optionaler Debugzustand;
-- `VORPLANUNG_VIER_PHASEN.md`: Plan für Qualitätssicherung, Autorenschema, Spielerführung und Accessibility;
-- `WISSEN_FREISCHALTUNGSPLAN.md`: Wissens- und Freischaltmatrix.
+## Git und Übergabe
 
-### Wichtige Einschränkung
+Das Zielrepository ist `https://github.com/PromptBrainless/Lindendorf`. Der vollständige Dark-Fantasy-, Grafik-, Dokumentations- und QA-Stand ist für `main` vorbereitet. Der ursprüngliche Remote-Initialcommit wird als zweiter Elternteil in die lokale Historie aufgenommen, sodass der Push ohne Überschreiben fremder Historie möglich ist.
 
-Diese Dateien sind uncommitted. Sie bleiben als kleine, rückwärtskompatible Hilfsschicht bestehen. Die Projektanweisungen warnen weiterhin vor Refactors zur Sauberkeit, einer neuen Engine und unnötigen UI-Umbauten; eine vollständige Migration ist daher nicht geplant.
-
-Typecheck, Freischaltprüfer, gezielter ESLint, Entwicklungsbuild und Contentreferenzprüfung waren erfolgreich. Browserseitig wurden Titel, Wissenstagebuch, Debugzustände, Content-Schema-Intro, erste Würfelprobe und Würfelrückmeldung geprüft.
-
-## Aktueller Git-Zustand
-
-Der letzte Commit vor der pausierten Strukturarbeit lautet:
-
-`3d22d6367327ddad8bc32c86eba0562c0d282fdd — feat: expand Lindendorf adventure and improve clarity`
-
-Nach diesem Commit wurden unter anderem folgende Dateien verändert oder neu angelegt:
-
-- `src/components/game/GameApp.tsx`;
-- `src/components/game/Hud.tsx`;
-- `src/components/game/RulesScreen.tsx`;
-- `src/components/game/SceneStage.tsx`;
-- `src/components/game/TitleScreen.tsx`;
-- `src/game/script.ts`;
-- `src/game/types.ts`;
-- `src/game/knowledge.ts`;
-- `src/game/content.ts`;
-- `src/components/game/KnowledgeJournal.tsx`.
-
-Vor einem neuen Commit muss zwischen stabiler Produktänderung und pausiertem Experiment unterschieden werden.
-
-## Abgeschlossene Pilotprüfungen
-
-`npm run typecheck`, `npm run check:knowledge`, gezieltes ESLint, `npm run build:dev` und `qa_content.py` waren erfolgreich. Die erste Contentstrecke „Der Fremde am Weg“ wird aus `src/game/content.ts` geladen und per Zod validiert. Das Wissenstagebuch ist über das HUD erreichbar; `?debug` zeigt zusätzlich die abgeleiteten Wissenspunkte.
+Der Arbeitsbaum soll nach dem Push sauber sein. Es laufen keine Vorschau- oder Hintergrundprozesse.
 
 ## Nächster sicherer Schritt
 
-Nicht sofort alle vier Phasen umsetzen. Zuerst eine Entscheidung treffen:
-
-1. **Minimaler Weg:** Nur Kontextpflege und bestehende Spielqualität weiterführen. Die neue Wissens- und Content-Schicht wird zurückgebaut oder separat archiviert.
-2. **Pilotweg:** Eine einzige kleine Wissensfunktion behalten, sie vollständig testen und erst danach über weitere Struktur nachdenken.
-3. **Vollständiger Strukturweg:** Nur nach ausdrücklicher Freigabe der Abweichung von `ANWEISUNGEN_MANUS.md` weiterführen.
-
-Der nächste sichere Schritt ist ein vollständiger alternativer Pfadtest mit Auftrag abgelehnt und anschließend die nächste kleine Contentstrecke aus `src/game/content.ts`. Dafür muss der Vorschauprozess gezielt neu gestartet und danach wieder beendet werden.
-
-## Kommunikationsregel für künftige Sitzungen
-
-Vor jeder größeren Änderung muss dieser Snapshot aktualisiert werden. Nach jeder abgeschlossenen Phase muss dokumentiert werden:
-
-- was geändert wurde;
-- welche Tests erfolgreich waren;
-- welche Dateien uncommitted sind;
-- welcher Serverstatus gilt;
-- was als nächstes ohne neue Architekturentscheidung möglich ist.
+Nach dem Push drei bis fünf vollständige Spielpfade bis zu ihren Enden testen, danach Schwierigkeit, Belohnungen und Textkartenteilung gezielt balancieren. Neue Inhalte zuerst gegen `WISSEN_FREISCHALTUNGSPLAN.md`, `BILDPLAN_DARKFANTASY.md` und das Autorenhandbuch prüfen.

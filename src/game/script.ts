@@ -59,6 +59,9 @@ async function szeneIntro(rt: Runtime, held: Held) {
       "Der Weg ins Tal ist schmal genug, dass zwei Wagen sich nicht ausweichen können.",
       "Du gehst allein. Deine Stiefel sind nass vom letzten Regen, und der Regen hat nicht vor, damit aufzuhören.",
       "Hinter dir liegt kein Auftrag. Vor dir liegt ein Dorf, das auf der Karte kleiner aussieht als in der Dämmerung.",
+      "Die Karte hat den Namen des Tals an den Rand gedrängt, als wäre Lindendorf ein Ort, den man nur nennt, wenn man ihn vermeiden muss.",
+      "Unter deinen Sohlen geben die Steine nach. Zwischen ihnen wächst schwarzes Gras, plattgedrückt von Rädern, die seit Tagen nicht mehr hier gewesen sein können.",
+      "Du gehst weiter, weil Umkehren keine Richtung ist. Das ist manchmal der ganze Unterschied zwischen Mut und Gewohnheit.",
     ],
   });
 
@@ -73,18 +76,24 @@ async function szeneIntro(rt: Runtime, held: Held) {
       "Der Wald steht dicht an den Hängen. Zwischen den Stämmen hängen Fetzen von Nebel.",
       "Weiter unten siehst du Rauch, der senkrecht steigt. Kein Wind. Kein gutes Zeichen, wenn Rauch so gerade steht.",
       "Jemand hat die Felder abgeerntet. Jemand anderes hat vergessen, die Zäune zu reparieren.",
+      "Am Waldrand liegen Bündel aus nassem Reisig, sorgfältig aufgeschichtet und doch unberührt. Daneben steckt ein Kinderschuh im Schlamm.",
+      "Kein Vogel ruft. Ein Ast bricht, weit oberhalb des Weges, und danach wartet das Tal wieder auf ein Geräusch von dir.",
+      "Du verstehst noch nicht, was hier geschehen ist. Aber du erkennst die Spur einer Gegend, in der Menschen gelernt haben, ihre Fragen leise zu stellen.",
     ],
   });
 
   await rt.present({
     title: "Am Hang",
-    art: "ditch",
+    art: "chapel",
     portrait: null,
     held,
     lines: [
       "Oberhalb des Dorfes schneidet ein alter Weg den Hang. Dort steht eine Kapelle, deren Dach dunkler ist als der Himmel.",
       "Eine kleine Glocke bewegt sich einmal über dem Geröll.",
       "Du kennst den Weg noch nicht. Du merkst dir nur den Ton.",
+      "Unterhalb der Kapelle klafft ein trockener Graben im Hang. Früher muss dort Wasser gelaufen sein. Jetzt liegen darin Knochen von Tieren, ausgebleicht und ordentlich nebeneinander.",
+      "Am Türsturz der Kapelle hängt ein Streifen rotes Wachs. Er ist gebrochen, aber nicht alt genug, um von selbst gebrochen zu sein.",
+      "Die Glocke schweigt wieder. Trotzdem hast du das Gefühl, dass etwas im Tal nun weiß, dass du angekommen bist.",
     ],
   });
 
@@ -97,6 +106,9 @@ async function szeneIntro(rt: Runtime, held: Held) {
       "Häuser drücken sich aneinander, als könnten sie so wärmer bleiben.",
       "Am Brunnen stehen Frauen mit verschränkten Armen. In der Taverne löscht jemand eine Lampe, obwohl es noch nicht ganz dunkel ist.",
       "Das Rathaus hat eine Tür, die zu oft geflickt wurde. Über dem Türsturz klebt altes rotes Wachs.",
+      "Ein Gerber zieht eine Plane über seine Ware. Die Plane ist zu klein. Ein Teil des Leders bleibt im Regen liegen, und niemand macht sich die Mühe, es zu retten.",
+      "Aus einem offenen Fenster dringt das Husten eines alten Mannes. Eine Stimme zählt dahinter Münzen. Sie kommt immer nur bis vier.",
+      "Lindendorf wirkt nicht verlassen. Es wirkt schlimmer: bewohnt von Menschen, die sich daran gewöhnt haben, dass niemand kommt.",
     ],
   });
 
@@ -110,6 +122,9 @@ async function szeneIntro(rt: Runtime, held: Held) {
       "Das ist zunächst höflich. Dann merkst du, dass es Vorsicht ist.",
       "Du könntest weitergehen. Aber der Weg nach Osten führt am Steinbruch vorbei, und aus dem Steinbruch steigt Rauch.",
       "In Lindendorf wartet niemand auf einen Helden. Trotzdem beginnt hier dein Weg.",
+      "Hinter dir schließt sich das Tal wie ein nasser Kragen. Vor dir liegen Türen, hinter denen jeder etwas verloren hat und nicht jeder bereit ist, es beim Namen zu nennen.",
+      "Du spürst die Blicke erst, als sie aufhören. Die Leute hier sehen Fremde nicht lange an. Sie wissen, dass man von Gesichtern allein nicht satt wird.",
+      "Am Brunnen schlägt ein Tropfen auf Stein. Dann noch einer. So beginnt in diesem Dorf vieles: nicht mit einem Ruf, sondern mit etwas, das nicht aufhört.",
     ],
   });
 }
@@ -172,6 +187,9 @@ async function szeneDorf(rt: Runtime, held: Held) {
       "Vor dir liegen Rathaus, Taverne, Brunnen und der Weg zum Hang.",
       "Aus dem Osten steigt Rauch. Dort liegt der alte Steinbruch.",
       "Noch weißt du nicht, wem du glauben kannst. Du weißt nur, wo du anfangen kannst.",
+      "Der Regen hat aufgehört, aber das Wasser läuft weiter von den Dächern. Es sammelt sich in den Rillen des Platzes und trägt Stroh, Asche und etwas Dunkles zum Abfluss.",
+      "Ein Mann mit einem leeren Sack wartet vor der Mühle. Eine Frau zieht ihr Kind aus dem Weg, als du an ihm vorbeisiehst.",
+      "Das Tal erzählt seine Geschichte nicht auf einmal. Es gibt sie in Türen, in Pausen und in den Dingen, die niemand mehr zu reparieren versucht.",
     ],
   });
 
@@ -280,6 +298,9 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
       ...(held.artefaktErhalten
         ? ["Als Holm das silberne Artefakt sieht, verliert sein Gesicht für einen Moment jede Farbe. Es gehört zur Kirche."]
         : []),
+      "Hinter Holm hängt eine Karte des Tals. Mehrere Stellen sind mit Kreide umrandet, andere mit einem Messer aus dem Papier geschnitten.",
+      "Er legt eine Hand auf den Brief, ohne ihn zu öffnen. Unter seinem Daumen ist rotes Wachs kleben geblieben. Es sieht aus wie Blut, bis man lange genug hinsieht.",
+      "„Ich kann dir keine Wache geben“, sagt er. „Keine Pferde. Kein ordentliches Gold. Ich kann dir nur sagen, dass der nächste Überfall nicht bei den Banditen anfangen wird.“",
     ],
   });
 
@@ -307,10 +328,10 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
 
   const wahl = await rt.present({
     held,
-    lines: [
-      held.auftragErhalten
-        ? "Der Auftrag steht. Du kannst jetzt noch entscheiden, wie du ihn trägst."
-        : "Du kannst den Auftrag einfach annehmen — oder ihn dir verdienen.",
+      lines: [
+        held.auftragErhalten
+          ? "Der Auftrag steht. Du kannst jetzt noch entscheiden, wie du ihn trägst. Holm braucht deine Hand, aber er hat noch nicht entschieden, ob er dir auch seinen Rücken zeigt."
+          : "Du kannst den Auftrag einfach annehmen — oder ihn dir verdienen. Hinter Holm tickt eine Uhr, obwohl du keine siehst. Jeder Schlag klingt wie ein weiterer Sack Mehl, der im Steinbruch verschwindet.",
     ],
     choices: [
       held.auftragErhalten ? "Beim Auftrag bleiben" : "Auftrag nüchtern annehmen",
@@ -327,6 +348,8 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
       lines: [
         "„Gut. Bring zurück, was sie genommen haben. Oder sorge, dass sie nicht wiederkommen.“",
         "Holm nickt knapp. Mehr Wärme hat dieses Amt nicht übrig.",
+        "Er schiebt den Brief zur Seite und nimmt eine kleine Messingmarke aus der Schublade. Darauf ist das Wappen des Tals so flach geprägt, dass man es nur im Streiflicht erkennt.",
+        "„Zeig das am alten Weg, wenn dich jemand anhält. Wenn es noch jemand gibt, der sich davon beeindrucken lässt.“",
       ],
     });
   } else if (wahl === 1) {
@@ -343,6 +366,8 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
         lines: [
           "„Nimm das. Aus der Apotheke der Witwe Kern. Und fünf Taler, mehr ist nicht da.“",
           "Holm sieht dich an, als hättest du etwas unterschrieben, das nicht auf Papier steht.",
+          "Er zieht die Münzen einzeln aus der Kasse. Jede schlägt auf das Holz, als müsste sie erst beweisen, dass sie echt ist.",
+          "„Wenn du zurückkommst, erzähl mir nicht zuerst, ob du gewonnen hast. Sag mir, wer gefehlt hat.“",
         ],
       });
     } else {
@@ -353,6 +378,8 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
         lines: [
           "Holm bleibt kühl.",
           "„Worte habe ich genug gehört. Tu die Arbeit. Belohnung nach Ergebnis.“",
+          "Seine Stimme wird nicht lauter. Das macht sie schlimmer. Hinter ihm knackt das Holz der leeren Kasse, als würde auch sie zuhören.",
+          "Du verlässt das Rathaus mit einem Auftrag, aber ohne das Gefühl, dass er dir gehört.",
         ],
       });
     }
@@ -368,6 +395,8 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
         lines: [
           "Holm zahlt, aber sein Blick sagt: Das vergisst ein Dorf nicht so schnell.",
           "Vertrauen ist das nicht. Nur Notwendigkeit.",
+          "Er zählt das Gold nicht nach. Er weiß, dass du es tun wirst. Zwischen euch liegt nun eine Rechnung, die nicht auf Papier passt.",
+          "Draußen wartet das Dorf. Es wird merken, ob du leichter gehst als vorher.",
         ],
       });
     } else {
@@ -378,13 +407,19 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
         lines: [
           "„Du kommst in mein Haus und zählst meine Münzen?“",
           "Holm steht auf. Der Auftrag steht. Freundschaft nicht.",
+          "Sein Stuhl schabt über den Steinboden. Im Flur bleibt eine Magd stehen und sieht sofort wieder weg.",
+          "Du hast das Gold nicht bekommen. Aber du weißt jetzt, wie Holm klingt, wenn Angst wie Ordnung aussehen soll.",
         ],
       });
     }
   } else {
     await rt.present({
       held,
-      lines: ["Du lässt Holm mit seiner leeren Kasse."],
+      lines: [
+        "Du lässt Holm mit seiner leeren Kasse.",
+        "Hinter dir raschelt der Brief, obwohl kein Wind durch das Rathaus geht. Vielleicht ist es nur das Papier. Vielleicht ist es das, was darin fehlt.",
+        "Auf dem Platz wartet niemand auf deine Entscheidung. Das Dorf wird sie trotzdem erfahren.",
+      ],
     });
   }
 }
@@ -406,6 +441,9 @@ async function dorfTaverne(
       ...(lautAngekundigt
         ? ["Als du eintrittst, wird an einem Tisch ein Satz nicht zu Ende gesprochen."]
         : []),
+      "Über dem Ausschank hängt ein Bündel Kräuter, längst trocken genug, um bei der kleinsten Berührung zu zerfallen. Darunter steht ein Becher mit drei Rissen.",
+      "Die Taverne ist warm, aber nicht freundlich. Wärme kostet Holz, und Holz kostet im Tal inzwischen mehr als Bier.",
+      "Mara sieht dich an, als müsste sie in deinem Gesicht entscheiden, ob du ein weiterer Gast oder eine weitere Rechnung bist.",
     ],
   });
 
@@ -427,6 +465,8 @@ async function dorfTaverne(
       "Ein Holzfäller murmelt:",
       "„Die nehmen nicht den Hauptweg. Östlicher Wildpfad, wo die alte Eiche vom Blitz gespalten ist.“",
       "Mara ergänzt leise: „Einer von ihnen trinkt hier manchmal. Nennt sich Kess. Hört gerne zu.“",
+      "Der Holzfäller fährt mit dem Daumen über die Kerbe in seinem Becher. „Wenn die Glocke dreimal geht, bleiben die Hunde drin. Wenn sie einmal geht, fehlt jemand.“",
+      "Mara stellt einen zweiten Becher auf den Tisch, obwohl niemand darum gebeten hat. Darin ist nur Wasser.",
     ];
     if (rumorenGehoert) {
       lines.push(
@@ -438,6 +478,7 @@ async function dorfTaverne(
       lines.push(
         "Mara hört bis zum Ende zu. Dann stellt sie das Tuch beiseite.",
         "„Kess hört gerne zu. Heute vielleicht genauer als sonst.“",
+        "Sie sagt deinen Namen nicht. Sie muss ihn nicht kennen. In einem kleinen Tal reicht es, wenn man weiß, wer mit geradem Rücken hinausgegangen ist.",
       );
     }
     await rt.present({ held, lines });
@@ -523,6 +564,8 @@ async function dorfMarasLetzterGast(rt: Runtime, held: Held) {
       "Mara stellt ein leeres Glas unter die Theke.",
       "„Der Mann, der gestern hier saß, hat nicht bezahlt. Er hat nur einen Satz dagelassen.“",
       "Sie sagt den Satz nicht sofort. Das ist der Preis fürs Fragen.",
+      "Am Glasrand klebt ein dunkler Halbmond. Blut oder Beerenwein. Mara hat beides gesehen und gelernt, nicht jedes Mal nach dem Unterschied zu fragen.",
+      "Draußen streicht der Wind durch die Ritzen der Wand. Für einen Augenblick riecht die Taverne nach nassem Fels statt nach Gerste.",
     ],
     choices: [
       "Mara zum Reden bringen (Charisma, mittel)",
@@ -545,6 +588,8 @@ async function dorfMarasLetzterGast(rt: Runtime, held: Held) {
           "Mara sagt den Satz leise: „Kess würfelt nur, wenn er glaubt, Zeit zu haben.“",
           "Der letzte Gast hat ihn in der Tür gehört. Danach ging er nach Osten.",
           "Mara wischt den Rand des Glases. „Sag nicht, dass du das von mir hast.“",
+          "Sie öffnet die Hand. Darin liegt ein schwarzer Würfel, an einer Ecke abgeschabt.",
+          "„Er hat ihn dagelassen“, sagt sie. „Oder vergessen. Bei Kess ist das fast dasselbe.“",
         ],
       });
     } else {
@@ -575,6 +620,7 @@ async function dorfMarasLetzterGast(rt: Runtime, held: Held) {
           "Unter dem Glas klebt ein Streifen Papier. Darauf steht nur: Osten. Keine Unterschrift.",
           "Mara sieht das Papier an. „Dann ist er nicht zum Hauptweg gegangen.“",
           "Mehr gibt es nicht. Aber weniger ist es auch nicht.",
+          "Auf der Rückseite ist ein Kreis gezeichnet, durch den eine Linie führt. Das Zeichen ähnelt dem Wachs am Rathaus, nur dass hier jemand mit Kohle nachgearbeitet hat.",
         ],
       });
     } else {
@@ -634,6 +680,8 @@ async function dorfMaraHintertuer(rt: Runtime, held: Held) {
           "Unter dem losen Türstein findest du eine zusammengerollte Schnur und den Abdruck eines Stiefels.",
           "Mara nimmt beides an sich. „Dann wissen sie wenigstens, dass ich hinschaue.“",
           "Sie zeigt dir den schmalen Pfad hinter dem Haus. Er führt später näher an den Steinbruch, als dir lieb ist.",
+          "Im Lehm erkennst du eine zweite Spur, kleiner und älter. Jemand hat versucht, sie mit Asche zu verwischen.",
+          "Mara sieht nicht auf den Pfad, sondern auf deine Hand. „Wenn du dort hinausgehst, geh nicht nach dem ersten Geräusch. Das erste Geräusch will, dass du ihm folgst.“",
         ],
       });
     } else {
@@ -648,6 +696,7 @@ async function dorfMaraHintertuer(rt: Runtime, held: Held) {
           "Du findest die Kerbe. Mehr nicht. Der lose Stein rutscht dir aus der Hand und schlägt gegen die Tür.",
           "Auf der anderen Seite wird es still.",
           "Mara schließt die Tür selbst. „Heute nicht mehr“, sagt sie.",
+          "Hinter dem Holz scharrt etwas. Vielleicht ein Fass, das sich setzt. Vielleicht ein Fuß, der nicht weitergeht.",
         ],
       });
     }
@@ -672,6 +721,8 @@ async function dorfPlatz(rt: Runtime, held: Held, rumorenGehoert: boolean): Prom
     lines: [
       "Der Dorfplatz ist klein genug, dass jedes Gespräch einen Zeugen findet.",
       "Am Brunnen tropft Wasser auf den Stein. Hinter dem Trog wartet ein Junge mit einer roten Schnur.",
+      "Neben der Mauer stehen drei leere Körbe. Auf jedem ist mit Kreide ein Familienname geschrieben. Der Regen hat zwei davon fast ausgelöscht.",
+      "Ein Schwein wühlt zwischen den Rinnen des Platzes. Niemand scheucht es fort. Was es findet, muss später niemand wegtragen.",
     ],
     choices: ["Am Brunnen lauschen", "Dem Jungen mit der roten Schnur folgen", "Zurück zum Dorf"],
   });
@@ -689,6 +740,8 @@ async function dorfSchmiedeApotheke(rt: Runtime, held: Held) {
     held,
     lines: [
       "Zwei Türen nebeneinander. Hinter der einen riecht es nach Eisen, hinter der anderen nach Alkohol und getrockneten Blättern.",
+      "Zwischen den Häusern läuft eine schmale Abflussrinne. Darin schwimmen Kohlenstaub, welke Blätter und ein Stück blutiger Wolle.",
+      "Über der Schmiede hängt ein Hufeisen mit gebrochenem Nagel. Über Kerns Tür hängt nichts. Wer sie braucht, weiß ohnehin, wo sie wohnt.",
     ],
     choices: ["Zum Schmied", "Zu Witwe Kern", "Zurück zum Dorf"],
   });
@@ -700,8 +753,8 @@ async function dorfWitweKern(rt: Runtime, held: Held) {
   if (held.kernGeholfen || held.kernAbgewiesen) {
     await rt.present({
       title: "Bei Witwe Kern",
-      art: "village",
-      portrait: null,
+      art: "apothecary",
+      portrait: "kern",
       held,
       lines: ["Witwe Kern hält die Schublade geschlossen. „Was leer ist, bleibt wenigstens ordentlich.“"],
     });
@@ -710,13 +763,16 @@ async function dorfWitweKern(rt: Runtime, held: Held) {
 
   const wahl = await rt.present({
     title: "Bei Witwe Kern",
-    art: "village",
-    portrait: null,
+    art: "apothecary",
+    portrait: "kern",
     held,
     lines: [
       "Witwe Kern hat ihre Apotheke geöffnet, obwohl niemand hereinkommt.",
       "Eine Schublade klemmt. Darauf liegt ein sauber gefaltetes Tuch.",
       "„Der Restbestand ist kleiner geworden“, sagt sie. „Nicht durch Verkauf.“",
+      "An den Wänden hängen Bündel aus Schafgarbe, Wacholder und dunklen Blättern, deren Namen du nicht kennst. Unter jedem Bündel steht mit Kohle ein Datum.",
+      "Kern trägt die Ärmel hochgekrempelt. Auf ihren Unterarmen liegen alte Brandnarben. Ihre Hände riechen nach Alkohol und Eisen.",
+      "„Verband verschwindet nicht allein“, sagt sie. „Und wer ihn stiehlt, rechnet mit Wunden.“",
     ],
     choices: [
       "Die Schublade lösen (Stärke, leicht)",
@@ -739,25 +795,32 @@ async function dorfWitweKern(rt: Runtime, held: Held) {
     held.kernGeholfen = true;
     await rt.present({
       title: "Bei Witwe Kern",
-      art: "village",
-      portrait: null,
+      art: "apothecary",
+      portrait: "kern",
       held,
       probe: ergebnis,
       lines: [
         "Hinter der Schublade klebt ein Streifen Verbandstoff. Frisch abgerissen.",
         "Kern nimmt ihn an sich. „Jemand hat sich bedient, ohne krank zu sein.“",
         "Sie legt dir einen sauberen Verband hin. „Für den Fall, dass du doch noch krank wirst.“",
+        "Am Stoff klebt grauer Staub. Kern verreibt ihn zwischen zwei Fingern und blickt zur Ostwand, als könne sie durch sie hindurch bis zum Steinbruch sehen.",
+        "„Die nehmen nicht nur Essen“, sagt sie. „Sie bereiten sich darauf vor, dass jemand es zurückhaben will.“",
       ],
     });
   } else {
     held.kernAbgewiesen = true;
     await rt.present({
       title: "Bei Witwe Kern",
-      art: "village",
-      portrait: null,
+      art: "apothecary",
+      portrait: "kern",
       held,
       probe: ergebnis,
-      lines: ["Das Holz gibt nicht nach. Kern schiebt deine Hand weg.", "„Nicht alles muss mit Gewalt aufgehen.“"],
+      lines: [
+        "Das Holz gibt nicht nach. Kern schiebt deine Hand weg.",
+        "„Nicht alles muss mit Gewalt aufgehen.“",
+        "Sie legt das saubere Tuch wieder auf die Schublade und streicht es glatt. Die Geste ist behutsamer als ihre Stimme.",
+        "Aus dem hinteren Raum kommt ein Husten. Kern sieht kurz zur Tür und macht die Apotheke kleiner, indem sie schweigt.",
+      ],
     });
   }
 }
@@ -783,6 +846,9 @@ async function dorfHolmSiegel(rt: Runtime, held: Held) {
       "Neben Holms Brief liegt ein Stück rotes Wachs.",
       "Das Siegel trägt den Abdruck der Gemeinde — aber jemand hat es gebrochen, bevor der Brief ankam.",
       "Holm hält die Hand darüber. Zu spät.",
+      "Im Wachs steckt ein einzelner schwarzer Faden. Er ist zu fein für einen Sack und zu grob für Holms Kleidung.",
+      "Der Brief riecht nach Rauch, obwohl im Rathaus kein Feuer brennt. An einer Ecke hat das Papier Wasser gezogen und sich dunkel verfärbt.",
+      "„Man kann einen Brief lesen“, sagt Holm. „Oder man kann ihn so lange tragen, bis jeder weiß, dass es ihn gibt.“",
     ],
     choices: [
       "Den Abdruck vergleichen (Geschick, mittel)",
@@ -807,6 +873,8 @@ async function dorfHolmSiegel(rt: Runtime, held: Held) {
         lines: [
           "Das Wachs ist älter als der Brief. Jemand hat Holms Siegel benutzt, um sich Zeit zu kaufen.",
           "Holm nimmt den Brief zurück. „Jetzt weißt du, warum ich niemandem gern Papier gebe.“",
+          "Der Abdruck ist an einer Stelle doppelt. Das Siegel wurde nicht nur gebrochen, sondern ein zweites Mal auf weicheres Wachs gedrückt.",
+          "Holm hält den Brief gegen das Fenster. „Jemand schreibt in meinem Namen“, sagt er. „Oder sorgt dafür, dass ich für sein Schweigen bezahle.“",
         ],
       });
     } else {
@@ -833,6 +901,8 @@ async function dorfRoteSchnur(rt: Runtime, held: Held) {
     lines: [
       "Ein Junge wartet hinter dem Brunnen. Um sein Handgelenk liegt eine rote Schnur.",
       "„Ich weiß, wo sie nachts langgehen“, sagt er. „Aber ich zeige es nur jemandem, der nicht laut ist.“",
+      "Seine Knie sind aufgeschlagen, und an einem Ärmel klebt Farn. Er ist den Weg bereits gegangen, vermutlich öfter, als irgendjemand wissen soll.",
+      "Die Schnur ist mit drei kleinen Knoten um sein Handgelenk gelegt. Bei jedem Glockenschlag, sagt er, löst er einen.",
     ],
     choices: [
       "Ihm zuhören und ihm folgen (Geschick, leicht)",
@@ -850,7 +920,13 @@ async function dorfRoteSchnur(rt: Runtime, held: Held) {
         portrait: null,
         held,
         probe: ergebnis,
-        lines: ["Die rote Schnur führt nur bis zu einem Zaunpfahl.", "Dort beginnt ein schmaler Weg nach Osten. Der Junge hatte recht.", "Er nimmt die Schnur ab. „Jetzt findest du ihn auch ohne mich.“"],
+        lines: [
+          "Die rote Schnur führt nur bis zu einem Zaunpfahl.",
+          "Dort beginnt ein schmaler Weg nach Osten. Der Junge hatte recht.",
+          "Zwischen den Halmen entdeckst du grauen Steinmehlstaub und den Abdruck eines schmalen Stiefels. Der Pfad wird benutzt, aber nie bei Tageslicht.",
+          "Er nimmt die Schnur ab. „Jetzt findest du ihn auch ohne mich.“",
+          "Den letzten Knoten löst er nicht. Er steckt die Schnur ein und läuft zurück, bevor du fragen kannst, für wen er ihn aufbewahrt.",
+        ],
       });
     } else {
       held.schnurAbgewiesen = true;
@@ -866,8 +942,8 @@ async function dorfSchmied(rt: Runtime, held: Held) {
   if (held.schmiedGeholfen || held.schmiedAbgewiesen) {
     await rt.present({
       title: "Beim Schmied",
-      art: "village",
-      portrait: null,
+      art: "smithy",
+      portrait: "smith",
       held,
       lines: ["Der Schmied hebt das stumpfe Eisen hoch. „Das Werkzeug tut wieder, was es soll.“"],
     });
@@ -876,13 +952,16 @@ async function dorfSchmied(rt: Runtime, held: Held) {
 
   const wahl = await rt.present({
     title: "Beim Schmied",
-    art: "village",
-    portrait: null,
+    art: "smithy",
+    portrait: "smith",
     held,
     lines: [
       "Hinter dem Haus schlägt jemand auf Eisen, das den Schlag nicht mehr verdient.",
       "Der Schmied hält eine stumpfe Hacke gegen das Licht.",
       "„Damit gräbt man keinen Steinbruch frei. Damit macht man nur Lärm.“",
+      "Die Esse glimmt schwach. Auf dem Kohlehaufen liegt eine Decke, damit der Regen nicht nimmt, was das Dorf noch wärmen kann.",
+      "An der Wand hängen drei unbeschlagene Hufeisen. Im Stall nebenan steht kein Pferd.",
+      "Der Schmied trägt eine Lederschürze voller heller Schnitte. „Eisen ist nicht knapp“, sagt er. „Zeit ist knapp. Kohle ist knapp. Hände sind knapp.“",
     ],
     choices: [
       "Beim Schleifen helfen (Stärke, mittel)",
@@ -906,27 +985,31 @@ async function dorfSchmied(rt: Runtime, held: Held) {
     held.schmiedGeholfen = true;
     await rt.present({
       title: "Beim Schmied",
-      art: "village",
-      portrait: null,
+      art: "smithy",
+      portrait: "smith",
       held,
       probe: ergebnis,
       lines: [
         "Der Funke springt nur einmal. Das reicht.",
         "Die Schneide wird nicht neu. Aber sie wird wieder brauchbar.",
         "„Im Steinbruch ist Werkzeug wichtiger als Mut“, sagt der Schmied. „Merk dir das.“",
+        "Er prüft die Hacke mit dem Daumen und wickelt ein Stück Leder um den Griff. Die Bewegung sitzt, obwohl seine linke Hand zittert.",
+        "„Kess war einmal hier“, sagt er, ohne dich anzusehen. „Er wusste damals schon, welche Werkzeuge man braucht, um eine Tür von innen zu öffnen.“",
       ],
     });
   } else {
     held.schmiedAbgewiesen = true;
     await rt.present({
       title: "Beim Schmied",
-      art: "village",
-      portrait: null,
+      art: "smithy",
+      portrait: "smith",
       held,
       probe: ergebnis,
       lines: [
         "Der Stein rutscht. Die Schneide bleibt, wie sie war.",
         "„Kein Schaden“, sagt der Schmied. Er meint die Hacke.",
+        "Er nimmt dir das Werkzeug aus der Hand und legt es auf den Amboss. Die stumpfe Schneide wirft kein Licht zurück.",
+        "„Manchmal ist es besser, etwas stumpf zu lassen“, sagt er. Dann schlägt er weiter, bis du draußen bist.",
       ],
     });
   }
@@ -947,10 +1030,12 @@ async function dorfBrunnen(rt: Runtime, held: Held) {
         "Am Brunnen redet man, als wäre Flüstern eine Form von Gebet.",
         "Die Müllerin sagt, die Banditen hätten einen Schlüssel zum alten Steinbruchtor.",
         "Ein Junge schwört, nachts Trommeln gehört zu haben — oder nur den Wind.",
+        "Eine Frau zählt ihre Eimer, obwohl alle vor ihr stehen. Ein alter Mann hält den Becher unter das Wasser und trinkt erst, nachdem die Müllerin genickt hat.",
         "Die Müllerin zieht dich beiseite.",
         "„Wenn du gehst, geh nicht stolz. Die haben Posten auf dem Felsen.“",
         "Ihre Hand bleibt noch einen Moment an deinem Ärmel. Dann tut sie, als wäre es wegen des Mehls.",
         "Sie drückt dir zwei abgewetzte Münzen in die Hand.",
+        "„Das ist kein Lohn“, sagt sie. „Ein Lohn wäre mehr. Das ist nur, damit du unterwegs nicht so tun musst, als hättest du nichts gebraucht.“",
       ],
     });
   } else {
@@ -967,6 +1052,8 @@ async function dorfBrunnen(rt: Runtime, held: Held) {
         "Man sieht dich an und verstummt.",
         "Die Müllerin schiebt den Eimer zwischen dich und die anderen.",
         "Fremde mit Fragen sind in Lindendorf eine eigene Wetterlage.",
+        "Das Seil knarrt über der Rolle. Tief unten schlägt der Eimer gegen Stein, und alle warten, bis das Geräusch vorbei ist.",
+        "„Du willst Antworten“, sagt die Müllerin. „Wir wollen wissen, wer morgen noch am Brunnen steht.“",
       ],
     });
   }
@@ -982,13 +1069,16 @@ async function dorfBrunnen(rt: Runtime, held: Held) {
 async function dorfFalscherMehlsack(rt: Runtime, held: Held) {
   const wahl = await rt.present({
     title: "Am Brunnen",
-    art: "well",
+    art: "mill",
     portrait: "miller",
     held,
     lines: [
       "Hinter dem Mühlstein steht ein Mehlsack, der nicht nach Mehl riecht.",
       "Das Tuch ist grob. Die Naht wurde mit schwarzem Garn geschlossen.",
       "Die Müllerin sieht dich an. „Der war gestern noch nicht da.“",
+      "Der Sack steht dort, wo am Morgen die erste Ration für die Backstube liegen sollte. Seine Unterseite ist trocken, obwohl der Boden nass ist.",
+      "Auf dem Tuch wurde das Mühlenzeichen nachgemalt. Der Kreis ist richtig, aber die drei Kerben darin zeigen in die falsche Richtung.",
+      "„Jemand will, dass wir ihn öffnen“, sagt die Müllerin. „Die Frage ist nur, wer danach zusieht.“",
     ],
     choices: [
       "Die Naht untersuchen (Geschick, mittel)",
@@ -1003,7 +1093,7 @@ async function dorfFalscherMehlsack(rt: Runtime, held: Held) {
       held.mehlsackGefunden = true;
       await rt.present({
         title: "Am Brunnen",
-        art: "well",
+        art: "mill",
         portrait: "miller",
         held,
         probe: ergebnis,
@@ -1011,13 +1101,15 @@ async function dorfFalscherMehlsack(rt: Runtime, held: Held) {
           "Im Saum steckt feiner grauer Staub. Steinmehl.",
           "Die Müllerin kennt den Geruch. „Aus dem alten Bruch.“",
           "Du weißt jetzt, dass die Banditen ihren Weg nicht nur durch den Wald nehmen.",
+          "Zwischen zwei Stofflagen findest du einen dünnen Span aus schwarzem Holz und ein Haar, lang und weiß. Beides riecht nach kalter Asche.",
+          "Die Müllerin verbrennt den Span im Ofen. Die Flamme wird für einen Atemzug grün. Niemand kommentiert es.",
         ],
       });
     } else {
       held.mehlsackGemeldet = true;
       await rt.present({
         title: "Am Brunnen",
-        art: "well",
+        art: "mill",
         portrait: "miller",
         held,
         probe: ergebnis,
@@ -1032,7 +1124,7 @@ async function dorfFalscherMehlsack(rt: Runtime, held: Held) {
     held.mehlsackGemeldet = true;
     await rt.present({
       title: "Am Brunnen",
-      art: "well",
+      art: "mill",
       portrait: "miller",
       held,
       probe: ergebnis,
@@ -1040,22 +1132,26 @@ async function dorfFalscherMehlsack(rt: Runtime, held: Held) {
         ? [
             "Die Müllerin nickt. „Holm soll wissen, dass sie bis hierher kommen.“",
             "Der Sack bleibt unter ihrem Fuß, bis der Junge zurück ist.",
+            "Sie stellt einen Eimer Wasser neben die Tür und legt ein Küchenmesser auf den Mühlstein. Es ist kein Schutz. Es ist eine Erklärung.",
           ]
         : [
             "Die Müllerin hört dich an. Dann schiebt sie den Sack selbst zum Rathaus.",
             "„Wenn du schon Lärm machst, dann wenigstens am richtigen Haus.“",
+            "Die Leute auf dem Platz treten beiseite. Niemand fragt, was in dem Sack ist. In Lindendorf kennt man die Form einer schlechten Nachricht.",
           ],
     });
   } else {
     held.mehlsackGefunden = true;
     await rt.present({
       title: "Am Brunnen",
-      art: "well",
+      art: "mill",
       portrait: "miller",
       held,
       lines: [
         "Die Müllerin zieht den Sack zurück in den Schatten.",
         "„Nicht alles, was fremd ist, muss sofort vor Holm liegen.“",
+        "Sie schneidet das falsche Zeichen aus dem Tuch und wirft es ins Mühlfeuer. Der Rest bleibt verschnürt.",
+        "„Wenn jemand fragt, war hier nur Mehl“, sagt sie. Der Satz klingt, als hätte sie ihn schon vor deiner Ankunft geübt.",
       ],
     });
   }
@@ -1065,12 +1161,15 @@ async function dorfBettler(rt: Runtime, held: Held) {
   const wahl = await rt.present({
     title: "Am Brunnen",
     art: "well",
-    portrait: null,
+    portrait: "beggar",
     held,
     lines: [
       "Am Brunnenrand sitzt ein alter Mann mit einem Groschen zwischen den Fingern.",
       "Der Brunnen riecht nach Eisen und Regen.",
       "„Ein Groschen“, sagt er. Nicht bittend. Eher, als würde er eine offene Rechnung nennen.",
+      "Sein Mantel ist an den Schultern mit einem Stück Mehlsack geflickt. Unter dem Saum stehen nackte Füße im kalten Wasser der Rinne.",
+      "Der Groschen ist schwarz angelaufen. Auf einer Seite trägt er das Profil eines längst toten Fürsten, auf der anderen drei Kratzer.",
+      "Die Menschen am Brunnen sehen nicht zu ihm. Das ist die einzige Form von Privatsphäre, die sie ihm lassen.",
     ],
     choices: [
       held.gold > 0 ? "Einen Groschen geben" : "Einen Groschen versprechen, den du nicht hast",
@@ -1085,13 +1184,15 @@ async function dorfBettler(rt: Runtime, held: Held) {
     await rt.present({
       title: "Am Brunnen",
       art: "well",
-      portrait: null,
+      portrait: "beggar",
       held,
       log: ["→ 1 Groschen. Der Beutel ist leichter."],
       lines: [
         "Du gibst ihm die Münze.",
         "Der Bettler zählt sie nicht. Er steckt sie ein, als wäre sie schwerer als sie aussieht.",
         "„Du hast gefragt, was es kostet“, sagt er. „Das tun hier nicht viele.“",
+        "Er legt seinen alten Groschen auf den Brunnenrand. Erst jetzt erkennst du, dass er an einer Seite flach geschliffen wurde, als hätte er lange unter einer Tür gelegen.",
+        "„Eine Münze öffnet nichts“, sagt er. „Aber manchmal zeigt sie, welche Hand noch nicht geschlossen ist.“",
       ],
     });
     return;
@@ -1102,7 +1203,7 @@ async function dorfBettler(rt: Runtime, held: Held) {
     await rt.present({
       title: "Am Brunnen",
       art: "well",
-      portrait: null,
+      portrait: "beggar",
       held,
       lines: [
         "Du tastest in den Beutel. Nichts, was man teilen könnte.",
@@ -1119,13 +1220,15 @@ async function dorfBettler(rt: Runtime, held: Held) {
       await rt.present({
         title: "Am Brunnen",
         art: "well",
-        portrait: null,
+        portrait: "beggar",
         held,
         probe: ergebnis,
         lines: [
           "Der Bettler sieht zum Wasser. Unten treibt ein Blatt im Kreis.",
           "„Ich brauche den Groschen nicht. Ich brauche, dass einer zuhört, bevor er urteilt.“",
           "Er nennt dir keinen Namen. Aber er merkt sich deinen.",
+          "Er erzählt von einem Sohn, der im Steinbruch gearbeitet hat, bevor der Bruch geschlossen wurde. Der Sohn kam an einem Glockentag nicht zurück.",
+          "„Seitdem läutet sie für Menschen, die nicht wissen, dass sie gemeint sind.“ Er schließt die Finger um den Groschen und schweigt.",
         ],
       });
     } else {
@@ -1133,7 +1236,7 @@ async function dorfBettler(rt: Runtime, held: Held) {
       await rt.present({
         title: "Am Brunnen",
         art: "well",
-        portrait: null,
+        portrait: "beggar",
         held,
         probe: ergebnis,
         lines: [
@@ -1150,11 +1253,12 @@ async function dorfBettler(rt: Runtime, held: Held) {
   await rt.present({
     title: "Am Brunnen",
     art: "well",
-    portrait: null,
+    portrait: "beggar",
     held,
     lines: [
       "Du gehst weiter. Es ist nur ein Groschen.",
       "Hinter dir hört das Rascheln der Hand nicht auf.",
+      "Als du dich nach einigen Schritten umdrehst, ist der Brunnenrand leer. Nur die schwarze Münze liegt noch dort, wo seine Hand gewesen ist.",
     ],
   });
 }
@@ -1162,20 +1266,25 @@ async function dorfBettler(rt: Runtime, held: Held) {
 async function dorfBettlerRueckkehr(rt: Runtime, held: Held) {
   await rt.present({
     title: "Am Schmied",
-    art: "village",
-    portrait: null,
+    art: "smithy",
+    portrait: "beggar",
     held,
     lines: held.bettlerGeholfen
       ? [
           "Beim Schmied steht der alte Mann neben dem Amboss.",
           "Der Schmied sieht dich an, dann auf die Münze in der Hand des Bettlers.",
           "„Für heute geht die Reparatur aufs Haus“, sagt er. „Morgen kostet sie wieder.“",
+          "Auf dem Amboss liegt ein verbogener Riegel vom alten Steinbruchtor. Der Bettler hält ihn fest, während der Schmied den letzten Schlag setzt.",
+          "„Mein Sohn hat ihn geschmiedet“, sagt der Alte. „Bevor man den Bruch geschlossen hat. Bevor andere ihn wieder öffneten.“",
           "Der Bettler ist fort, bevor du dich bedanken kannst.",
+          "Zurück bleibt sein alter Groschen. Der Schmied schlägt ein Loch hinein und hängt ihn über die Esse.",
         ]
       : [
           "Beim Schmied sitzt der alte Mann auf einem umgedrehten Eimer.",
           "Er sieht dich kommen und sieht dann weg. Der Schmied tut, als hätte er nichts bemerkt.",
+          "Zwischen ihnen liegt ein verbogener Riegel. Keiner von beiden hat genug Kohle, um ihn heute zu richten.",
           "Etwas Kleines kann man ablehnen. Die Erinnerung daran wird dadurch nicht kleiner.",
+          "Als du gehst, beginnt der Schmied trotzdem zu arbeiten. Jeder Schlag klingt im ganzen Hof gleich teuer.",
         ],
   });
 }
@@ -1184,16 +1293,22 @@ async function szeneGlockenweg(rt: Runtime, held: Held) {
   const lines = [
     "Der alte Glockenweg steigt hinter den letzten Häusern an.",
     "Nasser Stein. Salzstaub im Gras. Oben hängt eine kleine Kapellenglocke im Wind.",
+    "Die Stufen sind aus verschiedenen Steinen gesetzt. Einige tragen noch Meißelspuren, andere dunkle Flecken, die der Regen nicht aus dem porösen Gestein bekommt.",
+    "Auf halber Höhe steht eine verwitterte Figur ohne Gesicht. Jemand hat ihr einen Mantel umgelegt. Der Mantel ist neuer als die Kapelle.",
   ];
   if (held.glockeGescheitert) lines.push("Das Seil schwingt noch. Unten im Tal hat man es gehört.");
-  await rt.present({ title: "Alter Glockenweg", art: "road", portrait: null, held, lines });
+  await rt.present({ title: "Alter Glockenweg", art: "chapel", portrait: null, held, lines });
 
   const wahl = await rt.present({
     title: "Alter Glockenweg",
-    art: "forest",
+    art: "chapel",
     portrait: null,
     held,
-    lines: ["Neben der Kapelle wartet eine Botin. Unterhalb des Pfads liegt ein umgestürzter Sack."],
+    lines: [
+      "Neben der Kapelle wartet eine Botin. Unterhalb des Pfads liegt ein umgestürzter Sack.",
+      "Sanna hält sich mit einer Hand am Mauerwerk fest. Ihre Stiefel sind voller Geröll, und an ihrer Tasche fehlt die Schnalle, die den Brief halten sollte.",
+      "Weiter oben endet der Weg an schwarzem Fels. Dahinter liegt der Steinbruch. Die Luft riecht dort nicht nach Erde, sondern nach altem Feuer.",
+    ],
     choices: [
       held.sannaGeholfen || held.sannaAbgewiesen ? "Sanna erneut ansprechen" : "Der Botin Sanna helfen",
       held.salzGerettet || held.salzLiegenGelassen ? "Jorren erneut ansprechen" : "Den Salzsack im Geröll bergen",
@@ -1209,17 +1324,19 @@ async function szeneGlockenweg(rt: Runtime, held: Held) {
 
 async function glockenwegSanna(rt: Runtime, held: Held) {
   if (held.sannaGeholfen || held.sannaAbgewiesen) {
-    await rt.present({ held, lines: ["Sanna zählt die Schnallen ihrer Tasche. Der fehlende Brief fehlt noch immer."] });
+    await rt.present({ title: "Sanna, die Botin", art: "chapel", portrait: "sanna", held, lines: ["Sanna zählt die Schnallen ihrer Tasche. Der fehlende Brief fehlt noch immer."] });
     return;
   }
   const wahl = await rt.present({
     title: "Sanna, die Botin",
-    art: "road",
-    portrait: null,
+    art: "chapel",
+    portrait: "sanna",
     held,
     lines: [
       "Sanna trägt eine Ledertasche ohne Brief.",
       "„Er ist mir im Geröll aus der Hand gerutscht. Wenn ich leer zurückkomme, glaubt man mir weniger als dem Regen.“",
+      "Sie versucht zu lächeln und scheitert an der Kälte. Unter ihrer Zunge klebt noch Staub vom Hang.",
+      "„Der Brief war versiegelt“, sagt sie. „Nicht mit dem Wachs des Bürgermeisters. Mit etwas, das darunter war.“",
     ],
     choices: [
       "Die Spur im Geröll lesen (Geschick, leicht)",
@@ -1240,14 +1357,16 @@ async function glockenwegSanna(rt: Runtime, held: Held) {
     held.sannaGeholfen = true;
     await rt.present({
       title: "Sanna, die Botin",
-      art: "road",
-      portrait: null,
+      art: "chapel",
+      portrait: "sanna",
       held,
       probe: ergebnis,
       lines: [
         "Das Papier steckt unter einem nassen Stein. Die Schrift ist verschmiert, aber lesbar.",
         "„Die Glocke nicht läuten“, steht dort. Mehr Warnung als Nachricht.",
         "Sanna faltet den Brief. Ihre Hände zittern erst, als sie ihn wieder hat.",
+        "Unter der Warnung findet sich eine zweite Zeile, beinahe vollständig ausgewaschen: Wenn sie dich beim Namen rufen, antworte nicht.",
+        "Sanna liest sie zweimal. Dann zerreißt sie den unteren Teil des Briefes und steckt ihn ein, als könne Papier ein Geräusch behalten.",
       ],
     });
   } else {
@@ -1269,6 +1388,8 @@ async function glockenwegSalz(rt: Runtime, held: Held) {
     lines: [
       "Jorren kniet neben einem aufgerissenen Sack.",
       "„Salz für drei Wochen“, sagt er. „Wenn der Berg es frisst, zahlen am Ende wieder die Falschen.“",
+      "Seine Hände sind weiß bis zu den Handgelenken. In den Rissen der Haut sitzt Salz wie Frost.",
+      "Im Geröll liegt ein Stück schwarzes Holz. Es stammt nicht vom Wagen und nicht von der Kapelle. Jorren sieht es an, als wäre es ein weiterer Verlust, den er nicht erklären will.",
     ],
     choices: [
       "Den Stein heben (Stärke, mittel)",
@@ -1302,12 +1423,14 @@ async function glockenwegGlocke(rt: Runtime, held: Held) {
   }
   const wahl = await rt.present({
     title: "Die Kapellenglocke",
-    art: "ditch",
+    art: "chapel",
     portrait: null,
     held,
     lines: [
       "Die Glocke ist klein. Ihr Ton wäre es nicht.",
       "Das Seil wurde an einer Stelle neu geknotet. Jemand benutzt sie regelmäßig.",
+      "Der Knoten besteht aus drei verschiedenen Fasern: Hanf, roter Wolle und etwas, das unter deinen Fingern kalt bleibt, obwohl es trocken ist.",
+      "Auf der Innenseite der Glocke sind Namen eingeritzt. Einige wurden abgeschabt. Der letzte ist noch lesbar: kein Name, nur ein Datum.",
     ],
     choices: ["Das Seil lösen (Geschick, mittel)", "Die Glocke in Ruhe lassen"],
   });
@@ -1332,6 +1455,8 @@ async function szeneWald(rt: Runtime, held: Held) {
     "Der Wald von Lindendorf ist kein Märchenwald.",
     "Nasses Laub. Krähen. Ein Pfad, der sich entscheidet, kein Pfad mehr zu sein.",
     "Irgendwo voraus liegt der Steinbruch. Dazwischen: Spuren, ein Hindernis, vielleicht Beute.",
+    "Die Bäume wachsen eng genug, dass ihre Kronen den Himmel in schmale Streifen teilen. Zwischen diesen Streifen hängt ein fahles Licht, das weder Tag noch Abend sein will.",
+    "Im Unterholz liegen zerbrochene Pfeile, ein Kinderlöffel und die Hälfte eines Wagenschilds. Der Wald sammelt alles, was Menschen zurücklassen, aber nichts davon wird leichter.",
   ];
   if (held.mehlsackGefunden) {
     ankunftszeilen.push("An einem Farn klebt grauer Staub. Der falsche Mehlsack hat nicht gelogen.");
@@ -1357,7 +1482,11 @@ async function szeneWald(rt: Runtime, held: Held) {
 
   const wahl = await rt.present({
     held,
-    lines: ["Du findest Abdrücke im Matsch. Zu groß für Ziegen. Zu viele für Wanderer."],
+    lines: [
+      "Du findest Abdrücke im Matsch. Zu groß für Ziegen. Zu viele für Wanderer.",
+      "Einige Spuren stammen von Stiefeln. Andere sind barfuß. Bei einer Ferse klebt grauer Staub, derselbe, der am falschen Mehlsack hing.",
+      "Du kniest dich hin und hörst den Boden ab. Unter dem Regen arbeitet irgendwo Holz gegen Holz.",
+    ],
     choices: [
       "Die Spuren behutsam lesen (Geschick, leicht)",
       "Geradeaus durch das Unterholz (Stärke, mittel)",
@@ -1377,6 +1506,7 @@ async function szeneWald(rt: Runtime, held: Held) {
         lines: [
           "Ostwärts. Gespaltene Eiche. Danach ein Wildpfad, den Wagen nicht nutzen.",
           "Zwischen den Wurzeln blinkt etwas.",
+          "Die Spuren kreuzen sich dort mit einer schmalen Schleifspur. Etwas Schweres wurde in Richtung Steinbruch gezogen. Am Rand klebt ein Fetzen blauer Wolle.",
         ],
         choices: ["Im Wurzelwerk stochern", "Weitergehen"],
       });
@@ -1394,6 +1524,7 @@ async function szeneWald(rt: Runtime, held: Held) {
       const lines = [
         "Du machst dir einen Weg. Laut, aber schnell.",
         "Laut ist im Banditenwald eine Entscheidung.",
+        "Äste schlagen dir ins Gesicht. Hinter dir bleibt ein Pfad aus gebrochenem Grün. Du hörst nicht, ob jemand ihn benutzt.",
       ];
       if (chance(3)) {
         held.banditenGewarnt = true;
@@ -1420,6 +1551,8 @@ async function szeneWald(rt: Runtime, held: Held) {
         lines: [
           "Ein Köhler tritt zwischen die Stämme, als hätte der Rauch ihn ausgespuckt.",
           "„Steinbruch. Östlicher Pfad. Und nimm das, bevor du stirbst und hier liegend stinkst.“",
+          "Sein Gesicht ist schwarz vom Ruß bis auf die Augen. In einer Hand hält er die Reste eines kleinen Gebetsbandes.",
+          "„Wenn du die Glocke hörst, bist du zu spät“, sagt er. Dann tritt er zurück in den Rauch, ohne zu erklären, ob das ein Rat oder eine Feststellung war.",
         ],
       });
     } else {
@@ -1447,6 +1580,8 @@ async function szeneWald(rt: Runtime, held: Held) {
     lines: [
       "Der Pfad endet an einem Graben. Frisch ausgehoben, mit Pfählen gespickt.",
       "Dahinter ein gestürzter Stamm, nass und glatt. Das ist Absicht, kein Sturm.",
+      "An einem Pfahl hängt ein Streifen Stoff. Darauf ist mit Kreide ein Kreis gemalt, durch den eine Linie führt. Das Zeichen aus der Taverne.",
+      "Jemand hat den Graben nicht gebaut, um dich aufzuhalten. Er hat ihn gebaut, damit du genau dort hinübergehst, wo man dich sehen kann.",
     ],
     choices: [
       "Hinüberspringen (Geschick, mittel)",
@@ -1525,10 +1660,15 @@ async function szeneWald(rt: Runtime, held: Held) {
   }
   if (held.holmSiegelGefunden) {
     await rt.present({
-      art: "camp",
+      art: "evidence",
       portrait: null,
       held,
-      lines: ["Am Rand des Lagers liegt ein Brief mit rotem Wachs. Holms gebrochenes Siegel war kein Einzelfall."],
+      lines: [
+        "Am Rand des Lagers liegt ein Brief mit rotem Wachs. Holms gebrochenes Siegel war kein Einzelfall.",
+        "Der Brief trägt seine Unterschrift, aber nicht seine Hand. Darin werden Lieferungen aus der Mühle und Salz vom Glockenweg als Abgabe für eine Wache verlangt, die nie im Tal war.",
+        "Am unteren Rand stehen drei Glockenzeichen: ein Schlag für einen Boten, zwei für Ware, drei für Gefahr. Jemand hat aus der Kapelle ein Buchhaltungssystem gemacht.",
+        "Das Wachs hat Lindendorf nicht nur getäuscht. Es hat dem Dorf befohlen, seine eigenen Vorräte an den Steinbruch zu tragen.",
+      ],
     });
   }
   if (held.glockeGestoppt) {
@@ -1539,23 +1679,47 @@ async function szeneWald(rt: Runtime, held: Held) {
       lines: ["Kein Glockenton kommt vom Hang. Im Lager merkt man die Stille erst, als jemand zu spät aufsteht."],
     });
   }
+  if (held.artefaktErhalten) {
+    await rt.present({
+      art: "evidence",
+      portrait: null,
+      held,
+      lines: [
+        "Das silberne Artefakt wird in deiner Tasche kalt. Nicht wie Metall im Winter, sondern wie Wasser aus einem tiefen Brunnen.",
+        "Auf einer Kiste im Lager ist dasselbe Auge über drei Linien eingeritzt. Hier wurde es verkehrt herum gezeichnet.",
+        "Du verstehst nicht, was das Zeichen ursprünglich bedeutete. Du verstehst nur, dass jemand seinen Schutz in eine Drohung verwandelt hat.",
+      ],
+    });
+  }
 }
 
 async function waldBeute(rt: Runtime, held: Held) {
   const fund = pick([GOLD, HEILTRANK, SCHLUESSEL]);
   if (fund === GOLD) {
     const gold = goldPlus(held, 4, "vergrabene Münzen unter der Wurzel");
-    await rt.present({ held, log: [gold], lines: ["Zwischen den Wurzeln blinkt Metall."] });
+    await rt.present({
+      held,
+      log: [gold],
+      lines: [
+        "Zwischen den Wurzeln blinkt Metall.",
+        "Vier Münzen liegen in einem Stück Leinen, zusammen mit einem Milchzahn und einer eingerosteten Nadel. Jemand hat hier nicht Beute, sondern einen kleinen Besitz versteckt.",
+        "Du nimmst das Gold. Das Leinen legst du zurück. Es ist eine dünne Höflichkeit, aber der Wald verlangt keine Erklärung.",
+      ],
+    });
   } else if (fund === HEILTRANK) {
     if (hat(held, HEILTRANK)) {
       const gold = goldPlus(held, 3, "statt eines zweiten Tranks: Münzen im Moos");
-      await rt.present({ held, log: [gold], lines: ["Kein zweites Fläschchen. Nur Münzen im Moos."] });
+      await rt.present({ held, log: [gold], lines: ["Kein zweites Fläschchen. Nur Münzen im Moos.", "Das Leder darum ist von Zähnen durchlöchert. Was es getragen hat, lebt nicht mehr hier."] });
     } else {
       const item = nimm(held, HEILTRANK);
       await rt.present({
         held,
         log: [item],
-        lines: ["Ein Fläschchen, in Leder gewickelt. Jemand hat es nicht mehr gebraucht."],
+        lines: [
+          "Ein Fläschchen, in Leder gewickelt. Jemand hat es nicht mehr gebraucht.",
+          "Das Wachs am Korken trägt Kerns Zeichen. Das Leder darunter ist dunkel von altem Blut.",
+          "Du steckst es ein. Im Wald ist Nutzen oft nur die andere Seite eines Verlustes.",
+        ],
       });
     }
   } else {
@@ -1563,7 +1727,11 @@ async function waldBeute(rt: Runtime, held: Held) {
     await rt.present({
       held,
       log: [item],
-      lines: ["Ein eiserner Schlüssel, grün vor Feuchtigkeit. Passt zu keinem Dorfschloss."],
+      lines: [
+        "Ein eiserner Schlüssel, grün vor Feuchtigkeit. Passt zu keinem Dorfschloss.",
+        "Am Bart klebt grauer Steinmehlstaub. Der Ring ist mit schwarzem Garn umwickelt, damit er beim Gehen nicht klirrt.",
+        "Jemand hat ihn hier verloren oder absichtlich für einen anderen zurückgelassen. Beides führt nach Osten.",
+      ],
     });
   }
 }
@@ -1574,6 +1742,9 @@ async function szeneLager(rt: Runtime, held: Held) {
     "Drei Zelte. Ein Feuer. Eine Kiste mit dem Siegel der Kirche von Lindendorf.",
     "Ein Mann mit einer Narbe über der Lippe — das wird Kess sein — würfelt mit zwei anderen.",
     "Ein vierter steht oben auf dem Felsen und schaut den Weg entlang, den du gekommen bist.",
+    "Die Felswand trägt noch die schwarzen Streifen der alten Sprengungen. Zwischen ihnen wachsen dünne weiße Pilze, die im Feuerlicht wie Zähne aussehen.",
+    "Neben der Kiste liegt ein Kinderumhang. Er ist zu klein für jeden Menschen hier. Niemand tritt darauf. Niemand hebt ihn auf.",
+    "Kess würfelt mit zwei stumpfen Knochen. Einer der Männer lacht zu laut. Der andere hält die Hand auf der Tasche, in der vermutlich das Geld liegt, das dem Dorf fehlt.",
   ];
   if (hat(held, SCHLUESSEL)) {
     lines.push("An der Felsschräge sitzt ein altes Gittertor. Dein Schlüssel juckt im Beutel.");
@@ -1610,7 +1781,12 @@ async function szeneLager(rt: Runtime, held: Held) {
       art: "camp",
       portrait: null,
       held,
-      lines: ["Das Feuer brennt noch. Die Kiste der Kirche ist leichter, als sie aussieht."],
+      lines: [
+        "Das Feuer brennt noch. Die Kiste der Kirche ist leichter, als sie aussieht.",
+        "Unter dem Silber liegen Listen mit Namen, Mengen und Tagen. Manche Namen kennst du aus dem Dorf. Neben anderen steht nur ein Kreuz.",
+        "Im letzten Zelt findest du keine Schätze. Nur feuchte Decken, Salzkrusten an einem Topf und vier Paar Stiefel, die länger halten sollen als ihre Besitzer.",
+        "Der Steinbruch wird still. Nicht friedlich. Nur leer genug, dass du dein eigenes Atmen wieder hörst.",
+      ],
     });
   }
 }
@@ -1649,6 +1825,8 @@ async function lagerSchleichen(rt: Runtime, held: Held) {
         "Du nimmst das Kirchensilber, zwei Säcke Getreide markierst du dir nur im Kopf.",
         "Kess würfelt eine Acht und flucht über das Glück, das nicht seines ist.",
         "Du bist schon im Gestrüpp, als der Posten endlich blinzelt.",
+        "Die Kiste ist schwerer, sobald du sie trägst. Nicht wegen des Silbers, sondern wegen der Namen, die in Lindendorf daran hängen.",
+        "Hinter dir lacht einer der Männer über einen schlechten Wurf. Er weiß noch nicht, dass der Einsatz bereits verschwunden ist.",
       ],
     });
   } else {
@@ -1657,7 +1835,13 @@ async function lagerSchleichen(rt: Runtime, held: Held) {
       art: "sneak",
       held,
       probe: ergebnis,
-      lines: [...extra, "Ein Stein. Ein Fluch. Drei Köpfe drehen sich.", dmg],
+      lines: [
+        ...extra,
+        "Ein Stein. Ein Fluch. Drei Köpfe drehen sich.",
+        "Der Posten reißt den Speer hoch. Kess stößt den Würfel mit dem Handrücken vom Tisch, und die Männer bewegen sich, bevor er einen Befehl gibt.",
+        dmg,
+        "Du bist nicht mehr Teil des Schattens. Du bist der Grund, warum er jetzt voller Klingen ist.",
+      ],
     });
     if (tot(held)) return;
     const next = await rt.present({
@@ -1682,6 +1866,8 @@ async function lagerReden(rt: Runtime, held: Held, erwischt = false) {
       "Kess hat eine Stimme wie ein stumpfer Säbel.",
       "„Lindendorf schickt keine Wache. Lindendorf schickt... dich.“",
       ...(held.letzterGastGefunden ? ["Du erinnerst dich an den Satz aus der Taverne. Kess würfelt nicht. Noch nicht."] : []),
+      "Er spricht deinen Namen nicht aus. Er hat ihn vielleicht nie gehört. Trotzdem liegt in seiner Pause die Art von Sicherheit, die Menschen nur zeigen, wenn sie vorbereitet sind.",
+      "Hinter ihm brennt das Feuer niedrig. Im Rauch hängt der Geruch von nassem Leder und gekochtem Knochen.",
     ],
     choices: [
       "Drohen: Das Dorf hat genug (Charisma)",
@@ -1703,6 +1889,8 @@ async function lagerReden(rt: Runtime, held: Held, erwischt = false) {
           "Kess sieht deine Augen länger an als dein Schwert.",
           "„Packen. Bevor ich es mir anders überlege.“",
           "Sie lassen die Kirchenkiste. Mehr Großmut steckt nicht in diesem Steinbruch.",
+          "Kess nimmt den stumpfen Würfel vom Boden und schiebt ihn mit dem Stiefel ins Feuer. „Das Dorf hat euch geschickt“, sagt er. „Aber das, was hier passiert, hat längst angefangen.“",
+          "Die Männer lösen ihre Hände von den Waffen. Nicht aus Vertrauen. Aus Müdigkeit und weil du ihnen einen Moment gegeben hast, in dem niemand zuerst schlagen musste.",
         ],
       });
     } else {
@@ -1731,6 +1919,8 @@ async function lagerReden(rt: Runtime, held: Held, erwischt = false) {
           lines: [
             `Du zahlst ${preis} Gold. Die Kiste bleibt — leer genug, voll genug.`,
             "Kess nickt. Das ist kein Frieden. Das ist eine Pause mit Preis.",
+            "Er zählt die Münzen nicht. Er beißt nur in eine, legt sie auf die Zunge und spuckt sie wieder aus. „Münzen halten länger als Männer“, sagt er.",
+            "Als du gehst, hörst du hinter dir das Scharren von Stiefeln. Niemand folgt dir. Noch nicht.",
           ],
         });
         return;
@@ -1762,6 +1952,8 @@ async function lagerReden(rt: Runtime, held: Held, erwischt = false) {
         lines: [
           "Kess glaubt nicht an Helden. Er glaubt an Galgen.",
           "In zehn Atemzügen ist das Lager halb leer. Die Kiste bleibt, weil sie schwer ist.",
+          "Er hebt die Hand, und die Männer sehen zuerst zu ihm, dann zum Grat. Einer flucht. Einer rennt. Kess bleibt stehen, bis du weit genug weg bist, um nicht mehr zurückzuschlagen.",
+          "Du weißt nicht, ob er dir geglaubt hat. Du weißt nur, dass er die Angst besser kennt als du.",
         ],
       });
     } else {
@@ -1782,7 +1974,12 @@ async function lagerKampf(rt: Runtime, held: Held, ueberrascht = true) {
     art: "combat",
     portrait: "kess",
     held,
-    lines: ["Kein Duell. Ein Gedränge aus Stahl, Feuerlicht und schlechtem Boden."],
+    lines: [
+      "Kein Duell. Ein Gedränge aus Stahl, Feuerlicht und schlechtem Boden.",
+      "Der erste Schlag trifft nicht dort, wo du ihn erwartest. Jemand rutscht im Schlamm aus, ein Zelt kippt, und plötzlich kämpfen alle in einem Raum, der für keinen von euch groß genug ist.",
+      "Kess trägt kein Wappen. Er trägt eine Narbe, einen stumpfen Säbel und die Gewissheit, dass derjenige gewinnt, der nach dem Lärm noch zählen kann.",
+      "Hinter dir steht die Kirchenkiste. Vor dir stehen Männer, die wissen, dass sie ohne sie nichts mehr haben, was ein Dorf zurückkaufen würde.",
+    ],
   });
 
   let s1 = ueberrascht && !held.banditenGewarnt ? MITTEL : SCHWER;
@@ -1824,6 +2021,9 @@ async function lagerKampf(rt: Runtime, held: Held, ueberrascht = true) {
       lines: [
         "Kess flieht nicht wie ein Anführer, sondern wie ein Mann, der zählen kann.",
         "Zwei bleiben liegen. Einer stöhnt. Das Lager gehört dem Rauch und dir.",
+        "Du siehst Kess am Rand des Steinbruchs verschwinden. Er blickt nicht zurück. Auf dem Boden bleibt sein Würfel liegen, die abgeschabte Acht nach oben.",
+        "Der Sieg riecht nach Eisen, nassem Holz und etwas Süßlichem, das du nicht benennen willst.",
+        "Als der Lärm endet, hörst du Wasser von der Felswand tropfen. Der Steinbruch hat schon vor euch Geräusche verschluckt. Er wird auch diese behalten.",
       ],
     });
   } else {
@@ -1844,7 +2044,11 @@ async function lagerKampf(rt: Runtime, held: Held, ueberrascht = true) {
         portrait: null,
         held,
         probe: flucht,
-        lines: ["Sie folgen nicht weit. Verwundete Jäger sind schlechte Jäger."],
+        lines: [
+          "Sie folgen nicht weit. Verwundete Jäger sind schlechte Jäger.",
+          "Die Kiste schlägt bei jedem Schritt gegen deine Hüfte. Im Inneren klirrt das Silber der Kirche, unversehrt und gleichgültig.",
+          "Hinter dir ruft Kess einen Namen. Du weißt nicht, ob er einen seiner Männer meint oder dich.",
+        ],
       });
     } else {
       held.beuteGerettet = false;
@@ -1871,6 +2075,9 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
     lines: [
       "Der Schlüssel dreht sich schwer. Rost redet mit, gibt aber nach.",
       "Du kommst hinter dem Holzstapel raus — näher an der Kiste als am Feuer.",
+      "Der Gang hinter dem Tor ist niedrig und riecht nach Moder. An der Wand stehen Zahlen, mit Kreide geschrieben und immer wieder durchgestrichen.",
+      "Unter deinen Stiefeln liegen alte Lederriemen und ein verrosteter Meißel. Der Steinbruch war einmal ein Arbeitsplatz. Das Lager hat nur gelernt, seine Knochen zu benutzen.",
+      "Durch die Spalten des Holzstapels siehst du Kess am Feuer. Er würfelt nicht mehr. Er wartet.",
     ],
     choices: [
       "Nur die Beute nehmen und verschwinden (Geschick, leicht)",
@@ -1891,7 +2098,11 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         log: [gold],
-        lines: ["Kein Heldenepos. Eine offene Tür und ein geschlossener Mund."],
+        lines: [
+          "Kein Heldenepos. Eine offene Tür und ein geschlossener Mund.",
+          "Du schiebst die Kiste durch den niedrigen Gang. Das Holz kratzt über Stein, doch das Feuer knackt im selben Augenblick laut genug.",
+          "Als du das Tor wieder schließt, bleibt der Schlüssel innen stecken. Manche Wege benutzt man nur einmal.",
+        ],
       });
     } else {
       await rt.present({
@@ -1913,7 +2124,11 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         log: [gold],
-        lines: ["Stoff stürzt, Glut springt, Männer fluchen auf das Wetter und auf dich."],
+        lines: [
+          "Stoff stürzt, Glut springt, Männer fluchen auf das Wetter und auf dich.",
+          "Ein Zelt fällt über den Vorratstisch. Die Knochenwürfel verschwinden im Schlamm, und für einen Atemzug weiß niemand mehr, wo die Gefahr steht.",
+          "Du nutzt diesen Atemzug. Im Steinbruch ist Zeit das einzige Gut, das niemand zurückfordern kann.",
+        ],
       });
     } else {
       const dmg = schaden(held, 2, "ein Wachposten sieht dich am Tau");
@@ -1936,6 +2151,8 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
         lines: [
           "Kess ist ein Schwätzer. Schwätzer drehen sich zu langsam um.",
           "Die anderen rennen, als ihr Anführer kniet.",
+          "Sein Säbel fällt in den Staub. Kess hebt beide Hände, aber sein Blick sucht noch immer nach einer Rechnung, die dich lebend aus diesem Lager bringt.",
+          "„Wenn du mich tötest, wird Lindendorf nicht voller“, sagt er. Du weißt, dass das stimmt. Es macht die Entscheidung nicht leichter.",
         ],
       });
     } else {
@@ -1964,6 +2181,9 @@ async function szeneEnde(rt: Runtime, held: Held) {
         `${held.name} bleibt zwischen Lindendorf und dem Steinbruch.`,
         "Der Wald nimmt das Geräusch, das Dorf behält die Angst.",
         "Man erzählt später von jemandem, der gegangen ist. Nicht von jemandem, der zurückkam.",
+        "Am nächsten Morgen findet der Köhler eine Spur im nassen Laub. Er folgt ihr nicht bis zum Ende. Im Tal kennt man den Unterschied zwischen Feigheit und Erfahrung.",
+        "Holm lässt deinen Namen in das Buch der Gemeinde schreiben, auf eine Seite zwischen unbezahlten Abgaben und zwei Kindern, die im Winter starben.",
+        "Die Glocke am Hang schlägt einmal. Niemand weiß, wer am Seil stand.",
       ],
       choices: ["Zurück ins Menü"],
     });
@@ -1975,7 +2195,12 @@ async function szeneEnde(rt: Runtime, held: Held) {
     art: "return",
     portrait: "holm",
     held,
-    lines: ["Lindendorf sieht dich früher als Holm. Dann sieht dich Holm."],
+    lines: [
+      "Lindendorf sieht dich früher als Holm. Dann sieht dich Holm.",
+      "Die Nachricht läuft nicht durch Rufe über den Platz. Sie läuft durch Türen, die sich öffnen, durch einen Eimer, der am Brunnen stehen bleibt, und durch Maras Hand, die mitten in einer Bewegung ruht.",
+      "Du bringst den Geruch des Steinbruchs mit: Rauch, Blut, nassen Kalk. Niemand fragt zuerst, ob du gesiegt hast.",
+      "Holm tritt aus dem Rathaus. Hinter ihm bleibt die Tür offen, als hätte selbst das Amt vergessen, vorsichtig zu sein.",
+    ],
   });
 
   if (!held.lagerGeloest) {
@@ -1986,6 +2211,9 @@ async function szeneEnde(rt: Runtime, held: Held) {
       lines: [
         "Du bringst keine Lösung mit. Nur Dreck und eine Geschichte ohne Schluss.",
         "Holm nickt, als hätte er das erwartet. Die nächste Nacht kommt trotzdem.",
+        "Er hört bis zum Ende zu. Danach schließt er die leere Kasse und legt den Schlüssel darauf, als würde das irgendetwas sichern.",
+        "Am Brunnen beginnen die Leute wieder zu reden, leiser als zuvor. Ein Mann trägt Bretter zum Fenster seines Hauses. Eine Frau holt ihre Kinder herein, obwohl es noch hell ist.",
+        "Du hast das Tal nicht gerettet. Aber du hast gesehen, wo seine Angst wohnt. Dieses Wissen ist kein Trost und lässt sich nicht zurückgeben.",
       ],
       choices: ["Zurück ins Menü"],
     });
@@ -2002,6 +2230,10 @@ async function szeneEnde(rt: Runtime, held: Held) {
         "Du hast gesprochen, wo andere schlagen wollten.",
         "Das Silber der Kirche liegt wieder auf Holms Tisch. Holm atmet zum ersten Mal heute.",
         "„Bleib, wenn du willst. Lindendorf zahlt schlecht. Aber es vergisst nicht.“",
+        "Er öffnet die Kiste nicht sofort. Zuerst legt er beide Hände auf den Deckel, als müsste er prüfen, ob das Gewicht wirklich zurückgekehrt ist.",
+        "Mara stellt am Abend einen Becher auf den Tisch, den niemand bezahlt. Der Holzfäller sagt nichts über Kess. Das Schweigen ist diesmal kein Misstrauen, sondern eine Entscheidung.",
+        "Oben am Hang bleibt die Glocke still oder schlägt weiter, je nachdem, was du dort getan hast. Im Dorf hört man jetzt auf den Unterschied.",
+        "Du hast keine Männer besiegt. Du hast ihnen einen Ausweg gegeben, der teuer genug war, um glaubwürdig zu sein. Das Tal wird erst später erfahren, ob er hält.",
       ],
       choices: ["Zurück ins Menü"],
     });
@@ -2010,6 +2242,9 @@ async function szeneEnde(rt: Runtime, held: Held) {
       "Die Banditen sind weg. Die Kiste auch nicht voller.",
       "Holm hört zu, ohne Dank. Ein Dorf, das zahlt, damit man es in Ruhe lässt,",
       "hat das schon einmal getan.",
+      "Er nimmt die verbleibenden Münzen aus der Kasse und stellt sie neben deinen Bericht. Beides zusammen reicht nicht für den Winter.",
+      "Draußen wird die Nachricht dennoch als Frieden weitererzählt. Menschen brauchen ein Wort für Nächte, in denen niemand die Tür eintritt.",
+      "Mara schenkt weniger aus. Die Müllerin zählt die Säcke zweimal. Jeder weiß, dass gekaufte Ruhe einen nächsten Preis hat.",
     ];
     if (held.buergermeisterVertraut) {
       lines.push("Trotzdem sieht er dich nicht als Feind. Nur als teure Lektion.");
@@ -2026,6 +2261,8 @@ async function szeneEnde(rt: Runtime, held: Held) {
     const lines = [
       "Kein Blut auf dem Marktplatz. Nur eine Kiste, die wieder da ist.",
       "Manche nennen das Feigheit. Holm nennt es Ergebnis.",
+      "Die Leute stehen um das Kirchensilber, ohne es zu berühren. Sein Glanz passt nicht mehr in ihre Gesichter.",
+      "Im Steinbruch brennt vielleicht noch das Feuer. Kess lebt vielleicht noch. Deine Arbeit besteht aus Dingen, die nicht geschehen sind, und lässt sich deshalb schlecht erzählen.",
     ];
     if (held.buergermeisterVertraut) {
       log.push(goldPlus(held, 5, "stille Belohnung"));
@@ -2035,6 +2272,10 @@ async function szeneEnde(rt: Runtime, held: Held) {
     }
     if (held.glockeGestoppt) lines.push("Über dem Weg bleibt die Kapelle still. Das hat dir Zeit gekauft.");
     if (held.sannaGeholfen) lines.push("Sannas Warnung war richtig: Du wurdest erst spät bemerkt.");
+    lines.push(
+      "In der Nacht schläft Lindendorf nicht besser, aber länger. Keine Schritte kommen aus dem Osten.",
+      "Du weißt, dass Schattenarbeit selten ein Ende hat. Sie verschiebt nur den Augenblick, in dem jemand eine Fackel anzündet.",
+    );
     await rt.present({
       held,
       ending: "Schattenarbeit.",
@@ -2051,6 +2292,10 @@ async function szeneEnde(rt: Runtime, held: Held) {
       lines: [
         "Du kommst aufrecht zurück. Das Dorf versteht Stahl besser als Feinheiten.",
         "Ein Junge am Brunnen ahmt deinen Gang nach, bis seine Mutter ihn zieht.",
+        "Die Kirchenkiste wird geöffnet, und für einen Moment spiegelt das Silber jedes Gesicht auf dem Platz. Keines davon sieht siegreich aus.",
+        "Holm zählt die zurückgebrachten Stücke. Dann zählt er die Namen, die du vom Steinbruch mitgebracht hast. Bei der zweiten Zahl wird seine Stimme leiser.",
+        "Am Abend erzählt man in der Taverne von deinen Schlägen. Niemand erzählt von dem Mann, der im Schlamm nach seinem Messer suchte und es nicht mehr fand.",
+        "Ruhm hält in Lindendorf bis zum nächsten leeren Sack. Das ist länger, als manche Menschen bekommen.",
       ],
       choices: ["Zurück ins Menü"],
     });
@@ -2058,6 +2303,8 @@ async function szeneEnde(rt: Runtime, held: Held) {
     if (held.beuteGerettet) {
       const gold = goldPlus(held, held.buergermeisterVertraut ? 4 : 2, "Lohn trotz Wunde");
       await rt.present({
+        art: "apothecary",
+        portrait: "kern",
         held,
         ending: "Teurer Sieg.",
         log: [gold, ...epilog(held)],
@@ -2065,11 +2312,17 @@ async function szeneEnde(rt: Runtime, held: Held) {
           "Du kommst zurück. Das reicht dem Dorf. Es reicht dir fast.",
           "Witwe Kern verbindet, ohne zu fragen, wer angefangen hat.",
           ...(held.kernGeholfen ? ["Sie erkennt den Verbandstoff. „Dann war die Schublade nicht umsonst.“"] : []),
+          "Sie schneidet den Stoff mit einer Schere, deren Spitzen nicht mehr aufeinanderpassen. Jeder Zug schmerzt anders.",
+          "Draußen tragen zwei Männer die Kirchenkiste zum Rathaus. Sie heben sie zu hoch, als wäre Gewicht etwas, das man vor anderen verbergen kann.",
+          "Holm legt den Lohn auf den Tisch neben dein Blut. Beides wirkt dort kleiner als erwartet.",
+          "Du hast gewonnen. Dein Körper wird eine Weile brauchen, um den Satz zu glauben.",
         ],
         choices: ["Zurück ins Menü"],
       });
     } else {
       await rt.present({
+        art: "apothecary",
+        portrait: "kern",
         held,
         ending: "Überlebt, nicht erledigt.",
         log: epilog(held),
@@ -2078,6 +2331,10 @@ async function szeneEnde(rt: Runtime, held: Held) {
           "Witwe Kern verbindet, ohne zu fragen, wer angefangen hat.",
           ...(held.kernGeholfen ? ["Sie erkennt den Verbandstoff. „Dann war die Schublade nicht umsonst.“"] : []),
           "Die Beute fehlt. Holm zahlt in Blicken, nicht in Münzen.",
+          "Er fragt einmal, wo die Kiste liegt. Du antwortest. Danach fragt er nicht mehr.",
+          "Am Brunnen sagen die Leute, du hättest die Banditen vertrieben. In der Mühle sagt man, sie kämen zurück. Beides kann wahr sein.",
+          "Kern bindet den letzten Knoten fest. „Überleben ist kein Abschluss“, sagt sie. „Nur Arbeit für morgen.“",
+          "In der Nacht träumst du vom Klang einer Kiste, die durch Farn gezogen wird. Als du erwachst, läutet die Glocke am Hang oder der Wind schlägt gegen das Fenster. Du kannst den Unterschied nicht mehr sicher hören.",
         ],
         choices: ["Zurück ins Menü"],
       });
@@ -2090,6 +2347,9 @@ async function szeneEnde(rt: Runtime, held: Held) {
       lines: [
         "Das Lager ist kein Lager mehr. Was genau passiert ist, erzählst du unvollständig.",
         "Lindendorf nimmt, was es bekommen kann: eine ruhigere Woche.",
+        "Holm schreibt deinen Bericht in sein Buch und lässt zwischen zwei Sätzen eine leere Zeile. Vielleicht für das, was du verschwiegen hast.",
+        "Die Mühle läuft wieder. Die Taverne löscht die Lampe eine Stunde später. Am Brunnen hängt jemand einen frischen Eimer an das alte Seil.",
+        "Es ist nicht genug für ein Königreich und nicht genug für ein Lied. Für ein Tal, das bis gestern nur auf den nächsten Verlust wartete, ist es genug.",
       ],
       choices: ["Zurück ins Menü"],
     });
@@ -2098,14 +2358,19 @@ async function szeneEnde(rt: Runtime, held: Held) {
 
 function epilog(held: Held): string[] {
   const bits: string[] = [];
+  if (held.artefaktErhalten) bits.push("Das silberne Artefakt liegt wieder bei der Kirche. Sein Zeichen wirkt im Kerzenlicht tiefer als zuvor.");
+  else if (held.artefaktVerloren) bits.push("Der Fremde vom Weg und das silberne Artefakt bleiben eine offene Spur im Nebel.");
+  if (held.holmBesucht && !held.auftragErhalten) bits.push("Du hast ohne Holms Auftrag gehandelt. Das Dorf wird sich daran anders erinnern als sein Bürgermeister.");
   if (held.banditenGewarnt) bits.push("Die Banditen wussten von dir, bevor du sie sahst.");
   if (held.buergermeisterVertraut) bits.push("Holm schuldet dir etwas, das nicht in der Kasse steht.");
   if (held.kernGeholfen) bits.push("Witwe Kern hat wieder Verbandstoff. Woher, fragt sie nicht.");
   if (held.holmSiegelGefunden) bits.push("Das gebrochene Siegel liegt noch auf Holms Tisch.");
   if (held.schnurGeholfen) bits.push("Am östlichen Zaun hängt kein roter Faden mehr.");
+  if (held.bettlerGeholfen) bits.push("Über der Esse des Schmieds hängt ein durchbohrter Groschen.");
   if (held.sannaGeholfen) bits.push("Sanna trägt wieder einen Brief. Diesmal hält sie ihn fest.");
   if (held.salzGerettet) bits.push("Jorren zählt das Salz nach, obwohl er weiß, dass es nicht mehr wird.");
   if (held.glockeGestoppt) bits.push("Die Kapelle schweigt über dem Weg.");
+  else if (held.glockeGescheitert) bits.push("Die Glocke am Hang hat gesprochen. Niemand weiß sicher, wer alles geantwortet hat.");
   if (held.verwundet) bits.push("Die Wunde bleibt eine Weile. Narben sind in Lindendorf eine Art Ausweis.");
   if (hat(held, SCHLUESSEL)) bits.push("Der Schlüssel zum Seitentor ist noch da. Türen bleiben eine Versuchung.");
   if (!bits.length) bits.push("Du gehst leichter, als du gekommen bist. Das ist selten.");
