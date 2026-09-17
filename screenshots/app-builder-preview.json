@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "How to be a Hero",
+      "hasCanvas": false,
+      "bodyTextLen": 237,
+      "bodyTextHash": "1c90306e3edeedfff68ae8c7e9705028a71d3f80f013071fd65fd8c2c06158ad",
+      "bodyTextPrefix": "HOW TO BE A HERO Lindendorf Ein kurzes Textabenteuer mit Würfelp",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "How to be a Hero",
+      "hasCanvas": false,
+      "bodyTextLen": 237,
+      "bodyTextHash": "1c90306e3edeedfff68ae8c7e9705028a71d3f80f013071fd65fd8c2c06158ad",
+      "bodyTextPrefix": "HOW TO BE A HERO Lindendorf Ein kurzes Textabenteuer mit Würfelp",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
