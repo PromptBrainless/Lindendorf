@@ -24,9 +24,9 @@ export async function dorfTruebesWasser(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Der Wassereimer am Dorfbrunnen steht halb voll. Niemand hat ihn heute Morgen geleert.",
-        "Ein Kind hustet vor der Apotheke. Die Mutter hält es fester, als das Husten es verlangt.",
-        "Am Brunnenrand steht Ratsherr Dennek und rührt mit einem Stock im Eimer, als könnte er das Wasser so klären.",
+        "Der Wassereimer am Dorfbrunnen steht halb voll, so wie ihn die Nacht zurückgelassen hat, denn niemand hat sich heute Morgen die Mühe gemacht, ihn zu leeren und neu zu füllen, wie es sonst die erste Pflicht des Tages ist, noch vor dem Brot, noch vor dem Vieh. Das Wasser darin hat die falsche Farbe angenommen, ein trübes Graubraun, das eher an aufgewühlten Teichgrund erinnert als an das, was aus der Tiefe der Erde kommen sollte, klar und kalt und ohne Geschichte.",
+        "Vor der Apotheke hustet ein Kind, ein trockenes, hartes Husten, das sich anhört, als sitze ihm etwas Falsches in der Brust fest. Die Mutter hält es fester an sich, fester, als das bloße Husten es eigentlich verlangte, mit jener Art von Griff, die weniger dem Kind gilt als der eigenen Angst, die man damit niederhalten will.",
+        "Am Brunnenrand steht Ratsherr Dennek und rührt mit einem Stock im Eimer, langsam, im Kreis, immer wieder, als könnte man ein vergiftetes Wasser durch bloßes Rühren wieder klären, so wie man einen Brei glattstreicht, dem nichts mehr fehlt als ein wenig Geduld. Er sieht dabei nicht auf, weder zum Kind noch zur Mutter noch zu irgendwem, der vorbeigeht — als hoffe er, dass die Bewegung seiner Hand genüge, um auch die Fragen im Kreis zu halten, die man ihm sonst stellen würde.",
       ],
     });
   }
@@ -50,10 +50,10 @@ export async function dorfTruebesWasser(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Das Wasser im Eimer ist trüb bis auf den Grund. Es schmeckt nach Eisen, sobald der Wind vom Wald herüberzieht.",
+        "Das Wasser im Eimer bleibt trüb bis auf den Grund, gleich wie oft man danach sieht, und es schmeckt nach Eisen, sobald der Wind vom Wald herüberzieht, als trüge er selbst einen Rest der Wahrheit mit sich, die man ihm sonst nirgendwo abringen kann.",
         held.truebungBestaetigt
-          ? "Kern hat die Kranken genannt. Dennek steht immer noch am Rand, als gehöre der Brunnen ihm."
-          : "Kerns Tür steht einen Spalt offen. Dennek trommelt mit den Fingern auf die Brunnenmauer.",
+          ? "Kern hat inzwischen die Kranken benannt, einen nach dem anderen, mit der Genauigkeit einer Frau, die genau weiß, wie viele Betten in ihrem Dorf zu eng geworden sind. Dennek steht noch immer am Rand, unverändert, als gehöre ihm der Brunnen selbst, als sei die Sorge um sein Wasser eine private Angelegenheit und keine, die das ganze Dorf teilt."
+          : "Kerns Tür steht einen Spalt offen, als warte sie auf jemanden, der endlich hineingeht, statt nur vorbeizulaufen. Dennek trommelt derweil mit den Fingern auf die Brunnenmauer, ein unruhiges, kleines Geräusch, das nicht zum Rühren im Eimer passen will — die Hände eines Mannes, der etwas weiß, das seine Zunge noch nicht hergeben will.",
         ...echoMuehleAmBrunnen(held),
         ...echoGasseAmBrunnen(held),
       ],
@@ -76,8 +76,7 @@ async function brunnenNachspiel(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Das Wasser ist klarer. Es reicht trotzdem nicht für alle.",
-        "Ein zweiter Eimer bleibt ungefüllt. Niemand fragt, wohin der Rest läuft.",
+        "Das Wasser ist klarer, gewiss, doch nie wirklich genug, um für alle zu reichen. Ein zweiter Eimer bleibt ungefüllt. Niemand fragt, wohin der Rest läuft.",
         ...echoMuehleAmBrunnen(held),
         ...echoGasseAmBrunnen(held),
       ],
@@ -90,9 +89,9 @@ async function brunnenNachspiel(rt: Runtime, held: Held) {
     portrait: null,
     held,
     lines: [
-      "Der Eimer ist wieder klar bis auf den Grund.",
+      "Der Eimer ist wieder klar bis auf den Grund, wie man es sich schon lange nicht mehr zu hoffen getraut hatte.",
       held.dennekEntlarvt
-        ? "Dennek meidet den Brunnenrand. Die Finger haben nichts mehr, worauf sie trommeln könnten."
+        ? "Niemand im Dorf fragt laut nach dem Warum — nur Dennek selbst meidet den Brunnenrand. Die Finger haben nichts mehr, worauf sie trommeln könnten."
         : "Dennek steht noch da. Er rührt nicht mehr im Wasser. Er sieht auch nicht zu dir.",
       ...echoMuehleAmBrunnen(held),
       ...echoGasseAmBrunnen(held),
@@ -110,12 +109,12 @@ export async function kernWasser(rt: Runtime, held: Held) {
       lines:
         held.loesungswegBrunnen === "bestochen"
           ? [
-              "Kern wiegt dieselbe Mischung ab, nur seltener.",
-              "„Es reicht länger. Es reicht nicht.“ Sie sieht dich an, als wüsste sie, dass du mehr weißt als das Dorf.",
+              "Kern wiegt weiterhin dieselbe Mischung ab, nur seltener nun, mit den Pausen einer Frau, die spürt, dass sich etwas geändert hat, ohne den Grund dafür zu kennen.",
+              "„Es reicht länger“, sagt sie. „Es reicht nicht.“ Sie sieht dich dabei an, auf eine Weise, die zu verstehen gibt, dass sie ahnt, du wüsstest mehr, als das Dorf je erfahren wird.",
             ]
           : [
-              "Kern braut zum ersten Mal seit Tagen wieder etwas anderes als Fiebermittel.",
-              "Sie fragt nicht, warum das Wasser klar ist. Sie füllt die Flaschen, solange niemand hustet.",
+              "Kern braut zum ersten Mal seit vielen Tagen wieder etwas anderes als bloßes Fiebermittel — eine Mischung gegen Kopfschmerzen vielleicht, oder ein Balsam für aufgeschürfte Haut, kleine, fast vergessene Sorgen, die endlich wieder Raum haben.",
+              "Sie fragt nicht, warum das Wasser plötzlich klar ist. Sie füllt einfach ihre Flaschen, solange niemand hustet, mit der stillen Dankbarkeit derer, die gelernt haben, gute Zeiten nicht durch Fragen zu gefährden.",
             ],
     });
     return;
@@ -130,16 +129,16 @@ export async function kernWasser(rt: Runtime, held: Held) {
     held,
     lines: erst
       ? [
-          "Kern hat die Ärmel hochgekrempelt. Auf der Waage liegt dieselbe Kräutermischung, die nie reicht.",
-          "„Bauchschmerzen. Fieber. Ein metallischer Geschmack. Die Kinder zuerst, dann die Alten.“",
-          "Lohn bietet sie dir nicht an. „Etwas Fremdes ist im Wasser. Nicht Krankheit allein. Jemand hat den Brunnen angefasst.“",
-          "Unter den Krankenzetteln an der Wand sind zwei ganz frisch. Beide nennen Häuser, die nah am Brunnen stehen.",
+          "Kern hat die Ärmel hochgekrempelt, wie eine Frau, die sich auf eine lange Arbeit einstellt. Auf der Waage vor ihr liegt dieselbe Kräutermischung, die sie schon seit Tagen abwiegt und die trotzdem nie zu reichen scheint, gleich wie oft sie die Schale neu füllt.",
+          "„Bauchschmerzen. Fieber. Ein metallischer Geschmack im Mund, den man nicht wegspülen kann.“ Sie zählt die Symptome auf, als lese sie eine Liste, die sie längst auswendig kennt. „Die Kinder zuerst, dann die Alten. So ist es immer, wenn etwas von unten kommt und nicht von oben.“",
+          "Lohn bietet sie dir nicht an, kein Wort davon, keine Geste in Richtung ihrer Geldkiste — als sei ihr die Frage danach selbst schon fremd geworden, angesichts dessen, was vor ihrer Tür wartet. „Etwas Fremdes ist im Wasser“, sagt sie stattdessen, mit der Bestimmtheit einer Frau, die sich nicht zum ersten Mal irrt, wenn sie ihrem eigenen Urteil vertraut. „Nicht Krankheit allein. Jemand hat den Brunnen angefasst.“",
+          "Unter den Krankenzetteln, die an ihrer Wand hängen, in unordentlichen Reihen, festgesteckt mit Nadeln, die man auch für etwas anderes brauchen könnte, sind zwei ganz frisch, die Tinte kaum trocken. Beide nennen Häuser, die nah am Brunnen liegen — zu nah, um Zufall zu sein.",
         ]
       : [
-          "Kern wiegt die Mischung neu. Die Schale senkt sich nicht weit genug.",
+          "Kern wiegt die Mischung von Neuem ab, doch die Schale senkt sich nicht weit genug, gleich wie viel sie hineinschüttet, als widersetze sich das Kraut ihrer Absicht.",
           held.grovinGenannt
-            ? "„Grovin hat den Brunnen gebaut. Wenn jemand weiß, wo das Wasser verschwindet, dann er.“"
-            : "„Dennek steht am Rand und rührt, als könnte ein Stock eine Schuld klären.“",
+            ? "„Grovin hat den Brunnen gebaut“, sagt sie, ohne von der Waage aufzusehen. „Wenn irgendjemand weiß, wohin das Wasser verschwindet, dann er, und niemand sonst.“"
+            : "„Dennek steht am Rand und rührt“, sagt sie stattdessen, mit einer Bitterkeit, die sie nicht zu verbergen versucht, „als könnte ein Stock eine Schuld klären, die tiefer sitzt als der Eimer.“",
         ],
   });
 }
@@ -152,22 +151,25 @@ async function dennekGespraech(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Dennek trommelt nicht mehr. Die Finger liegen flach auf dem Stein, als müssten sie sich festhalten.",
-        "„Grovin“, sagt er, als koste ihn der Name nichts mehr. „Zisterne am Waldrand. Ich habe nicht bezahlt. Das Wasser hat es getan.“",
+        "Dennek trommelt nicht mehr. Die Finger liegen jetzt flach auf dem kalten Stein der Brunnenmauer, ausgebreitet, fast als müssten sie sich dort festhalten, um nicht ins Wanken zu geraten.",
+        "„Grovin“, sagt er, und der Name kostet ihn nun nichts mehr, keine Anstrengung, kein Zögern — als hätte das Aussprechen der Wahrheit einer Last gleichgekommen, die er endlich abgesetzt hat. „Zisterne am Waldrand. Ich habe nicht bezahlt, das ist wahr, und ich werde es auch nicht schönreden. Das Wasser hat den Rest erledigt, an meiner statt.“",
       ],
     });
     return;
   }
 
   const lines = [
-    "Dennek rührt im Eimer. Das Wasser wird dadurch nicht klarer.",
-    "„Trockenes Jahr“, sagt er. „Der Brunnen gibt, was er kann. Mehr wäre Klage.“",
+    "Dennek rührt weiter im Eimer, mechanisch, ohne Überzeugung, und das Wasser wird dadurch um keinen Deut klarer, was ihm selbst nicht zu entgehen scheint, auch wenn er die Bewegung nicht einstellt. „Trockenes Jahr“, sagt er, mit der glatten Sicherheit eines Mannes, der diesen Satz schon oft geübt hat. „Der Brunnen gibt, was er kann. Mehr zu verlangen wäre schon Klage, und wofür sollte man klagen, wenn die Erde selbst knapp ist?“",
   ];
   if (held.truebungBestaetigt) {
-    lines.push("Du hast Kerns Krankenliste. Dennek sieht auf deine Schuhe, nicht auf den Eimer.");
+    lines.push(
+      "Du trägst die Liste bei dir, die Namen der Kranken, fein säuberlich notiert — und Dennek sieht auf deine Schuhe, nicht auf den Eimer, nicht auf dich, als läge in deinen Stiefeln mehr Wahrheit, als er zu ertragen bereit ist, aus deinem Gesicht zu lesen.",
+    );
   }
   if (held.buergermeisterVertraut) {
-    lines.push("Er kennt Holms Vorschuss. Das macht ihn höflicher, nicht ehrlicher.");
+    lines.push(
+      "Er kennt Holms Vorschuss, jenes stille Zeichen, dass man mit einigem Gewicht im Rücken hier steht — und das macht ihn höflicher im Ton, gewiss, aber keineswegs ehrlicher in der Sache. Höflichkeit und Wahrheit, das lernt man an diesem Brunnenrand, sind zwei getrennte Münzen.",
+    );
   }
   lines.push(...echoDruckDennek(held));
 
@@ -216,9 +218,9 @@ async function dennekProbe(rt: Runtime, held: Held, ergebnis: ReturnType<typeof 
       held,
       probe: ergebnis,
       lines: [
-        "Dennek trommelt einmal zu oft. Dann bleiben die Finger still.",
-        "„Grovin hat den Brunnen gebaut. Wir haben ihn nicht bezahlt. Seither ist er weg, und das Wasser geht mit ihm.“",
-        "Er lässt den Stock in den Eimer fallen. Dann sieht er weg, als gehöre der Brunnenrand nicht mehr zum Rat.",
+        "Dennek trommelt einmal zu oft mit den Fingern, ein letztes, nervöses Klopfen — und dann, mit einem Mal, bleiben die Finger vollkommen still, als hätten sie endlich begriffen, dass kein Rhythmus der Welt diese Wahrheit noch länger übertönen kann.",
+        "„Grovin hat den Brunnen gebaut“, sagt er schließlich, mit einer Stimme, der jede Farbe entwichen ist. „Wir haben ihn nicht bezahlt, damals, vor Jahren, als das Geld für Wichtigeres gebraucht wurde, oder so hat man es sich eingeredet. Seither ist er verschwunden — und das Wasser geht mit ihm, dorthin, wo er es jetzt braucht.“",
+        "Er lässt den Stock, mit dem er all die Zeit gerührt hat, in den Eimer fallen, ein kleines, endgültiges Geräusch. Dann wendet er den Blick ab, als gehöre der Brunnenrand, an dem er so lange Wache gehalten hat, nun plötzlich nicht mehr zu seinem Amt, sondern zu einer Schuld, die er lieber jemand anderem überließe.",
       ],
     });
     return;
@@ -228,9 +230,9 @@ async function dennekProbe(rt: Runtime, held: Held, ergebnis: ReturnType<typeof 
     held,
     probe: ergebnis,
     lines: [
-      "Dennek bleibt stur. „Trockenes Jahr. Mehr steht nicht im Buch.“",
-      "Beim dritten Satz rutscht ihm ein Name: Grovin. Er schluckt ihn nicht mehr ganz hinunter.",
-      "Die Finger trommeln weiter. Lügen haben hier einen Takt.",
+      "Dennek bleibt stur, unbeirrbar in seiner Ausflucht. „Trockenes Jahr“, wiederholt er, als reiche die bloße Wiederholung, um eine Behauptung wahrer zu machen. „Mehr steht nicht im Buch, und mehr wirst du von mir nicht hören.“",
+      "Doch beim dritten Satz, mitten im Fluss seiner eigenen Rede, rutscht ihm ein Name heraus — Grovin — kaum lauter als ein Atemzug, aber deutlich genug, dass man ihn nicht überhören kann. Er schluckt ihn nicht mehr ganz hinunter, dieses eine Mal, so sehr er es auch versucht.",
+      "Die Finger trommeln unterdessen weiter, unverändert, im selben nervösen Takt wie zuvor. Lügen, so scheint es, haben hier ihren eigenen Rhythmus, einen, den man mit der Zeit lernt zu erkennen, auch ohne die Worte selbst zu verstehen.",
     ],
   });
 }
@@ -243,8 +245,8 @@ async function brunnenUntersuchen(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Der frische Mörtel ist noch weich in der Fuge.",
-        "Der schmale Ablaufgraben führt aus dem Dorf, gerade genug, dass man ihn für Regen halten kann.",
+        "Frischer Mörtel klebt an einer Steinfuge, nicht älter als ein paar Nächte, glatt und hell im Gegensatz zum verwitterten Stein ringsum. Dahinter, kaum zu erkennen, ein schmaler Ablaufgraben, der aus dem Dorf hinausführt, Richtung Wald, unauffällig genug, um von jedem, der nicht genau hinsieht, für ein Werk des Regens gehalten zu werden.",
+        "Denneks Stock, das fällt einem jetzt erst auf, hat beim Rühren stets genau diese Stelle gemieden, jedes Mal, als kenne die Hand, die ihn führt, die Wahrheit besser als der Mund, der sie leugnet.",
       ],
     });
     return;
@@ -259,9 +261,8 @@ async function brunnenUntersuchen(rt: Runtime, held: Held) {
       held,
       probe: ergebnis,
       lines: [
-        "Frischer Mörtel an einer Steinfuge. Nicht älter als ein paar Nächte.",
-        "Dahinter ein schmaler Ablaufgraben, kaum sichtbar, Richtung Wald.",
-        "Denneks Stock hat genau diese Stelle gemieden.",
+        "Frischer Mörtel klebt an einer Steinfuge, nicht älter als ein paar Nächte, glatt und hell im Gegensatz zum verwitterten Stein ringsum. Dahinter, kaum zu erkennen, ein schmaler Ablaufgraben, der aus dem Dorf hinausführt, Richtung Wald, unauffällig genug, um von jedem, der nicht genau hinsieht, für ein Werk des Regens gehalten zu werden.",
+        "Denneks Stock, das fällt einem jetzt erst auf, hat beim Rühren stets genau diese Stelle gemieden, jedes Mal, als kenne die Hand, die ihn führt, die Wahrheit besser als der Mund, der sie leugnet.",
       ],
     });
     return;
@@ -273,8 +274,8 @@ async function brunnenUntersuchen(rt: Runtime, held: Held) {
     held,
     probe: ergebnis,
     lines: [
-      "Der Stein ist nass. Der Eimer ist trüb. Mehr gibt der Rand nicht her.",
-      "Wer den Graben will, muss ihn später suchen, im Unterholz, ohne die Fuge als Zeugin.",
+      "Der Stein am Rand ist nass, feucht wie nach einem Regen, der nicht gefallen ist, und der Eimer bleibt trüb, gleich wie tief man hineinsieht. Mehr als das gibt der Brunnenrand nicht her, jedenfalls nicht auf den ersten Blick.",
+      "Wer den Graben dennoch finden will, muss ihn später im Unterholz suchen, ohne die verräterische Fuge als Zeugin, allein auf sein Gespür angewiesen.",
     ],
   });
 }
@@ -288,8 +289,8 @@ async function ablaufgraben(rt: Runtime, held: Held) {
         held,
         probe: suche,
         lines: [
-          "Dornen. Nasses Laub. Drei Gräben, die alle nach Regen aussehen.",
-          "Ohne die Fuge am Brunnen bleibt der Weg eine Behauptung.",
+          "Dornen ranken sich über feuchtes, welkes Laub, und im Unterholz zeigen sich gleich drei kleine Gräben, die alle gleichermaßen nach bloßem Regenwasser aussehen, keiner ausgezeichnet vor den anderen.",
+          "Ohne die Fuge am Brunnen als Beweis bleibt jeder Weg nur eine Vermutung, eine Behauptung ohne Boden.",
         ],
       });
       return;
@@ -299,8 +300,8 @@ async function ablaufgraben(rt: Runtime, held: Held) {
       held,
       probe: suche,
       lines: [
-        "Du findest den Graben dort, wo das Gras kürzer ist, als der Regen es erklärt.",
-        "Er läuft gerade, zu gerade für Wildwasser.",
+        "Man findet den richtigen Graben dort, wo das Gras merklich kürzer steht, als es der Regen allein erklären könnte — ein stiller Verrat der Natur an dem, der sie zu lesen weiß.",
+        "Der Graben verläuft gerade, zu gerade, um das Werk von Wildwasser zu sein, das sich für gewöhnlich seinen eigenen, launischen Weg sucht.",
       ],
     });
   }
@@ -311,8 +312,8 @@ async function ablaufgraben(rt: Runtime, held: Held) {
     portrait: null,
     held,
     lines: [
-      "Der Graben endet an einer halb überwucherten Zisterne. Das Mauerwerk ist alt. Die Fugen sind sauber.",
-      "Jemand hält sie instand, während das Dorf hustet.",
+      "Der Graben endet an einer halb überwucherten Zisterne, deren Mauerwerk zwar alt ist, dessen Fugen jedoch, seltsam genug, sauber und gepflegt wirken.",
+      "Jemand, das wird schnell klar, hält dieses Bauwerk sorgfältig instand, während im Dorf dahinter die Kinder husten.",
     ],
   });
 
@@ -323,9 +324,7 @@ async function ablaufgraben(rt: Runtime, held: Held) {
     portrait: null,
     held,
     lines: [
-      "Gestrüpp steht dornig vor dem Becken, höher als ein Mann, der sich bücken muss.",
-      "Dahinter bewegt sich eine flache Hand über Wasser, das klarer ist als alles im Dorf.",
-      "Der Wind trägt keinen Husten hierher. Nur nasses Holz und den Geruch von sauberem Stein.",
+      "Dorniges Gestrüpp steht dicht vor dem steinernen Becken, ein natürlicher Wall. Dahinter, kaum sichtbar durch die Zweige, bewegt sich eine flache Hand über Wasser, das reiner und klarer ist als alles, was man seit Tagen im Dorf gesehen hat.",
     ],
     choices: [
       "Sich durch das Gestrüpp zwängen (Stärke, leicht)",
@@ -347,8 +346,8 @@ async function ablaufgraben(rt: Runtime, held: Held) {
         probe: ergebnis,
         log: [wunde],
         lines: [
-          "Die Dornen nehmen Stoff und Haut. Alarm geben sie nicht.",
-          "Du kommst durch, zerrissen, aber unangekündigt genug.",
+          "Die Dornen nehmen sich, was ihnen zusteht — Stoff zunächst, dann Haut darunter, kleine, brennende Schnitte. Alarm jedoch geben sie keinen.",
+          "Man kommt hindurch, zerrissen und leicht blutend, aber immerhin unangekündigt genug, dass niemand drüben am Becken aufschaut.",
         ],
       });
     } else {
@@ -356,9 +355,7 @@ async function ablaufgraben(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         lines: [
-          "Das Gestrüpp gibt nach, wo jemand schon öfter durchgegangen ist.",
-          "Die Zweige sind an einer Stelle glatt, als hätte eine Schulter sie jahrelang zur Seite gedrückt.",
-          "Am Beckenrand bleibt die Hand liegen. Grovin hat dich noch nicht gehoben.",
+          "Das Gestrüpp gibt bereitwillig nach, an einer Stelle, wo offenbar schon öfter jemand hindurchgegangen ist — ein schmaler, kaum sichtbarer Pfad im Dornengewirr, den nur ein geübtes Auge als solchen erkennt.",
         ],
       });
     }
@@ -370,8 +367,8 @@ async function ablaufgraben(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         lines: [
-          "Ein Ast knackt. Die flache Hand bleibt auf dem Wasser liegen, dann nicht mehr.",
-          "Grovin steht auf. In der anderen Hand eine Grabegabel, deren Zinken blanker sind als das Werkzeug eines Mannes, der nur Wasser misst.",
+          "Ein trockener Ast bricht unter dem eigenen Fuß, viel zu laut in der Stille. Die flache Hand auf dem Wasser hält einen Moment lang inne — und bewegt sich dann nicht mehr.",
+          "Grovin richtet sich auf. In seiner anderen Hand liegt eine Grabegabel, deren Zinken bedenklich blanker poliert sind, als es das bloße Werkzeug eines Mannes rechtfertigen würde, der für gewöhnlich nur den Wasserstand misst.",
         ],
       });
     } else {
@@ -380,9 +377,7 @@ async function ablaufgraben(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         lines: [
-          "Du kommst seitlich an das Becken. Kein Ast. Kein Stein.",
-          "Grovin prüft den Stand noch mit der flachen Hand, als gehöre ihm die Ruhe und das Maß.",
-          "Das Wasser unter seinen Fingern ist klar bis auf den Grund. Im Dorf hustet jemand, den er nicht hören will.",
+          "Man gelangt seitlich an das Becken heran, ungesehen. Grovin prüft derweil weiterhin, unwissend, den Wasserstand mit der flachen Hand, in aller Ruhe, als gehöre ihm diese Stille ganz allein und niemand könnte sie ihm streitig machen.",
         ],
       });
     }
@@ -397,14 +392,16 @@ async function ablaufgraben(rt: Runtime, held: Held) {
 
 async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
   const lines = [
-    "Das Wasser in der Zisterne ist klar bis auf den Grund. Grovin sieht zuerst darauf, dann auf dich.",
-    "„Ich habe dem Dorf diesen Brunnen gebaut, und es hat mich nicht bezahlt. Also nimmt das Wasser, was mir zusteht.“",
+    "Das Wasser in der Zisterne ist klar bis auf den steinigen Grund, klarer als alles, was der Brunnen im Dorf seit Tagen zu bieten hat. Grovin blickt zuerst hinunter darauf, dann erst zu dir hinüber, mit der abschätzenden Ruhe eines Mannes, der lange genug allein gelebt hat, um sich von einem unerwarteten Besuch nicht sonderlich aus der Fassung bringen zu lassen.",
+    "„Ich habe dem Dorf diesen Brunnen gebaut“, sagt er, „und es hat mich dafür nicht bezahlt. Also nimmt sich das Wasser, was mir zusteht, und ich helfe ihm dabei nach.“",
   ];
   if (bewaffnet) {
-    lines.push("Die Grabegabel bleibt zwischen euch. Ihre Zinken tropfen. Nicht von Regen.");
+    lines.push("Die Grabegabel bleibt zwischen euch stehen, eine stumme Grenze. Ihre Zinken tropfen — nicht von Regen.");
   }
   if (held.dennekEntlarvt) {
-    lines.push("„Dennek trommelt, wenn er lügt. Ich habe das früher gehört als du.“");
+    lines.push(
+      "„Dennek trommelt, wenn er lügt“, fügt Grovin trocken hinzu, fast amüsiert. „Ich habe das schon gehört, lange bevor du geboren wurdest, und ich habe es nie vergessen.“",
+    );
   }
   lines.push(...echoGrovinKenntMuehle(held));
 
@@ -434,9 +431,9 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       await rt.present({
         held,
         lines: [
-          "Grovin legt die Hand wieder aufs Wasser, als könnte er daran messen, ob du zuhörst.",
-          "„Drei Jahre Arbeit. Kein Lohn. Dennek hat gesagt, das Amt zahle später. Später ist ein Grab ohne Stein.“",
-          "Er will nicht das Dorf vergiften. Er will, dass jemand endlich die Rechnung liest.",
+          "Grovin legt die Hand erneut aufs Wasser, wie um daran zu prüfen, ob man ihm wirklich zuhört, oder nur eine weitere Frage stellt, auf die man die Antwort längst zu kennen glaubt.",
+          "„Drei Jahre Arbeit“, sagt er. „Kein Lohn dafür. Dennek hat gesagt, das Amt zahle später. Später —“ er lässt das Wort einen Moment in der Luft hängen, „— später ist ein Grab ohne Stein, ohne Namen darauf, den sich zu merken lohnte.“",
+          "Er will das Dorf nicht vergiften, das macht er deutlich, mit einer Bestimmtheit, die keinen Widerspruch duldet. Er will nur, dass irgendjemand, endlich, diese eine Rechnung liest, die man ihm all die Jahre verweigert hat.",
         ],
       });
     }
@@ -473,8 +470,7 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
     portrait: null,
     held,
     lines: [
-      "Die Sperre sitzt im Gerinne, unscheinbar wie ein Brett, das jemand zum Trocknen hingelegt hat.",
-      "Grovin sieht nicht weg. Was tust du?",
+      "Die Sperre sitzt im Gerinne, unscheinbar wie ein Brett, das jemand zum Trocknen hingelegt hat. Grovin sieht nicht weg.",
     ],
     choices: items.map((item) => item.label),
   });
@@ -486,8 +482,8 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       await rt.present({
         held,
         lines: [
-          "Grovin sieht in deinen Beutel, ohne ihn zu berühren.",
-          "„Später ist schon einmal gekommen. Es war leer. Komm nicht mit einer Hand, die weniger wiegt als die Rechnung.“",
+          "Grovin blickt in den angebotenen Beutel, ohne ihn auch nur zu berühren, mit der abschätzigen Genauigkeit eines Mannes, der solche Beutel schon zu oft gewogen hat.",
+          "„Später ist schon einmal gekommen“, sagt er nur. „Es war leer.“",
         ],
       });
       return;
@@ -498,8 +494,8 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       held,
       log: ["→ 5 Gold. Grovin behält seine Zisterne."],
       lines: [
-        "Grovin nimmt das Gold, ohne zu zählen. Er kennt den Betrag, den man zahlt, damit niemand fragt.",
-        "Ein Teil des Wassers läuft zurück. Ein Teil bleibt hier. Das Dorf wird seltener husten und nie wirklich satt trinken.",
+        "Grovin nimmt das Gold entgegen, ohne es nachzuzählen — er kennt den Betrag genau, den man zahlt, damit niemand mehr fragt, auf den Cent genau, als hätte er ihn selbst schon oft genug festgelegt.",
+        "Ein Teil des Wassers läuft daraufhin zurück ins Dorf, ein anderer Teil bleibt hier, bei ihm. Das Dorf wird seltener husten müssen von nun an — doch satt trinken wird es sich nie wieder wirklich können.",
       ],
     });
     await brunnenEnde(rt, held);
@@ -515,9 +511,9 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
         held,
         probe: ergebnis,
         lines: [
-          "Grovin hört das Wort Amt, ohne wegzusehen.",
-          "„Wenn Holm zahlt, öffne ich selbst. Wenn er nicht zahlt, kommt das Wasser nicht zurück. Das ist kein Drohen. Das ist die alte Rechnung.“",
-          "Er legt die Sperre um. Das klare Wasser läuft den Graben zurück, als hätte es den Weg nie vergessen.",
+          "Grovin hört das Wort „Amt“, ohne dabei den Blick abzuwenden, wie er es sonst bei leeren Versprechungen zu tun pflegt.",
+          "„Wenn Holm zahlt, öffne ich selbst“, sagt er. „Zahlt er nicht, kommt das Wasser nicht zurück. Das ist kein Drohen, das ich hier ausspreche. Das ist die alte Rechnung, die endlich beglichen werden will.“",
+          "Er legt die Sperre eigenhändig um. Das klare Wasser läuft den Graben zurück, dem Dorf entgegen, als hätte es den alten Weg nie wirklich vergessen, nur lange genug darauf gewartet, ihn wieder gehen zu dürfen.",
         ],
       });
       await brunnenEnde(rt, held);
@@ -527,8 +523,8 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       held,
       probe: ergebnis,
       lines: [
-        "Grovin schüttelt den Kopf. Die Hand bleibt auf dem Wasser, als wöge sie dein Wort mit.",
-        "„Versprechen habe ich schon. Sie wiegen weniger als diese Hand auf dem Wasser. Holm zahlt, oder das Wasser bleibt.“",
+        "Grovin schüttelt nur den Kopf, ohne Zorn, fast mit einer Art müder Belustigung.",
+        "„Versprechen habe ich schon einige gehört“, sagt er. „Sie wiegen allesamt weniger als diese Hand hier auf dem Wasser.“",
       ],
     });
     return;
@@ -543,8 +539,8 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
         held,
         probe: ergebnis,
         lines: [
-          "Die Sperre geht leise. Grovin merkt es erst, als der Stand unter seiner Hand sinkt.",
-          "Er flucht ohne Stimme. Das Dorf wird nie erfahren, warum der Eimer morgen klar ist.",
+          "Die Sperre gibt leise nach, kaum ein Geräusch. Grovin bemerkt es erst, als der Wasserstand unter seiner eigenen Hand merklich sinkt.",
+          "Er flucht, lautlos, ohne Stimme. Das Dorf wird nie erfahren, warum der Eimer am nächsten Morgen wieder klar ist bis auf den Grund.",
         ],
       });
       await brunnenEnde(rt, held);
@@ -559,10 +555,13 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       log: [wunde],
       lines: tot(held)
         ? [
-            "Die Zisterne bleibt klar und still.",
-            "Das Dorf wartet weiter auf einen Boten, der nicht zurückkommt.",
+            "Grovin ist schneller am Hebel, als man es ihm zugetraut hätte. Die Grabegabel findet zuerst Stoff, dann darunter Haut.",
+            "Die Zisterne bleibt klar und still, unbewegt von allem, was gerade geschehen ist. Das Dorf wartet derweil weiter auf einen Boten, der nicht mehr zurückkehren wird.",
           ]
-        : ["Grovin ist schneller am Hebel als du. Die Gabel findet Stoff, dann Haut."],
+        : [
+            "Grovin ist schneller am Hebel, als man es ihm zugetraut hätte. Die Grabegabel findet zuerst Stoff, dann darunter Haut.",
+            "Man trägt eine Wunde davon, schmerzhaft, aber nicht tödlich.",
+          ],
     });
     if (tot(held)) return;
     await vielleichtHeiltrank(rt, held);
@@ -578,8 +577,8 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       held,
       probe: ergebnis,
       lines: [
-        "Das Holz der Sperre bricht. Wasser schießt den Graben zurück, braun vor aufgewühltem Grund, dann klarer.",
-        "Grovin flieht, bevor du die Gabel ganz siehst. Der Waldrand nimmt ihn, ohne zu fragen.",
+        "Das alte Holz der Sperre bricht mit einem trockenen Knacken. Wasser schießt sogleich den Graben zurück, zunächst braun vor aufgewühltem Grund, dann, nach und nach, wieder klarer.",
+        "Grovin flieht, noch bevor man die Gabel in seiner Hand ganz zu Gesicht bekommt. Der Waldrand nimmt ihn auf, ohne eine einzige Frage zu stellen.",
       ],
     });
     await brunnenEnde(rt, held);
@@ -594,10 +593,11 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
     log: [wunde],
     lines: tot(held)
       ? [
-          "Du gehst in das klare Wasser und bleibst dort.",
-          "Die Zisterne behält den Stand. Das Dorf behält den Husten.",
+          "Man geht ins klare Wasser hinein und bleibt dort. Die Zisterne behält ihren Stand unverändert bei. Das Dorf behält seinen Husten.",
         ]
-      : ["Die Sperre hält. Grovin auch. Du musst später wiederkommen oder anders fragen."],
+      : [
+          "Man trägt eine Wunde vom Kampf an der Zisterne davon. Die Sperre hält weiterhin, Grovin ebenso. Man wird später wiederkommen müssen, oder es auf eine andere Art versuchen.",
+        ],
   });
   if (tot(held)) return;
   await vielleichtHeiltrank(rt, held);
@@ -611,9 +611,8 @@ async function brunnenEnde(rt: Runtime, held: Held) {
       portrait: "kern",
       held,
       lines: [
-        "Das Wasser wird klarer, aber nie wirklich genug für alle.",
-        "Kern braut weiter dieselbe Mischung, nur seltener.",
-        "Du trägst das Wissen allein.",
+        "Das Wasser wird spürbar klarer, gewiss, doch nie wirklich genug, um für alle zu reichen. Kern braut weiterhin dieselbe Mischung wie zuvor, nur seltener nun.",
+        "Man selbst trägt das Wissen um das, was wirklich geschah, fortan ganz allein, ohne es mit irgendwem teilen zu können.",
       ],
     });
     return;
@@ -626,8 +625,8 @@ async function brunnenEnde(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Das Wasser fließt wieder, aber Grovin ist verschwunden, nicht verschwunden genug.",
-        "Manche Nächte hört man Schritte am Waldrand, die niemand dem Dorf zuordnen will.",
+        "Das Wasser fließt zwar wieder, doch Grovin ist verschwunden, nicht verschwunden genug, um die Sache endgültig zu beenden.",
+        "In manchen Nächten hört man Schritte am Waldrand, die niemand im Dorf laut beim Namen nennen möchte, aus Furcht, damit etwas heraufzubeschwören, das besser dort bliebe, wo es hingehört.",
       ],
     });
     return;
@@ -647,14 +646,13 @@ async function brunnenEnde(rt: Runtime, held: Held) {
     held,
     log: log.length ? log : undefined,
     lines: [
-      "Am nächsten Morgen ist der Eimer am Brunnen wieder klar bis auf den Grund.",
-      "Kern braut zum ersten Mal seit Tagen wieder etwas anderes als Fiebermittel.",
+      "Am nächsten Morgen ist der Eimer am Brunnen wieder klar bis auf den Grund, wie man es sich schon lange nicht mehr zu hoffen getraut hatte. Kern braut zum ersten Mal seit vielen Tagen wieder etwas anderes als bloßes Fiebermittel.",
       held.dennekEntlarvt
-        ? "Niemand im Dorf fragt, warum — nur Dennek meidet für eine Weile den Brunnenrand."
-        : "Niemand im Dorf fragt, warum. Fragen kosten hier Kraft, die man zum Trinken braucht.",
+        ? "Niemand im Dorf fragt laut nach dem Warum — nur Dennek selbst meidet für eine Weile den Brunnenrand, als könne der Stein dort noch von seinen Fingern erzählen, und von dem Stock, den er in den Eimer fallen ließ. Die Kinder trinken, und das reicht dem Platz als Urteil."
+        : "Niemand im Dorf fragt laut nach dem Warum. Fragen kosten hier Kraft, die man zum Trinken braucht, und ein klarer Eimer ist Antwort genug, solange niemand mehr hustet. Wer wissen will, wohin das trübe Wasser gelaufen ist, muss den Wald selbst fragen — und der Wald gibt solche Dinge nicht her.",
       held.grovinVersprechen
-        ? "Holm schuldet Grovin jetzt eine Zahl, die nicht in der Kasse steht. Du hast es versprochen."
-        : "Das Wasser schmeckt nach Stein, nicht nach Metall. Das reicht für ein Tal.",
+        ? "Holm schuldet Grovin jetzt eine Zahl, die nicht in der Kasse steht. Du hast es versprochen, an einer Zisterne, deren Wasser den Graben schon wieder kennt. Zahlt das Amt, bleibt der Brunnen ein Brunnen. Zahlt es nicht, kommt das Wasser nicht als Bitte zurück, sondern als alte Rechnung."
+        : "Das Wasser schmeckt nach Stein, nicht nach Metall. Das reicht für ein Tal, das gelernt hat, gute Morgen nicht durch Fragen zu gefährden.",
     ],
   });
 }
