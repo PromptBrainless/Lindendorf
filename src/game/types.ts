@@ -126,6 +126,8 @@ export type SceneView = {
   title: string;
   art: ArtKey;
   portrait?: PortraitKey;
+  artSrc?: string;
+  portraitSrc?: string;
   lines: string[];
   held?: Held;
   probe?: ProbeResult;
