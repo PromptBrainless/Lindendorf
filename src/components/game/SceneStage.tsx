@@ -5,65 +5,84 @@ import { ART, PORTRAITS } from "@/game/art";
 import type { SceneView } from "@/game/types";
 import { Hud } from "./Hud";
 import { KnowledgeJournal } from "./KnowledgeJournal";
+import { SpielleiterPanel } from "./SpielleiterPanel";
+import type { KartePatch } from "@/game/spielleiter";
 
 export function SceneStage({
   view,
+  original,
   onChoose,
   onSave,
   saveMessage,
   onKnowledge,
   knowledgeOpen,
   debug,
+  leiterOpen,
+  patch,
+  schluessel,
+  onLeiter,
+  onPatch,
+  onResetKarte,
 }: {
   view: SceneView;
+  original: SceneView;
   onChoose: (index: number) => void;
   onSave: () => void;
   saveMessage: string | null;
   onKnowledge: () => void;
   knowledgeOpen: boolean;
   debug: boolean;
+  leiterOpen: boolean;
+  patch: KartePatch;
+  schluessel: string;
+  onLeiter: () => void;
+  onPatch: (next: KartePatch) => void;
+  onResetKarte: () => void;
 }) {
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
+      if (leiterOpen) return;
       const n = Number(event.key);
       if (n >= 1 && n <= view.choices.length) onChoose(n - 1);
       if (event.key === "Enter" && view.choices.length === 1) onChoose(0);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onChoose, view.choices.length]);
+  }, [leiterOpen, onChoose, view.choices.length]);
+
+  const hintergrund = view.artSrc || ART[view.art];
+  const portrait = view.portraitSrc || (view.portrait ? PORTRAITS[view.portrait] : "");
 
   return (
     <div className="relative isolate min-h-dvh overflow-x-hidden overflow-y-auto bg-bg text-fg">
-      <img
-        src={ART[view.art]}
-        alt=""
-        className="absolute inset-0 size-full object-cover"
-      />
+      <img src={hintergrund} alt="" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/55 to-bg/20" />
-      {view.held ? <Hud held={view.held} onSave={onSave} saveMessage={saveMessage} onKnowledge={onKnowledge} /> : null}
+      {view.held ? (
+        <Hud
+          held={view.held}
+          onSave={onSave}
+          saveMessage={saveMessage}
+          onKnowledge={onKnowledge}
+          onLeiter={onLeiter}
+          leiterOpen={leiterOpen}
+        />
+      ) : null}
       {knowledgeOpen && view.held ? <KnowledgeJournal held={view.held} debug={debug} onClose={onKnowledge} /> : null}
 
       <div className="safe-bottom relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col justify-end gap-3 px-3 pb-6 pt-32 sm:gap-4 sm:px-6 sm:pb-8 sm:pt-28">
         <div className="flex items-end gap-4">
-          {view.portrait ? (
+          {portrait ? (
             <img
-              src={PORTRAITS[view.portrait]}
+              src={portrait}
               alt=""
               className="hidden h-36 w-24 shrink-0 rounded-lg border border-border object-cover shadow-sm sm:block sm:h-44 sm:w-28"
             />
           ) : null}
           <div className="min-w-0 flex-1 rounded-xl border border-border bg-ink/82 p-3.5 shadow-lg backdrop-blur-md sm:p-5">
             <div className="mb-3 flex items-start justify-between gap-3">
-              <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
-                {view.title}
-              </h2>
-              {view.portrait ? (
-                <img
-                  src={PORTRAITS[view.portrait]}
-                  alt=""
-                  className="h-14 w-10 rounded-md border border-border object-cover sm:hidden"
-                />
+              <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">{view.title}</h2>
+              {portrait ? (
+                <img src={portrait} alt="" className="h-14 w-10 rounded-md border border-border object-cover sm:hidden" />
               ) : null}
             </div>
 
@@ -74,12 +93,9 @@ export function SceneStage({
                   <p>
                     Probe{view.probe.beschreibung ? ` (${view.probe.beschreibung})` : ""}:{" "}
                     {view.probe.attributName} {view.probe.attributWert} + W10 ({view.probe.wurf}) ={" "}
-                    <span className="tabular-nums">{view.probe.summe}</span> gegen{" "}
-                    {view.probe.schwierigkeit}
+                    <span className="tabular-nums">{view.probe.summe}</span> gegen {view.probe.schwierigkeit}
                   </p>
-                  <p className={view.probe.erfolg ? "text-ok" : "text-hp"}>
-                    {view.probe.erfolg ? "Erfolg." : "Misserfolg."}
-                  </p>
+                  <p className={view.probe.erfolg ? "text-ok" : "text-hp"}>{view.probe.erfolg ? "Erfolg." : "Misserfolg."}</p>
                 </div>
               </div>
             ) : null}
@@ -99,21 +115,14 @@ export function SceneStage({
             ) : null}
 
             {view.ending ? (
-              <p className="mt-4 font-display text-lg italic text-accent sm:text-xl">
-                Ende: {view.ending}
-              </p>
+              <p className="mt-4 font-display text-lg italic text-accent sm:text-xl">Ende: {view.ending}</p>
             ) : null}
           </div>
         </div>
 
         <div className="grid gap-2">
           {view.choices.map((label, index) => (
-            <Button
-              key={`${index}-${label}`}
-              variant="choice"
-              size="choice"
-              onClick={() => onChoose(index)}
-            >
+            <Button key={`${index}-${label}`} variant="choice" size="choice" onClick={() => onChoose(index)}>
               <span className="mr-2 inline-flex size-6 shrink-0 items-center justify-center rounded-xs border border-border text-xs text-muted-fg tabular-nums">
                 {index + 1}
               </span>
@@ -122,6 +131,17 @@ export function SceneStage({
           ))}
         </div>
       </div>
+
+      {leiterOpen ? (
+        <SpielleiterPanel
+          original={original}
+          patch={patch}
+          schluessel={schluessel}
+          onChange={onPatch}
+          onReset={onResetKarte}
+          onClose={onLeiter}
+        />
+      ) : null}
     </div>
   );
 }
