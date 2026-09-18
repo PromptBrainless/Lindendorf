@@ -126,16 +126,20 @@ export function echoHolmVersorgung(held: Held): string[] {
 }
 
 export function echoMaraVersorgung(held: Held): string[] {
+  const bits: string[] = [];
   if (held.loesungswegMuehle && held.loesungswegBrunnen === "bestochen") {
-    return line("Das Brot ist da. Das Wasser in den Bechern reicht nicht für den letzten Tisch.");
+    bits.push("Das Brot ist da. Das Wasser in den Bechern reicht nicht für den letzten Tisch.");
+  } else if (held.loesungswegMuehle && held.loesungswegBrunnen) {
+    bits.push("Brot und Wasser stehen wieder auf der Theke. Mara stellt beides hin, als wäre das Wetter umgeschlagen.");
+  } else if (!held.loesungswegMuehle && held.loesungswegBrunnen) {
+    bits.push("Die Becher sind klarer. Das Brotfach bleibt leer.");
   }
-  if (held.loesungswegMuehle && held.loesungswegBrunnen) {
-    return line("Brot und Wasser stehen wieder auf der Theke. Mara stellt beides hin, als wäre das Wetter umgeschlagen.");
+  if (held.loesungswegGasse === "erpresst") {
+    bits.push("Vahl sitzt allein am hinteren Tisch. Der Becher bleibt voll. Der Ring nicht still.");
+  } else if (held.loesungswegGasse === "weitergegeben") {
+    bits.push("Mara wischt die Stelle neben dem Brotfach. Von der Gasse spricht hier niemand, auch wenn sie leer bleibt.");
   }
-  if (!held.loesungswegMuehle && held.loesungswegBrunnen) {
-    return line("Die Becher sind klarer. Das Brotfach bleibt leer.");
-  }
-  return [];
+  return bits;
 }
 
 export function echoPlatzVersorgung(held: Held): string[] {
