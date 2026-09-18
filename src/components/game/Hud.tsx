@@ -1,4 +1,4 @@
-import { BookOpen, Coins, FlaskConical, Heart, KeyRound, Save } from "lucide-react";
+import { BookOpen, Coins, FlaskConical, Heart, KeyRound, Save, ScrollText } from "lucide-react";
 import { HEILTRANK, MAX_LP, SCHLUESSEL, type Held } from "@/game/types";
 import { Button } from "@/components/ui/button";
 
@@ -16,11 +16,15 @@ export function Hud({
   onSave,
   saveMessage,
   onKnowledge,
+  onLeiter,
+  leiterOpen,
 }: {
   held: Held;
   onSave: () => void;
   saveMessage: string | null;
   onKnowledge: () => void;
+  onLeiter: () => void;
+  leiterOpen: boolean;
 }) {
   const hpPct = Math.max(0, Math.min(100, (held.lp / MAX_LP) * 100));
   const flags: string[] = [];
@@ -33,9 +37,7 @@ export function Hud({
       <div className="mx-auto flex max-w-5xl flex-col gap-2 rounded-lg border border-border bg-ink/82 px-3 py-2.5 text-xs text-fg shadow-lg backdrop-blur-md sm:flex-row sm:items-center sm:gap-4 sm:text-sm">
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-3">
-            <p className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
-              {held.name}
-            </p>
+            <p className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">{held.name}</p>
             <span className="inline-flex items-center gap-1.5 tabular-nums text-muted-fg">
               <Heart className="size-3.5 text-hp" aria-hidden />
               {held.lp}/{MAX_LP}
@@ -69,9 +71,7 @@ export function Hud({
             </span>
           ) : null}
         </div>
-        {flags.length ? (
-          <p className="text-subtle-fg sm:max-w-40 sm:text-right">{flags.join(" · ")}</p>
-        ) : null}
+        {flags.length ? <p className="text-subtle-fg sm:max-w-40 sm:text-right">{flags.join(" · ")}</p> : null}
         <Button
           type="button"
           variant="secondary"
@@ -93,6 +93,17 @@ export function Hud({
         >
           <BookOpen className="size-3.5" aria-hidden />
           <span className="hidden sm:inline">Wissen</span>
+        </Button>
+        <Button
+          type="button"
+          variant={leiterOpen ? "default" : "secondary"}
+          size="default"
+          className="pointer-events-auto h-9 shrink-0 px-2 text-xs sm:px-3"
+          onClick={onLeiter}
+          title="Spielleiter-Modus (Alt+S)"
+        >
+          <ScrollText className="size-3.5" aria-hidden />
+          <span className="hidden sm:inline">Spielleiter</span>
         </Button>
         {saveMessage ? (
           <p className="text-[11px] text-ok sm:max-w-52" aria-live="polite">
