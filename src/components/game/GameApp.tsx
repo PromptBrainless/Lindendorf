@@ -4,6 +4,16 @@ import { spielen } from "@/game/script";
 import { ART, PORTRAITS } from "@/game/art";
 import { cloneHeld, type Held, type SceneView } from "@/game/types";
 import { hasSavedGame, loadGame, saveGame } from "@/game/save";
+import {
+  karteSchluessel,
+  ladeKarten,
+  loescheKarte,
+  setzeSpielleiterAktiv,
+  speichereKarte,
+  spielleiterAktiv,
+  wendePatchAn,
+  type KartePatch,
+} from "@/game/spielleiter";
 import { CreateHero } from "./CreateHero";
 import { RulesScreen } from "./RulesScreen";
 import { SceneStage } from "./SceneStage";
@@ -19,6 +29,9 @@ export function GameApp() {
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
   const [debug] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).has("debug"));
+  const [leiterOpen, setLeiterOpen] = useState(false);
+  const [patch, setPatch] = useState<KartePatch>({});
+  const [schluessel, setSchluessel] = useState("");
   const runtimeRef = useRef<Runtime | null>(null);
 
   const stopPlay = useCallback(() => {
@@ -36,6 +49,27 @@ export function GameApp() {
 
   useEffect(() => () => stopPlay(), [stopPlay]);
 
+  useEffect(() => {
+    if (!view) return;
+    const key = karteSchluessel(view);
+    setSchluessel(key);
+    setPatch(ladeKarten()[key] ?? {});
+  }, [view]);
+
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (!(event.altKey && event.key.toLowerCase() === "s")) return;
+      event.preventDefault();
+      setLeiterOpen((open) => {
+        const next = !open;
+        if (next) setzeSpielleiterAktiv(true);
+        return next;
+      });
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   const startAdventure = useCallback(
     (hero: Held, resume = false) => {
       stopPlay();
@@ -43,6 +77,7 @@ export function GameApp() {
       setHeld(live);
       setSaveMessage(null);
       setKnowledgeOpen(false);
+      setLeiterOpen(spielleiterAktiv());
       setMode("play");
       const runtime = new Runtime(setView, setHeld);
       runtimeRef.current = runtime;
@@ -79,6 +114,19 @@ export function GameApp() {
     }
   }, [held, view]);
 
+  const onPatch = useCallback(
+    (next: KartePatch) => {
+      setPatch(next);
+      if (schluessel) speichereKarte(schluessel, next);
+    },
+    [schluessel],
+  );
+
+  const onResetKarte = useCallback(() => {
+    setPatch({});
+    if (schluessel) loescheKarte(schluessel);
+  }, [schluessel]);
+
   if (mode === "title") {
     return (
       <TitleScreen
@@ -104,15 +152,31 @@ export function GameApp() {
     );
   }
 
+  const raw = view.held ? view : held ? { ...view, held } : view;
+  const shown = wendePatchAn(raw, patch);
+
   return (
     <SceneStage
-      view={view.held ? view : held ? { ...view, held } : view}
+      view={shown}
+      original={raw}
       onChoose={(index) => runtimeRef.current?.choose(index)}
       onSave={saveCurrentGame}
       saveMessage={saveMessage}
       onKnowledge={() => setKnowledgeOpen((open) => !open)}
       knowledgeOpen={knowledgeOpen}
       debug={debug}
+      leiterOpen={leiterOpen}
+      patch={patch}
+      schluessel={schluessel}
+      onLeiter={() => {
+        setLeiterOpen((open) => {
+          const next = !open;
+          if (next) setzeSpielleiterAktiv(true);
+          return next;
+        });
+      }}
+      onPatch={onPatch}
+      onResetKarte={onResetKarte}
     />
   );
 }
