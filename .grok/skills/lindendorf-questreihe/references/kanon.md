@@ -28,7 +28,11 @@ Sie dürfen den Aufbruch in den Wald nicht ersetzen und den Auftrag nicht erzwin
 | Jorren | Salz am Glockenweg | |
 | Köhler | einmaliger Waldauftritt | nicht zurückholen außer als Gerücht |
 | Schmied | namenlos, Porträt `smith` | |
-| Bettler | Porträt `beggar` | |
+| Bettler | Porträt `beggar`, am Brunnen, namenlos | nicht Fenn nennen |
+| Fenn | an der Kirche, Porträt `null` | nicht den Brunnenbettler ersetzen |
+| Vahl | Ratsherr, Gerbereigasse | nicht Dennek, nicht Holm |
+| Grete | letzte der Gasse | |
+| Ilse Brandtner | tote Hebamme, nur Liste | nicht als lebende NPC |
 | Junge mit der roten Schnur | Dorfplatz | |
 | Müllerin am Brunnen | dieselbe Lene, früherer Auftritt | nicht als zweite Frau schreiben |
 
@@ -42,6 +46,8 @@ Mühle: `muehleBesucht`, `spurenGefunden` (**generischer Name, belegt**), `muell
 
 Brunnen: `truebungBestaetigt`, `spurAmBrunnen`, `dennekEntlarvt`, `grovinGenannt`, `grovinsGrund`, `grovinGeflohen`, `grovinVersprechen`, `loesungswegBrunnen`.
 
+Gasse: `gasseBesucht`, `fennGedraengt`, `gasseGeschichteGehoert`, `gasseSpielzeugGefunden`, `gasseOrtGesehen`, `greteGespraech`, `greteBedraengt`, `ilsesAufzeichnungenGefunden`, `vahlGrossvater`, `kuesterGewarnt`, `vahlKonfrontiert`, `loesungswegGasse`.
+
 Tod: `todesort` (`"steg" | "rennik" | "zisterne" | null`) — neue Todesorte als Union-Glied, nicht als eigenes Flag.
 
 Wald hat eine **lokale** Variable `spurenGefunden` in `szeneWald`. Held-Flag und lokale Variable sind verschiedene Dinge — neue Quests dürfen den Namen trotzdem nicht noch einmal auf `Held` legen.
@@ -54,6 +60,7 @@ Dorf-Schleife in `szeneDorf`:
 - `Die Taverne besuchen`
 - `Brunnen und Dorfplatz`
 - `Zur Mühle gehen` → `dorfMuehle`
+- `Zur Gerbereigasse gehen` → `dorfGasse`
 - `Schmiede und Apotheke`
 - `Nach dem roten Wachs fragen` (nur nach `holmBesucht`)
 - `Zum alten Glockenweg aufsteigen` / `Den Weg zum Hang erkunden`
@@ -106,6 +113,6 @@ Mühle und Brunnen tun das bereits. Eine neue Quest ohne Epilog-Satz ist unferti
 
 ## Wissenskeys (belegt)
 
-`dorf_ankunft artefakt_gesehen artefakt_erhalten holm_besucht auftrag_erhalten banditen_bekannt rotes_siegel_gesehen hang_hinweis glockenweg_bekannt glocke_vorteil banditen_gewarnt muehle_stillstand renniks_druck fluechtlinge_muehle wasser_truebung grovin_zisterne dennek_schuld`
+`dorf_ankunft artefakt_gesehen artefakt_erhalten holm_besucht auftrag_erhalten banditen_bekannt rotes_siegel_gesehen hang_hinweis glockenweg_bekannt glocke_vorteil banditen_gewarnt muehle_stillstand renniks_druck fluechtlinge_muehle wasser_truebung grovin_zisterne dennek_schuld versorgung_muster gasse_leer kesseljahr ilses_liste`
 
 Neue Keys: klein, deutsch, in `KnowledgeKey`, `deriveKnowledge`, `knowledgeLabels` (sicher **und** offen).

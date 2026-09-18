@@ -17,7 +17,7 @@ Lade zuerst das Skill **`lindendorf-questreihe`**:
 - `.grok/skills/lindendorf-questreihe/SKILL.md`
 - danach dessen `references/` in der dort genannten Reihenfolge
 
-Goldstandard-Code: `src/game/quest-muehle.ts`, `src/game/quest-brunnen.ts`.
+Goldstandard-Code: `src/game/quest-muehle.ts`, `src/game/quest-brunnen.ts`, `src/game/quest-kesseljahr.ts`.
 Goldstandard-Spec: `attachments/quest-die-schuld-der-muehle.md`,
 `attachments/quest-das-truebe-wasser.md`.
 Stimme: `attachments/how_to_be_a_hero_v01.py`.

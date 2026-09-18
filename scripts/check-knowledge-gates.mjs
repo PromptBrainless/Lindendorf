@@ -25,6 +25,9 @@ const requiredKnowledge = [
   "wasser_truebung",
   "grovin_zisterne",
   "versorgung_muster",
+  "gasse_leer",
+  "kesseljahr",
+  "ilses_liste",
 ];
 for (const key of requiredKnowledge) {
   if (!knowledge.includes(`"${key}"`)) throw new Error(`Wissenspunkt fehlt: ${key}`);
@@ -42,6 +45,9 @@ const requiredHooks = [
   "truebungBestaetigt",
   "loesungswegMuehle",
   "loesungswegBrunnen",
+  "Zur Gerbereigasse gehen",
+  "loesungswegGasse",
+  "gasseGeschichteGehoert",
 ];
 for (const hook of requiredHooks) {
   if (!spiel.includes(hook)) throw new Error(`Freischalthaken fehlt: ${hook}`);

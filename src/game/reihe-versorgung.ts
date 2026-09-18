@@ -25,7 +25,27 @@ export function echoWasserInDerMuehle(held: Held): string[] {
   return [];
 }
 
+export function echoGasseInDerMuehle(held: Held): string[] {
+  if (held.loesungswegGasse === "veroeffentlicht") {
+    return line(
+      "Bertok hat gehört, dass Vahls Großvater zuerst gezeichnet hat. Er sieht das Rad an, als stünde es auf fremdem Grund.",
+    );
+  }
+  if (held.loesungswegGasse === "vernichtet") {
+    return line("Vom Dorf her hämmert jemand an der Gerberei. Das Holz ist neu. Der Grund unter Bertoks Stein nicht.");
+  }
+  if (held.gasseGeschichteGehoert && !held.loesungswegGasse) {
+    return line(
+      "Fenn hat vom Kesseljahr erzählt. Die Mühle steht auf Land, das damals aufgeteilt wurde. Bertok mahlt, als gehörte der Grund ihm.",
+    );
+  }
+  return [];
+}
+
 export function echoDruckBertok(held: Held): string[] {
+  if (held.leneBedraengt) {
+    return line("Bertok hat Lenes Stimme aus der Kammer gehört. Seither justiert er den Stein, der schon justiert ist.");
+  }
   if (held.dennekEntlarvt) {
     return line(
       "Bertok hat gehört, dass der Ratsherr am Brunnen einen Namen herausgegeben hat. Er prüft das Mahlwerk noch einmal.",
@@ -53,6 +73,19 @@ export function echoMuehleAmBrunnen(held: Held): string[] {
   }
   if (held.muehleBesucht) {
     return line("Bertoks Rad dreht sich weiter, ohne zu mahlen. Der Eimer hier tut dasselbe mit Wasser.");
+  }
+  return [];
+}
+
+export function echoGasseAmBrunnen(held: Held): string[] {
+  if (held.loesungswegGasse === "veroeffentlicht") {
+    return line("Dennek hat gehört, dass Vahl seinen Sitz verloren hat. Der Stock rührt langsamer, als gehöre der Rat nicht mehr ihm.");
+  }
+  if (held.loesungswegGasse === "erpresst" && held.vahlKonfrontiert) {
+    return line("Dennek trommelt noch. Vahl nicht mehr. Zwei Ratsherren, und nur einer rührt im Eimer.");
+  }
+  if (held.gasseGeschichteGehoert && !held.loesungswegBrunnen) {
+    return line("Im Kesseljahr hat man die Gasse abgeriegelt, damit das Fieber nicht den Platz holt. Der Eimer hier holt es trotzdem.");
   }
   return [];
 }
@@ -118,11 +151,18 @@ export function echoPlatzVersorgung(held: Held): string[] {
 }
 
 export function echoEpilogVersorgung(held: Held): string[] {
-  if (!held.loesungswegMuehle || !held.loesungswegBrunnen) return [];
-  if (held.loesungswegMuehle === "verraten" && held.loesungswegBrunnen === "bestochen") {
-    return line("Mehl mit Schutzbrief, Wasser mit einem zweiten Eimer. Das Tal isst und trinkt. Es zählt anders.");
+  const bits: string[] = [];
+  if (held.loesungswegMuehle && held.loesungswegBrunnen) {
+    if (held.loesungswegMuehle === "verraten" && held.loesungswegBrunnen === "bestochen") {
+      bits.push("Mehl mit Schutzbrief, Wasser mit einem zweiten Eimer. Das Tal isst und trinkt. Es zählt anders.");
+    } else {
+      bits.push("Mehl und Wasser laufen wieder. Wer beides genommen hat, sitzt nicht im Steinbruch.");
+    }
   }
-  return line("Mehl und Wasser laufen wieder. Wer beides genommen hat, sitzt nicht im Steinbruch.");
+  if (held.loesungswegGasse && (held.loesungswegMuehle || held.loesungswegBrunnen)) {
+    bits.push("Die Gasse bleibt eine leere Stelle neben Mehl und Wasser. Das Tal füllt nicht jede auf dieselbe Weise.");
+  }
+  return bits;
 }
 
 export function dennekCharismaSchwer(held: Held): number {

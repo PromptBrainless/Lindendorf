@@ -18,7 +18,10 @@ export type KnowledgeKey =
   | "wasser_truebung"
   | "grovin_zisterne"
   | "dennek_schuld"
-  | "versorgung_muster";
+  | "versorgung_muster"
+  | "gasse_leer"
+  | "kesseljahr"
+  | "ilses_liste";
 
 export type KnowledgeState = ReadonlySet<KnowledgeKey>;
 
@@ -50,6 +53,9 @@ export function deriveKnowledge(held: Held): KnowledgeState {
   ) {
     knowledge.add("versorgung_muster");
   }
+  if (held.gasseBesucht || held.loesungswegGasse) knowledge.add("gasse_leer");
+  if (held.gasseGeschichteGehoert || held.vahlGrossvater || held.loesungswegGasse) knowledge.add("kesseljahr");
+  if (held.ilsesAufzeichnungenGefunden || held.loesungswegGasse) knowledge.add("ilses_liste");
   return knowledge;
 }
 
@@ -86,11 +92,29 @@ export function knowledgeLabels(held: Held): { sicher: string[]; offen: string[]
     sicher.push("Das Brunnenwasser ist wieder klar.");
   }
   if (knowledge.has("dennek_schuld")) sicher.push("Dennek hat Grovin nie bezahlt.");
+  if (held.grovinVersprechen) {
+    sicher.push("Holm schuldet Grovin eine Zahl, die nicht in der Kasse steht.");
+  }
   if (knowledge.has("grovin_zisterne") && !held.loesungswegBrunnen) {
     sicher.push("Grovin leitet Dorfwasser in eine Zisterne am Waldrand.");
   }
   if (knowledge.has("versorgung_muster") && held.loesungswegMuehle && held.loesungswegBrunnen) {
     sicher.push("Mehl und Wasser wurden dem Tal auf dieselbe Art genommen.");
+  }
+  if (held.loesungswegGasse === "veroeffentlicht") {
+    sicher.push("Der Rat hat Ilse Brandtners Liste gehört. Vahl hat seinen Sitz verloren.");
+  } else if (held.loesungswegGasse === "weitergegeben") {
+    sicher.push("Holm hat den Bauplatz ruhen lassen. Die Liste liegt in seiner Schublade.");
+  } else if (held.loesungswegGasse === "erpresst") {
+    sicher.push("Vahl hat die Baumannschaft abbestellt. Die Wahrheit bleibt zwischen euch.");
+  } else if (held.loesungswegGasse === "vernichtet") {
+    sicher.push("Ilse Brandtners Liste ist Asche. Die Gerbereigasse wird bebaut.");
+  } else if (knowledge.has("ilses_liste")) {
+    sicher.push("Ilse Brandtner hat die Toten des Kesseljahrs unter der Kirche versteckt.");
+  } else if (knowledge.has("kesseljahr")) {
+    sicher.push("Im Kesseljahr wurde die Gerbereigasse abgeriegelt. Vahl will sie bebauen.");
+  } else if (knowledge.has("gasse_leer")) {
+    sicher.push("Hinter der Gerberei liegt eine Gasse, die niemand mehr als Weg benutzt.");
   }
 
   const offen: string[] = [];
@@ -108,6 +132,13 @@ export function knowledgeLabels(held: Held): { sicher: string[]; offen: string[]
     (!held.loesungswegMuehle || !held.loesungswegBrunnen)
   ) {
     offen.push("Wer rechnet mit Mehl und Wasser gleichzeitig?");
+  }
+  if (knowledge.has("kesseljahr") && !held.loesungswegGasse && !knowledge.has("ilses_liste")) {
+    offen.push("Wohin hat Ilse Brandtner die Namen der Gasse gebracht?");
+  } else if (knowledge.has("ilses_liste") && !held.loesungswegGasse) {
+    offen.push("Was tust du mit Ilse Brandtners Liste, bevor die Baumannschaft kommt?");
+  } else if (knowledge.has("gasse_leer") && !held.loesungswegGasse && !knowledge.has("kesseljahr")) {
+    offen.push("Warum geht in der Gerbereigasse niemand mehr?");
   }
   return { sicher, offen };
 }

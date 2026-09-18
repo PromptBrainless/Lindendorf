@@ -1,6 +1,6 @@
 import { goldPlus, probe, schaden } from "./engine";
 import { vielleichtHeiltrank } from "./heal";
-import { echoDruckBertok, echoWasserInDerMuehle } from "./reihe-versorgung";
+import { echoDruckBertok, echoGasseInDerMuehle, echoWasserInDerMuehle } from "./reihe-versorgung";
 import type { Runtime } from "./runtime";
 import { LEICHT, MITTEL, SCHWER, tot, type Held } from "./types";
 
@@ -55,6 +55,7 @@ export async function dorfMuehle(rt: Runtime, held: Held) {
           ? "Unten am Ufer sind die nassen Schleifspuren noch immer im Schlamm."
           : "Hinter dem Haus fällt der Boden zum Fluss ab.",
         ...echoWasserInDerMuehle(held),
+        ...echoGasseInDerMuehle(held),
       ],
       choices: items.map((item) => item.label),
     });
@@ -80,6 +81,7 @@ async function muehleNachspiel(rt: Runtime, held: Held) {
         "Bertok grüßt dich mit dem Kopf, nicht mit der Hand.",
         "Die Kornkammer ist aufgeräumt. Zu aufgeräumt.",
         ...echoWasserInDerMuehle(held),
+        ...echoGasseInDerMuehle(held),
       ],
     });
     return;
@@ -95,6 +97,7 @@ async function muehleNachspiel(rt: Runtime, held: Held) {
         "Bertok bedankt sich knapp und schließt die Tür einen Spalt früher als nötig.",
         "Am Steg klebt noch etwas Dunkles am Holz. Der Regen holt es nicht ganz runter.",
         ...echoWasserInDerMuehle(held),
+        ...echoGasseInDerMuehle(held),
       ],
     });
     return;
@@ -106,9 +109,13 @@ async function muehleNachspiel(rt: Runtime, held: Held) {
     held,
     lines: [
       "Das Rad dreht sich lauter als sonst.",
-      "Bertok reicht dir nichts mehr. Lene zählt keine Säcke.",
+      "Bertok reicht dir nichts mehr.",
+      held.leneBedraengt
+        ? "Lene zählt nicht mehr. Sie hat in der Kammer gelernt, dass Zählen keine Tür verschließt."
+        : "Lene zählt keine Säcke. Sie steht in der Tür, als wäre Zählen eine Art, nicht zu reden.",
       "Manche Schulden werden nicht bezahlt. Sie werden nur nicht mehr eingetrieben.",
       ...echoWasserInDerMuehle(held),
+      ...echoGasseInDerMuehle(held),
     ],
   });
 }

@@ -13,6 +13,7 @@ import type { Runtime } from "./runtime";
 import { INTRO_ARTIFACT_CONTENT } from "./content";
 import { dorfMuehle } from "./quest-muehle";
 import { dorfTruebesWasser, kernWasser } from "./quest-brunnen";
+import { dorfGasse } from "./quest-kesseljahr";
 import {
   echoEpilogVersorgung,
   echoHolmVersorgung,
@@ -203,6 +204,13 @@ async function szeneDorf(rt: Runtime, held: Held) {
         ? []
         : ["Am Brunnen steht ein Eimer, den heute morgen niemand geleert hat. Das Wasser darin ist trüb."]),
       ...echoPlatzVersorgung(held),
+      ...(held.loesungswegGasse === "vernichtet"
+        ? ["Hinter der Gerberei stehen neue Bretter. Die Gasse hat wieder einen Zweck und keinen Namen."]
+        : held.loesungswegGasse
+          ? ["Hinter der Gerberei bleibt die Gasse leer. Niemand fragt mehr, warum."]
+          : held.gasseBesucht
+            ? ["Hinter der Gerberei liegt eine Gasse, die niemand mehr als Weg benutzt."]
+            : []),
       "Das Tal erzählt seine Geschichte nicht auf einmal. Es gibt sie in Türen, in Pausen und in den Dingen, die niemand mehr zu reparieren versucht.",
     ],
   });
@@ -220,6 +228,7 @@ async function szeneDorf(rt: Runtime, held: Held) {
       "Die Taverne besuchen",
       "Brunnen und Dorfplatz",
       "Zur Mühle gehen",
+      "Zur Gerbereigasse gehen",
       "Schmiede und Apotheke",
       ...(held.holmBesucht ? ["Nach dem roten Wachs fragen"] : []),
       glockenwegLabel,
@@ -244,6 +253,8 @@ async function szeneDorf(rt: Runtime, held: Held) {
       rumorenGehoert = (await dorfPlatz(rt, held, rumorenGehoert)) || rumorenGehoert;
     } else if (gewaehlt === "Zur Mühle gehen") {
       await dorfMuehle(rt, held);
+    } else if (gewaehlt === "Zur Gerbereigasse gehen") {
+      await dorfGasse(rt, held);
     } else if (gewaehlt === "Schmiede und Apotheke") {
       await dorfSchmiedeApotheke(rt, held);
     } else if (gewaehlt === "Nach dem roten Wachs fragen") {
@@ -290,6 +301,15 @@ async function szeneDorf(rt: Runtime, held: Held) {
             : held.truebungBestaetigt
               ? ["Das Brunnenwasser macht krank. Jemand hat den Schacht angefasst."]
               : []),
+          ...(held.loesungswegGasse === "veroeffentlicht"
+            ? ["Der Rat hat Ilse Brandtners Liste gehört. Vahl hat seinen Sitz verloren."]
+            : held.loesungswegGasse === "vernichtet"
+              ? ["Die Gerbereigasse wird bebaut. Das Papier ist Asche."]
+              : held.loesungswegGasse
+                ? ["Die Gerbereigasse bleibt leer. Offiziell aus Gründen, die niemand vorliest."]
+                : held.gasseGeschichteGehoert
+                  ? ["Im Kesseljahr wurde eine Gasse abgeriegelt. Vahl will sie jetzt bebauen."]
+                  : []),
           ...echoPlatzVersorgung(held),
         ];
         const aufbruch = await rt.present({
@@ -328,6 +348,18 @@ async function dorfBuergermeister(rt: Runtime, held: Held) {
       "„Banditen kommen nachts. Drei Mal schon. Getreide, zwei Ziegen, das Silbergerät der Kirche.“",
       "„Seit zwei Wochen kommt kein Mehl. Bertok schließt die Mühle, bevor jemand fragen kann. Er sagt, das Wasser stehe zu niedrig. Ich glaube ihm das nicht.“",
       ...echoHolmVersorgung(held),
+      ...(held.grovinVersprechen
+        ? ["„Grovin wartet auf eine Zahl. Du hast sie in meinem Namen genannt. Die Kasse kennt sie noch nicht.“"]
+        : []),
+      ...(held.loesungswegGasse === "weitergegeben"
+        ? ["Holm legt die Hand auf die Kasse, als läge darunter noch etwas anderes als nichts."]
+        : held.loesungswegGasse === "veroeffentlicht"
+          ? ["„Vahl hat seinen Sitz verloren. Das Land nicht. Manche Rechnungen sind älter als dieses Amt.“"]
+          : held.vahlKonfrontiert
+            ? ["„Vahl grüßt dich im Flur zu höflich. Ich frage nicht, was zwischen euch liegt.“"]
+            : held.vahlGrossvater
+              ? ["„Vahl dreht den Ring seines Großvaters, wenn er von Baugrund spricht. Das habe ich gesehen.“"]
+              : []),
       "„Ich brauche jemanden, der zum alten Steinbruch geht. Dort lagern sie.“",
       ...(held.artefaktErhalten
         ? ["Als Holm das silberne Artefakt sieht, verliert sein Gesicht für einen Moment jede Farbe. Es gehört zur Kirche."]
@@ -482,6 +514,11 @@ async function dorfTaverne(
           ? ["Auf der Theke steht zum ersten Mal seit Tagen wieder Brot. Mara schneidet es, ohne zu fragen, woher das Mehl kommt."]
           : ["Das Brotfach ist leer. Mara stellt Gerstenbrei hin, als wäre das eine Entscheidung und kein Mangel."]),
       ...echoMaraVersorgung(held),
+      ...(held.loesungswegGasse === "veroeffentlicht"
+        ? ["An einem Tisch redet man über Vahl, zu laut für ein Amt, das noch gestern galt."]
+        : held.loesungswegGasse === "vernichtet"
+          ? ["Zwei Männer von der Baumannschaft trinken auf die Gasse, als wäre sie schon ein Lagerhaus."]
+          : []),
       "Über dem Ausschank hängt ein Bündel Kräuter, längst trocken genug, um bei der kleinsten Berührung zu zerfallen. Darunter steht ein Becher mit drei Rissen.",
       "Die Taverne ist warm, aber nicht freundlich. Wärme kostet Holz, und Holz kostet im Tal inzwischen mehr als Bier.",
       "Mara sieht dich an, als müsste sie in deinem Gesicht entscheiden, ob du ein weiterer Gast oder eine weitere Rechnung bist.",
@@ -1544,6 +1581,13 @@ async function szeneWald(rt: Runtime, held: Held) {
   } else if (held.loesungswegBrunnen) {
     ankunftszeilen.push("Das Wasser im Beutel schmeckt nach Stein, nicht nach Metall.");
   }
+  if (held.loesungswegGasse === "veroeffentlicht") {
+    ankunftszeilen.push("Hinter dir spaltet sich das Dorf in Sätze über eine Gasse, die zehn Jahre niemand betreten hat.");
+  } else if (held.loesungswegGasse === "vernichtet") {
+    ankunftszeilen.push("Hinter dir hämmert jemand an der Gerberei. Das Holz ist neu. Der Grund nicht.");
+  } else if (held.loesungswegGasse) {
+    ankunftszeilen.push("Die Gerbereigasse bleibt leer. Offiziell aus Gründen, die das Dorf nicht vorliest.");
+  }
   await rt.present({
     title: "Wald",
     art: "forest",
@@ -2492,6 +2536,15 @@ function epilog(held: Held): string[] {
     bits.push("Der Eimer am Brunnen ist wieder klar bis auf den Grund.");
   }
   bits.push(...echoEpilogVersorgung(held));
+  if (held.loesungswegGasse === "veroeffentlicht") {
+    bits.push("Vahl hat seinen Ratssitz verloren. Fenn wird gegrüßt, bevor man vorbeigeht.");
+  } else if (held.loesungswegGasse === "weitergegeben") {
+    bits.push("Holm hat den Bauplatz ruhen lassen. Ilse Brandtners Liste liegt in einer Schublade.");
+  } else if (held.loesungswegGasse === "erpresst") {
+    bits.push("Vahl grüßt dich zu höflich. Die Gasse bleibt leer, die Wahrheit auch.");
+  } else if (held.loesungswegGasse === "vernichtet") {
+    bits.push("Die Gerbereigasse wird bebaut. Fenns Hand um das Zaunbrett ist still.");
+  }
   if (held.verwundet) bits.push("Die Wunde bleibt eine Weile. Narben sind in Lindendorf eine Art Ausweis.");
   if (hat(held, SCHLUESSEL)) bits.push("Der Schlüssel zum Seitentor ist noch da. Türen bleiben eine Versuchung.");
   if (!bits.length) bits.push("Du gehst leichter, als du gekommen bist. Das ist selten.");

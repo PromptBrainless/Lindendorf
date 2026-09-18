@@ -84,6 +84,7 @@ for (const file of questFiles) {
 
 if (!script.includes("Zur Mühle gehen")) fail('Hub-Label "Zur Mühle gehen" fehlt');
 if (!script.includes("Den trüben Eimer prüfen")) fail('Hub-Label "Den trüben Eimer prüfen" fehlt');
+if (!script.includes("Zur Gerbereigasse gehen")) fail('Hub-Label "Zur Gerbereigasse gehen" fehlt');
 if (!artFile.includes("mill:") || !artFile.includes("well:")) fail("art.ts verliert mill/well");
 
 if (errors.length) {

@@ -21,7 +21,7 @@ knapp, bevor der Wald beginnt. Der Held trinkt und isst im selben Tal.
 |---|---|---|---|---|---|
 | 1 | Die Schuld der Mühle | Mühle + Lagerhaus am Fluss | Rennik | kein Mehl, eine versteckte Familie | keine |
 | 2 | Das trübe Wasser | Brunnen + Zisterne am Waldrand | Grovin | krankes Wasser | unabhängig; Echo möglich |
-| 3 | — offen — | anderer Dorfrand, nicht Steg, nicht Zisterne | — | ein dritter Mangel, der nicht Salz und nicht Kirchensilber ist | unabhängig |
+| 3 | Das Kesseljahr | Gerbereigasse + Kirchengewölbe | Vahl | eine vergessene Quarantäne | unabhängig; Echo auf Verrat/Holm |
 
 ## Geteilte Echo-Flags
 

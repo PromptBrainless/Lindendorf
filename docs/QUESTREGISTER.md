@@ -7,10 +7,8 @@ ergänzen. Der Code in `src/game/types.ts` und `src/game/script.ts` gewinnt bei 
 
 | Reihe | Schuld | Quests | Status |
 |---|---|---|---|
-| Versorgung des Tals | Das Dorf verliert, was es zum Leben braucht | Die Schuld der Mühle; Das trübe Wasser | zwei von drei bis fünf |
-
-Nächste sinnvolle Lücke in dieser Reihe: ein dritter Mangel, der **nicht** Mehl,
-Wasser, Salz (Glockenweg) oder Kirchensilber (Hauptplot) ist. Erst Lücke, dann Name.
+| Versorgung des Tals | Das Dorf verliert, was es zum Leben braucht | Die Schuld der Mühle; Das trübe Wasser | zwei, abgeschlossen als Paar |
+| Erinnerung des Tals | Was das Dorf lieber vergisst | Das Kesseljahr | eine, spielbar |
 
 ## Quests
 
@@ -18,12 +16,15 @@ Wasser, Salz (Glockenweg) oder Kirchensilber (Hauptplot) ist. Erst Lücke, dann 
 |---|---|---|---|---|---|
 | Die Schuld der Mühle | `quest-muehle.ts` `dorfMuehle` | `Zur Mühle gehen` | `loesungswegMuehle` | Lagerhaus am Fluss | mill, ditch, camp, evidence, sneak, combat, townhall |
 | Das trübe Wasser | `quest-brunnen.ts` `dorfTruebesWasser` | `Den trüben Eimer prüfen` (unter Brunnen und Dorfplatz) | `loesungswegBrunnen` | Zisterne am Waldrand | well, apothecary, ditch, evidence, camp |
+| Das Kesseljahr | `quest-kesseljahr.ts` `dorfGasse` | `Zur Gerbereigasse gehen` | `loesungswegGasse` | Kirchengewölbe | chapel, village, townhall, ditch, evidence, sneak |
 
 ## Eigennamen
 
 Holm, Mara, Kess, Lene (Müllerin, Porträt miller), Bertok, Yorwin, Rennik,
 Witwe Kern (nicht Mirl), Dennek, Grovin, Sanna (nicht Senna), Jorren, Köhler,
-Schmied (namenlos), Bettler, Junge mit der roten Schnur.
+Schmied (namenlos), Bettler am Brunnen (namenlos, Porträt beggar), Fenn (Kirche,
+nicht der Brunnenbettler), Vahl, Grete, Ilse Brandtner (tot, nur Liste),
+Junge mit der roten Schnur.
 
 Historische Spec-Fallen: **Senna** → Lene, weil Sanna existiert. **Mirl** → Kern.
 
@@ -36,6 +37,11 @@ Mühle: `muehleBesucht`, `spurenGefunden`, `muellerVertraut`, `bertokBedraengt`,
 Brunnen: `truebungBestaetigt`, `spurAmBrunnen`, `dennekEntlarvt`, `grovinGenannt`,
 `grovinsGrund`, `grovinGeflohen`, `grovinVersprechen`, `loesungswegBrunnen`.
 
+Gasse: `gasseBesucht`, `fennGedraengt`, `gasseGeschichteGehoert`,
+`gasseSpielzeugGefunden`, `gasseOrtGesehen`, `greteGespraech`, `greteBedraengt`,
+`ilsesAufzeichnungenGefunden`, `vahlGrossvater`, `kuesterGewarnt`,
+`vahlKonfrontiert`, `loesungswegGasse`.
+
 Tod: `todesort` = `steg | rennik | zisterne | null`.
 
 `spurenGefunden` ist vergeben (Mühle). Wald benutzt denselben Bezeichner nur lokal.
@@ -46,7 +52,7 @@ einer Quest färben die andere, ohne sie zu sperren. Journal-Key `versorgung_mus
 ## Hub-Labels (nicht umbenennen)
 
 `Mit dem Bürgermeister sprechen`, `Die Taverne besuchen`, `Brunnen und Dorfplatz`,
-`Zur Mühle gehen`, `Schmiede und Apotheke`, `Nach dem roten Wachs fragen`,
+`Zur Mühle gehen`, `Zur Gerbereigasse gehen`, `Schmiede und Apotheke`, `Nach dem roten Wachs fragen`,
 `Zum alten Glockenweg aufsteigen`, `Den Weg zum Hang erkunden`,
 `Richtung Wald aufbrechen`, `Am Brunnen lauschen`, `Den trüben Eimer prüfen`,
 `Den Brunnen noch einmal ansehen`, `Dem Jungen mit der roten Schnur folgen`.
@@ -54,12 +60,14 @@ einer Quest färben die andere, ohne sie zu sperren. Journal-Key `versorgung_mus
 ## Wissenskeys der Nebenreihen
 
 `muehle_stillstand`, `renniks_druck`, `fluechtlinge_muehle`, `wasser_truebung`,
-`grovin_zisterne`, `dennek_schuld`, `versorgung_muster`.
+`grovin_zisterne`, `dennek_schuld`, `versorgung_muster`, `gasse_leer`,
+`kesseljahr`, `ilses_liste`.
 
 ## Rückbindungen (bereits verdrahtet)
 
 Mühle: Dorfplatz, Holm, Mara/Brot, Was-du-weißt, Wald, Epilog, Tod Steg/Rennik.
 Brunnen: Dorfplatz, Platz-Label, Kern, Was-du-weißt, Wald, Epilog, Tod Zisterne.
+Gasse: Dorfplatz, Holm, Mara, Was-du-weißt, Wald, Epilog. Kein Tod.
 
 ## Freie Randorte (Vorschlag, nicht reserviert)
 

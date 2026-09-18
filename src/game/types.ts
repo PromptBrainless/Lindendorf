@@ -10,6 +10,7 @@ export const SCHLUESSEL = "Schlüssel";
 export type Loesungsweg = "kampf" | "schleich" | "ueberreden" | null;
 export type MuehleWeg = "kampf" | "schleich" | "verhandelt" | "verraten" | null;
 export type BrunnenWeg = "zerstoert" | "geoeffnet" | "verhandelt" | "bestochen" | null;
+export type GasseWeg = "veroeffentlicht" | "weitergegeben" | "erpresst" | "vernichtet" | null;
 export type Todesort = "steg" | "rennik" | "zisterne" | null;
 
 export type ArtKey =
@@ -96,6 +97,18 @@ export type Held = {
   grovinGeflohen: boolean;
   grovinVersprechen: boolean;
   loesungswegBrunnen: BrunnenWeg;
+  gasseBesucht: boolean;
+  fennGedraengt: boolean;
+  gasseGeschichteGehoert: boolean;
+  gasseSpielzeugGefunden: boolean;
+  gasseOrtGesehen: boolean;
+  greteGespraech: boolean;
+  greteBedraengt: boolean;
+  ilsesAufzeichnungenGefunden: boolean;
+  vahlGrossvater: boolean;
+  kuesterGewarnt: boolean;
+  vahlKonfrontiert: boolean;
+  loesungswegGasse: GasseWeg;
   todesort: Todesort;
 };
 
@@ -182,6 +195,18 @@ export function createHeld(name: string, staerke: number, geschick: number, char
     grovinGeflohen: false,
     grovinVersprechen: false,
     loesungswegBrunnen: null,
+    gasseBesucht: false,
+    fennGedraengt: false,
+    gasseGeschichteGehoert: false,
+    gasseSpielzeugGefunden: false,
+    gasseOrtGesehen: false,
+    greteGespraech: false,
+    greteBedraengt: false,
+    ilsesAufzeichnungenGefunden: false,
+    vahlGrossvater: false,
+    kuesterGewarnt: false,
+    vahlKonfrontiert: false,
+    loesungswegGasse: null,
     todesort: null,
   };
 }

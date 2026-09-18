@@ -3,6 +3,7 @@ import { vielleichtHeiltrank } from "./heal";
 import {
   dennekCharismaSchwer,
   echoDruckDennek,
+  echoGasseAmBrunnen,
   echoGrovinKenntMuehle,
   echoMuehleAmBrunnen,
 } from "./reihe-versorgung";
@@ -49,11 +50,12 @@ export async function dorfTruebesWasser(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Das Wasser im Eimer ist trüb bis auf den Grund. Es schmeckt metallisch, wenn man den Wind falsch erwischt.",
+        "Das Wasser im Eimer ist trüb bis auf den Grund. Es schmeckt nach Eisen, sobald der Wind vom Wald herüberzieht.",
         held.truebungBestaetigt
           ? "Kern hat die Kranken genannt. Dennek steht immer noch am Rand, als gehöre der Brunnen ihm."
           : "Kerns Tür steht einen Spalt offen. Dennek trommelt mit den Fingern auf die Brunnenmauer.",
         ...echoMuehleAmBrunnen(held),
+        ...echoGasseAmBrunnen(held),
       ],
       choices: items.map((item) => item.label),
     });
@@ -77,6 +79,7 @@ async function brunnenNachspiel(rt: Runtime, held: Held) {
         "Das Wasser ist klarer. Es reicht trotzdem nicht für alle.",
         "Ein zweiter Eimer bleibt ungefüllt. Niemand fragt, wohin der Rest läuft.",
         ...echoMuehleAmBrunnen(held),
+        ...echoGasseAmBrunnen(held),
       ],
     });
     return;
@@ -92,6 +95,7 @@ async function brunnenNachspiel(rt: Runtime, held: Held) {
         ? "Dennek meidet den Brunnenrand. Die Finger haben nichts mehr, worauf sie trommeln könnten."
         : "Dennek steht noch da. Er rührt nicht mehr im Wasser. Er sieht auch nicht zu dir.",
       ...echoMuehleAmBrunnen(held),
+      ...echoGasseAmBrunnen(held),
     ],
   });
 }
@@ -128,8 +132,8 @@ export async function kernWasser(rt: Runtime, held: Held) {
       ? [
           "Kern hat die Ärmel hochgekrempelt. Auf der Waage liegt dieselbe Kräutermischung, die nie reicht.",
           "„Bauchschmerzen. Fieber. Ein metallischer Geschmack. Die Kinder zuerst, dann die Alten.“",
-          "Sie schiebt dir keinen Lohn hin. „Etwas Fremdes ist im Wasser. Nicht Krankheit allein. Jemand hat den Brunnen angefasst.“",
-          "Unter den Bündeln an der Wand sind zwei Daten frisch. Beide gehören zu Häusern, die nah am Brunnen stehen.",
+          "Lohn bietet sie dir nicht an. „Etwas Fremdes ist im Wasser. Nicht Krankheit allein. Jemand hat den Brunnen angefasst.“",
+          "Unter den Krankenzetteln an der Wand sind zwei ganz frisch. Beide nennen Häuser, die nah am Brunnen stehen.",
         ]
       : [
           "Kern wiegt die Mischung neu. Die Schale senkt sich nicht weit genug.",
@@ -149,7 +153,7 @@ async function dennekGespraech(rt: Runtime, held: Held) {
       held,
       lines: [
         "Dennek trommelt nicht mehr. Die Finger liegen flach auf dem Stein, als müssten sie sich festhalten.",
-        "„Grovin“, sagt er, ohne den Namen noch einmal zu verdienen. „Zisterne am Waldrand. Ich habe nicht bezahlt. Das Wasser hat es getan.“",
+        "„Grovin“, sagt er, als koste ihn der Name nichts mehr. „Zisterne am Waldrand. Ich habe nicht bezahlt. Das Wasser hat es getan.“",
       ],
     });
     return;
@@ -214,7 +218,7 @@ async function dennekProbe(rt: Runtime, held: Held, ergebnis: ReturnType<typeof 
       lines: [
         "Dennek trommelt einmal zu oft. Dann bleiben die Finger still.",
         "„Grovin hat den Brunnen gebaut. Wir haben ihn nicht bezahlt. Seither ist er weg, und das Wasser geht mit ihm.“",
-        "Er spuckt nicht in den Eimer. Er sieht nur weg, als gehöre der Brunnenrand nicht mehr zum Rat.",
+        "Er lässt den Stock in den Eimer fallen. Dann sieht er weg, als gehöre der Brunnenrand nicht mehr zum Rat.",
       ],
     });
     return;
@@ -319,7 +323,9 @@ async function ablaufgraben(rt: Runtime, held: Held) {
     portrait: null,
     held,
     lines: [
-      "Gestrüpp steht dornig vor dem Becken. Dahinter bewegt sich eine flache Hand über Wasser, das klarer ist als alles im Dorf.",
+      "Gestrüpp steht dornig vor dem Becken, höher als ein Mann, der sich bücken muss.",
+      "Dahinter bewegt sich eine flache Hand über Wasser, das klarer ist als alles im Dorf.",
+      "Der Wind trägt keinen Husten hierher. Nur nasses Holz und den Geruch von sauberem Stein.",
     ],
     choices: [
       "Sich durch das Gestrüpp zwängen (Stärke, leicht)",
@@ -349,7 +355,11 @@ async function ablaufgraben(rt: Runtime, held: Held) {
       await rt.present({
         held,
         probe: ergebnis,
-        lines: ["Das Gestrüpp gibt nach, wo jemand schon öfter durchgegangen ist."],
+        lines: [
+          "Das Gestrüpp gibt nach, wo jemand schon öfter durchgegangen ist.",
+          "Die Zweige sind an einer Stelle glatt, als hätte eine Schulter sie jahrelang zur Seite gedrückt.",
+          "Am Beckenrand bleibt die Hand liegen. Grovin hat dich noch nicht gehoben.",
+        ],
       });
     }
   } else {
@@ -370,7 +380,9 @@ async function ablaufgraben(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         lines: [
-          "Du kommst seitlich an das Becken. Grovin prüft den Stand noch mit der flachen Hand, als gehöre ihm die Ruhe.",
+          "Du kommst seitlich an das Becken. Kein Ast. Kein Stein.",
+          "Grovin prüft den Stand noch mit der flachen Hand, als gehöre ihm die Ruhe und das Maß.",
+          "Das Wasser unter seinen Fingern ist klar bis auf den Grund. Im Dorf hustet jemand, den er nicht hören will.",
         ],
       });
     }
@@ -386,7 +398,7 @@ async function ablaufgraben(rt: Runtime, held: Held) {
 async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
   const lines = [
     "Das Wasser in der Zisterne ist klar bis auf den Grund. Grovin sieht zuerst darauf, dann auf dich.",
-    "„Das Dorf hat mich gebaut und nicht bezahlt. Also nimmt das Wasser, was mir zusteht.“",
+    "„Ich habe dem Dorf diesen Brunnen gebaut, und es hat mich nicht bezahlt. Also nimmt das Wasser, was mir zusteht.“",
   ];
   if (bewaffnet) {
     lines.push("Die Grabegabel bleibt zwischen euch. Ihre Zinken tropfen. Nicht von Regen.");
@@ -407,7 +419,10 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
   if (!held.grovinsGrund) {
     const frage = await rt.present({
       held,
-      lines: ["Grovin wartet. Nicht lange."],
+      lines: [
+        "Grovin wartet. Die Hand bleibt auf dem Wasser, als könnte er daran ablesen, ob du fragst oder nimmst.",
+        "Nicht lange. Die Zisterne hat keinen Platz für zwei Rechnungen gleichzeitig.",
+      ],
       choices: [
         "Ihn nach der ausgebliebenen Entschädigung fragen",
         "Sofort handeln",
@@ -457,7 +472,10 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
     art: "ditch",
     portrait: null,
     held,
-    lines: ["Was tust du?"],
+    lines: [
+      "Die Sperre sitzt im Gerinne, unscheinbar wie ein Brett, das jemand zum Trocknen hingelegt hat.",
+      "Grovin sieht nicht weg. Was tust du?",
+    ],
     choices: items.map((item) => item.label),
   });
   const id = items[wahl]?.id;
@@ -467,7 +485,10 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
     if (held.gold < 5) {
       await rt.present({
         held,
-        lines: ["Grovin sieht in deinen Beutel, ohne ihn zu berühren. „Später ist schon einmal gekommen. Es war leer.“"],
+        lines: [
+          "Grovin sieht in deinen Beutel, ohne ihn zu berühren.",
+          "„Später ist schon einmal gekommen. Es war leer. Komm nicht mit einer Hand, die weniger wiegt als die Rechnung.“",
+        ],
       });
       return;
     }
@@ -478,7 +499,7 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       log: ["→ 5 Gold. Grovin behält seine Zisterne."],
       lines: [
         "Grovin nimmt das Gold, ohne zu zählen. Er kennt den Betrag, den man zahlt, damit niemand fragt.",
-        "Ein Teil des Wassers läuft zurück. Ein Teil bleibt hier. Das Dorf wird seltener hustet und nie wirklich satt trinken.",
+        "Ein Teil des Wassers läuft zurück. Ein Teil bleibt hier. Das Dorf wird seltener husten und nie wirklich satt trinken.",
       ],
     });
     await brunnenEnde(rt, held);
@@ -496,7 +517,7 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
         lines: [
           "Grovin hört das Wort Amt, ohne wegzusehen.",
           "„Wenn Holm zahlt, öffne ich selbst. Wenn er nicht zahlt, kommt das Wasser nicht zurück. Das ist kein Drohen. Das ist die alte Rechnung.“",
-          "Er legt die Sperre um. Das klare Wasser läuft den Graben hinauf, als hätte es den Weg nie vergessen.",
+          "Er legt die Sperre um. Das klare Wasser läuft den Graben zurück, als hätte es den Weg nie vergessen.",
         ],
       });
       await brunnenEnde(rt, held);
@@ -506,7 +527,8 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       held,
       probe: ergebnis,
       lines: [
-        "Grovin schüttelt den Kopf. „Versprechen habe ich schon. Sie wiegen weniger als diese Hand auf dem Wasser.“",
+        "Grovin schüttelt den Kopf. Die Hand bleibt auf dem Wasser, als wöge sie dein Wort mit.",
+        "„Versprechen habe ich schon. Sie wiegen weniger als diese Hand auf dem Wasser. Holm zahlt, oder das Wasser bleibt.“",
       ],
     });
     return;
