@@ -134,6 +134,12 @@ export type SceneView = {
   log?: string[];
   ending?: string;
   choices: string[];
+  textKey?: string;
+  original?: {
+    title: string;
+    lines: string[];
+    choices: string[];
+  };
 };
 
 export function createHeld(name: string, staerke: number, geschick: number, charisma: number): Held {

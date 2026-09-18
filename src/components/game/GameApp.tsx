@@ -14,6 +14,7 @@ import {
   wendePatchAn,
   type KartePatch,
 } from "@/game/spielleiter";
+import { readAuthorMode, writeAuthorMode, loadFilePack } from "@/game/text-pack";
 import { CreateHero } from "./CreateHero";
 import { RulesScreen } from "./RulesScreen";
 import { SceneStage } from "./SceneStage";
@@ -32,6 +33,7 @@ export function GameApp() {
   const [leiterOpen, setLeiterOpen] = useState(false);
   const [patch, setPatch] = useState<KartePatch>({});
   const [schluessel, setSchluessel] = useState("");
+  const [authorMode, setAuthorMode] = useState(() => readAuthorMode());
   const runtimeRef = useRef<Runtime | null>(null);
 
   const stopPlay = useCallback(() => {
@@ -45,6 +47,10 @@ export function GameApp() {
       const image = new Image();
       image.src = src;
     }
+  }, []);
+
+  useEffect(() => {
+    void loadFilePack();
   }, []);
 
   useEffect(() => () => stopPlay(), [stopPlay]);
@@ -77,7 +83,7 @@ export function GameApp() {
       setHeld(live);
       setSaveMessage(null);
       setKnowledgeOpen(false);
-      setLeiterOpen(spielleiterAktiv());
+      setLeiterOpen(spielleiterAktiv() || readAuthorMode());
       setMode("play");
       const runtime = new Runtime(setView, setHeld);
       runtimeRef.current = runtime;
@@ -134,6 +140,13 @@ export function GameApp() {
         onRules={() => setMode("rules")}
         onLoad={loadAdventure}
         canLoad={canLoad}
+        authorMode={authorMode}
+        onToggleAuthor={() => {
+          const next = !authorMode;
+          writeAuthorMode(next);
+          setAuthorMode(next);
+          if (next) setzeSpielleiterAktiv(true);
+        }}
       />
     );
   }
@@ -177,6 +190,7 @@ export function GameApp() {
       }}
       onPatch={onPatch}
       onResetKarte={onResetKarte}
+      authorMode={authorMode}
     />
   );
 }

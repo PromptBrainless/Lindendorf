@@ -1,4 +1,4 @@
-import { BookOpen, FolderOpen, Play, ScrollText } from "lucide-react";
+import { BookOpen, FolderOpen, PenLine, Play, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ART } from "@/game/art";
 
@@ -7,14 +7,18 @@ export function TitleScreen({
   onRules,
   onLoad,
   canLoad,
+  authorMode,
+  onToggleAuthor,
 }: {
   onStart: () => void;
   onRules: () => void;
   onLoad: () => void;
   canLoad: boolean;
+  authorMode: boolean;
+  onToggleAuthor: () => void;
 }) {
   return (
-    <div className="relative isolate min-h-dvh overflow-hidden bg-bg text-fg">
+    <div className="relative isolate min-h-dvh overflow-x-hidden overflow-y-auto bg-bg text-fg">
       <img src={ART.title} alt="" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-bg/25" />
       <div className="safe-bottom relative z-10 mx-auto flex min-h-dvh max-w-lg flex-col justify-end px-5 pb-12 pt-16 sm:justify-center sm:pb-0">
@@ -44,6 +48,10 @@ export function TitleScreen({
           <Button variant="secondary" size="lg" onClick={onRules}>
             <ScrollText className="size-4" aria-hidden />
             Kurzregeln lesen
+          </Button>
+          <Button variant={authorMode ? "default" : "secondary"} size="lg" onClick={onToggleAuthor}>
+            <PenLine className="size-4" aria-hidden />
+            {authorMode ? "Textmodus an — im Spiel Zeilen ändern" : "Texte im Spiel bearbeiten"}
           </Button>
         </div>
         <p className="mt-6 inline-flex items-center gap-2 text-xs text-muted-fg">

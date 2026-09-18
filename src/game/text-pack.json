@@ -1,0 +1,268 @@
+{
+  "version": 1,
+  "patches": {
+    "c4cbbfea": {
+      "original": {
+        "title": "Der Weg nach Lindendorf",
+        "lines": [
+          "Der Weg ins Tal ist schmal genug, dass zwei Wagen sich nicht ausweichen können.",
+          "Du gehst allein. Deine Stiefel sind nass vom letzten Regen, und der Regen hat nicht vor, damit aufzuhören.",
+          "Hinter dir liegt kein Auftrag. Vor dir liegt ein Dorf, das auf der Karte kleiner aussieht als in der Dämmerung.",
+          "Die Karte hat den Namen des Tals an den Rand gedrängt, als wäre Lindendorf ein Ort, den man nur nennt, wenn man ihn vermeiden muss.",
+          "Unter deinen Sohlen geben die Steine nach. Zwischen ihnen wächst schwarzes Gras, plattgedrückt von Rädern, die seit Tagen nicht mehr hier gewesen sein können.",
+          "Du gehst weiter, weil Umkehren keine Richtung ist. Das ist manchmal der ganze Unterschied zwischen Mut und Gewohnheit."
+        ],
+        "choices": [
+          "Weiter"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Der Weg ins Tal ist kaum breit genug für zwei Wagen. Wo sich Räder begegnen, muss einer zurücksetzen. Meistens der Schwächere.",
+          "",
+          "Du gehst allein.",
+          "",
+          "Der Regen hat in der Nacht aufgehört, aber er hängt noch immer in der Luft. Jeder Schritt drückt Wasser aus dem Leder deiner Stiefel. Kälte kriecht durch die Nähte und setzt sich in den Knochen fest.",
+          "",
+          "Hinter dir liegt nichts, das auf dich wartet.",
+          "",
+          "Vor dir liegt Lindendorf.",
+          "",
+          "Auf der Karte war es kaum mehr als ein Fleck Tinte am Rand des Tals. Ein Name, zwischen Hügel und Wald gequetscht, als hätte selbst der Kartenschreiber gehofft, niemand müsse jemals dorthin.",
+          "",
+          "In der Dämmerung wirkt es größer.",
+          "",
+          "Oder näher.",
+          "",
+          "Unter deinen Sohlen lockern sich die Steine des Weges. Wasser läuft zwischen ihnen hindurch. Schwarzes Gras wächst aus den Fugen, niedergetreten von Rädern und Hufen. Die Spuren sind alt. Zu alt für die Jahreszeit.",
+          "",
+          "Seit Tagen scheint niemand diesen Weg benutzt zu haben.",
+          "",
+          "Kein Händler.",
+          "",
+          "Kein Bauer.",
+          "",
+          "Nicht einmal ein Bettler.",
+          "",
+          "Nur der Wind zieht durch das Tal. Er streicht über die Hänge und bringt den Geruch von nassem Holz mit sich. Darunter liegt etwas anderes. Schwächer. Süßlich.",
+          "",
+          "Der Geruch von Verwesung reist weit, wenn die Luft feucht genug ist.",
+          "",
+          "Du bleibst nicht stehen.",
+          "",
+          "Umkehren ist keine Richtung. Es ist nur die Entscheidung, dieselbe Strecke noch einmal zu gehen.",
+          "",
+          "Also setzt du einen Fuß vor den anderen.",
+          "",
+          "Manchmal besteht der einzige Unterschied zwischen Mut und Gewohnheit darin, dass niemand mehr weiß, warum er überhaupt weiterläuft."
+        ]
+      }
+    },
+    "128ac5ae": {
+      "original": {
+        "title": "Der Fremde am Weg",
+        "lines": [
+          "Ein schwächlicher Mann kommt dir entgegen. Sein Gang ist unsicher, als würde ihn jeder Schritt überraschen. Der Regen hat sein Haar an die Stirn geklebt, und an seinem linken Ärmel ist dunkles Blut getrocknet.",
+          "Unter seinem Mantel blitzt ein silbernes Artefakt hervor. Es trägt das Zeichen der Kirche — ein Auge über drei eingeritzten Linien — und gehört ganz sicher nicht ihm.",
+          "Du hast dieses Zeichen schon einmal gesehen, auf einem verwitterten Stein am Nordpass. Damals lag Schnee darauf. Heute liegt nur Schlamm auf allem.",
+          "Der Mann hat dich noch nicht bemerkt. Hinter ihm führt der Weg zurück in den Nebel, vor ihm fällt er nach Lindendorf ab. Du kannst weitergehen und so tun, als hättest du nichts gesehen. Oder du kannst dich einmischen."
+        ],
+        "choices": [
+          "Das Artefakt gewaltsam nehmen (Stärke, mittel)",
+          "Es unbemerkt stehlen (Geschick, schwer)",
+          "Ihn überzeugen, es herauszugeben (Charisma, mittel)",
+          "Vorübergehen"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Etwa fünfzig Schritt voraus taucht eine Gestalt aus dem Regen auf.",
+          "Ein Mann. Mager genug, dass der Wind an ihm zerren kann.",
+          "Sein Gang ist ungleichmäßig. Nicht das Hinken eines Verletzten. Eher das Stolpern eines Menschen, der zu lange wach geblieben ist oder zu viel Blut verloren hat. Jeder Schritt wirkt, als müsse er sich erst daran erinnern, wie Gehen funktioniert.",
+          "Nasses Haar klebt an seiner Stirn. Der linke Ärmel seines Mantels ist dunkel verfärbt. Das Blut darauf ist bereits getrocknet.",
+          "Als er kurz ins Straucheln gerät, schlägt der Mantel auseinander.",
+          "Etwas Silbernes blitzt darunter hervor.",
+          "Ein Artefakt.",
+          "Nicht groß. Vielleicht handtellergroß. Doch selbst auf diese Entfernung erkennst du das Zeichen: ein offenes Auge über drei eingeritzten Linien.",
+          "Kirchensilber.",
+          "Du hast das Symbol schon einmal gesehen.",
+          "Am Nordpass. Vor Jahren. Es war in einen Grenzstein geschlagen worden, halb verborgen unter Eis und Schnee. Die Händler hatten damals darüber gespuckt und sich bekreuzigt. Niemand erklärte warum.",
+          "Heute gibt es keinen Schnee.",
+          "Nur Regen, Schlamm und einen Fremden, der etwas bei sich trägt, das kaum ihm gehören dürfte.",
+          "Der Mann hat dich noch nicht bemerkt.",
+          "Hinter ihm verschluckt Nebel den Weg.",
+          "Vor ihm liegt Lindendorf.",
+          "Zwischen euch stehen nur einige Schritte, schlechtes Wetter und die Frage, wem das Blut auf seinem Ärmel gehört."
+        ],
+        "choices": [
+          "(Stärke – mittel) Der Mann wirkt geschwächt. Falls er Widerstand leistet, dürfte der Kampf kurz sein. Dennoch tragen auch Sterbende Messer.",
+          "(Geschick – schwer) Der Regen dämpft Geräusche. Der Nebel verbirgt Bewegungen. Doch Kirchenartefakte werden selten achtlos getragen.",
+          "(Charisma – mittel) Vielleicht ist er verängstigt. Vielleicht verletzt. Vielleicht sucht er Hilfe mehr als Streit.",
+          "Vorübergehen - Manche Dinge bringen Unglück, lange bevor man sie berührt."
+        ]
+      }
+    },
+    "221d1917": {
+      "original": {
+        "title": "Lindendorf",
+        "lines": [
+          "Was tust du?"
+        ],
+        "choices": [
+          "Mit dem Bürgermeister sprechen",
+          "Die Taverne besuchen",
+          "Brunnen und Dorfplatz",
+          "Zur Mühle gehen",
+          "Zur Gerbereigasse gehen",
+          "Schmiede und Apotheke",
+          "Zum alten Glockenweg aufsteigen",
+          "Richtung Wald aufbrechen"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Einen Moment lang schon stehst du nun mitten im Dorf.",
+          "Nichts geschieht.",
+          "Es regnet.",
+          "Vor dir Rathaus, Taverne, Brunnen, die Mühle und der Weg zum Hang.",
+          "Was tust du?"
+        ]
+      }
+    },
+    "ff239ebb": {
+      "original": {
+        "title": "Vor der Kirche",
+        "lines": [
+          "Die Kirche steht einen Schritt tiefer als der Platz. An der Schwelle steht Regenwasser und läuft nicht ab.",
+          "Fenn sitzt im Schatten der Kirchmauer, nackte Füße im kalten Wasser der Rinne. Er hebt den Blick, bevor du vorbeigehst. Zum ersten Mal, seit man sich erinnern kann.",
+          "In der Tasche hält er ein morsches Stück Lattenzaun, glatt von zehn Wintern.",
+          "„In einer Woche kommt die Baumannschaft. Vahl hat im Rat verkündet, hinter der Gerberei stehe ein Lagerhaus. Als wäre da nie etwas gewesen.“"
+        ],
+        "choices": [
+          "Weiter"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Die Kirche von Lindendorf steht einen Schritt tiefer als der Platz davor, als hätte sie sich in all den Jahrhunderten langsam in die Erde gesenkt, müde von allem, was ihr je gebeichtet wurde. An der Schwelle hat der Stein selbst über die Zeit eine flache Mulde geschliffen, in der sich das Regenwasser sammelt; es läuft nicht ab, sondern steht dort wie ein kleiner, geduldiger Spiegel, in dem sich ein grauer Himmel bricht, und keiner hat in zehn Jahren daran gedacht, einen Abfluss zu schlagen. Vielleicht, weil niemand die Schwelle mehr lange genug betrachtet, um den Mangel zu bemerken.",
+          "Im Schatten der Kirchmauer, dort, wohin selbst im Hochsommer nur für eine Handvoll Stunden am Tag die Sonne findet, sitzt Fenn. Seine nackten Füße liegen im kalten Wasser der Dachrinne, ohne dass er es zu spüren scheint — als sei die Kälte längst ein alter Bekannter, mit dem man keine Umstände mehr macht. Er hebt den Blick, noch bevor du an ihm vorbeigehst, und das allein ist mehr als gewöhnlich: Niemand im Dorf erinnert sich, Fenn je zuerst habe aufsehen sehen. Für gewöhnlich ist er Teil der Mauer, ein Schatten unter Schatten, den man grüßt, ohne ihn wirklich anzuschauen — heute nicht.",
+          "In der Tasche seines vielfach geflickten Mantels, dessen ursprüngliche Farbe niemand mehr benennen könnte, hält er ein morsches Stück Lattenzaun. Zehn Winter haben das Holz glattgeschliffen wie einen Kiesel im Flussbett; die alten Nagellöcher sind zu bloßen Dellen verwittert, doch wer genau hinsieht, erkennt noch, wo einst zwei Bretter im rechten Winkel zusammengeschlagen waren."
+        ]
+      }
+    },
+    "9ec0383c": {
+      "original": {
+        "title": "Die leere Gasse",
+        "lines": [
+          "Hinter der Gerberei liegt die Gasse, die niemand mehr betritt. Dabei wäre sie der kürzeste Weg zum Fluss.",
+          "Unkraut reicht einem Kind bis zur Brust. An einer Hauswand laufen Striche in Reihen, zu gleichmäßig für Zufall.",
+          "Fenn wartet an der Kirchmauer. Im Rathaus redet Vahl von einem Lagerhaus.",
+          "In einer Woche rücken die Leute an, die Bretter bringen, nicht Fragen."
+        ],
+        "choices": [
+          "Bei Fenn an der Kirchmauer bleiben",
+          "Ratsherr Vahl im Rathaus aufsuchen",
+          "Die Gasse hinter der Gerberei ansehen",
+          "Zurück zum Dorfplatz"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "„In einer Woche kommt die Baumannschaft“, sagt er, ohne Anlauf, als setze er ein Gespräch fort, das in Wahrheit nie begonnen hatte. „Vahl hat es im Rat verkündet, mit der Stimme eines Mannes, der eine gute Nachricht überbringt. Hinter der Gerberei, sagt er, solle ein Lagerhaus stehen. Er sagt es, als wäre dort niemals etwas anderes gewesen.“",
+          "",
+          "Hinter der Gerberei beginnt die Gasse, die niemand mehr betritt, obwohl sie der kürzeste Weg zum Fluss wäre — kürzer um gute hundert Schritte als der Umweg über den Marktplatz, den jeder im Dorf inzwischen für den einzig möglichen hält, als hätte man die andere Strecke nie gekannt. Das Unkraut steht hoch genug, um einem Kind bis zur Brust zu reichen, dicht und ungeschnitten, ein grünes Vergessen, das sich über die alten Türschwellen gelegt hat wie eine Decke über ein Gesicht.",
+          "An einer der Hauswände, dort, wo der Verputz am längsten gehalten hat, laufen Striche in ordentlichen Reihen — fünf, dann ein sechster quer darüber, wieder fünf, wieder ein sechster. Zu gleichmäßig, um Zufall zu sein, zu geduldig, um das Werk eines einzigen Nachmittags zu sein. Jemand hat hier gezählt, mit der Sorgfalt eines Menschen, dem nichts anderes zu tun blieb als das Zählen.",
+          "Fenn wartet unterdessen an der Kirchmauer, wo er immer wartet. Im Rathaus spricht Vahl von einem Lagerhaus, mit ruhiger Stimme, als läse er eine Warenliste vor. In einer Woche werden die Leute anrücken, die Bretter bringen und Werkzeug, keine Fragen — und das Unkraut, das zehn Jahre lang ungestört wachsen durfte, wird zum ersten Mal seit einem Jahrzehnt wieder Schritte spüren, die nicht zufällig hierherfanden."
+        ]
+      }
+    },
+    "688eef36": {
+      "original": {
+        "title": "Fenn an der Kirchmauer",
+        "lines": [
+          "Fenn sitzt so, dass die Kirchentür ihn nicht trifft, wenn sie aufgeht. Das hat Übung.",
+          "Der Stein unter ihm ist abgewetzt. Wer hier sitzt, sitzt nicht zum ersten Winter.",
+          "„Weißt du, warum dort niemand mehr geht?“ Er stellt die Frage, ohne eine Antwort zu erwarten."
+        ],
+        "choices": [
+          "Warten und zuhören",
+          "Ihn drängen",
+          "Gehen"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Fenn hat seinen Platz so gewählt, dass die Kirchentür ihn nicht trifft, wenn sie aufschlägt — eine Berechnung, die nur ein Mensch anstellt, der diesen Platz nicht zum ersten Mal einnimmt. Der Stein unter ihm ist abgewetzt zu einer sanften Mulde, genau von der Form, die ein Körper über viele, viele Winter hinterlässt. Wer hier sitzt, sitzt nicht zum ersten Mal, und er sitzt auch nicht zum zehnten.",
+          "„Weißt du, warum dort niemand mehr geht?“, hatte er gefragt, ohne eine Antwort zu erwarten, als wäre die Frage selbst schon die halbe Last, die er abzugeben hatte. Jetzt, da du geblieben bist, spricht er weiter, langsam, wie jemand, der ein Wort seit langem im Mund trägt und es endlich auszusprechen wagt.",
+          "„Kesseljahr“, sagt Fenn schließlich. Das Wort fällt wie ein Stein in einen tiefen Brunnen — man hört es fallen, lange bevor man den Grund erreicht sieht. „Missernte. Zwei Jahre hintereinander, und im zweiten dann der schwarze Pilz im Korn, der die Ähren von innen fraß, während sie außen noch gesund aussahen. Man hat es zu spät gesehen. Man sieht solche Dinge immer zu spät.“",
+          "Er schweigt einen Moment, als müsse er das Nächste erst zurechtlegen, bevor er es weitergibt, wie ein Bündel, das man vorsichtig trägt, weil man weiß, wie leicht es zerbricht."
+        ]
+      }
+    },
+    "d7f0fb57": {
+      "original": {
+        "title": "Fenn an der Kirchmauer",
+        "lines": [
+          "Du bleibst. Der Schatten wandert über den Stein, bis er Fenns Knie erreicht.",
+          "Das Betasten wird langsamer. Einmal bleibt die Hand ganz still.",
+          "Von der Gasse her kommt kein Geräusch. Das ist das Lauteste an diesem Ort."
+        ],
+        "choices": [
+          "Weiter"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "„Die Gasse wurde zugenagelt. Bretter vor jede Tür, kreuzweise, wie man es sonst nur mit Häusern der Pest macht. Wache davor, Tag und Nacht, zwei Männer, die man kannte, die aber nicht mehr grüßten, sobald sie den Posten bezogen hatten. Drei Männer aus dem Rat hielten den Schlüssel zu der einen Tür, die man offen ließ, für das Korn, das kommen sollte.“",
+          "Seine Hand schließt sich fester um das Stück Lattenzaun in seiner Tasche, ein Reflex, den er selbst vielleicht nicht bemerkt.",
+          "„Das Korn kam nicht. Nicht genug, nicht rechtzeitig, manche Wochen gar nicht. Das Fieber kam dafür pünktlich, wie es das immer tut, wenn der Hunger ihm die Tür schon aufgehalten hat. Als man die Bretter im Frühjahr wieder abriss, war von denen, die im Herbst dort eingeschlossen wurden, kaum noch jemand übrig, der sein eigenes Haus noch hätte beanspruchen können. Und das Land — das Land wurde aufgeteilt, noch bevor die Toten kalt genug waren, um sie ordentlich zu betrauern. Vahls Großvater hat als Erster gezeichnet. Die anderen beiden folgten, wie man einer Spur folgt, die schon jemand anderes gelegt hat, damit man selbst nicht der Erste sein muss, der sie tritt.“"
+        ]
+      }
+    },
+    "18251d5b": {
+      "original": {
+        "title": "Fenn an der Kirchmauer",
+        "lines": [
+          "„Kesseljahr“, sagt Fenn endlich. Das Wort fällt wie ein Stein in einen Brunnen.",
+          "„Missernte. Dann schwarzer Pilz im Korn. Die Gasse wurde zugenagelt. Bretter vor jede Tür. Wache davor. Drei Männer aus dem Rat hielten den Schlüssel.“",
+          "„Das Korn kam nicht. Das Fieber kam. Als sie die Bretter wieder abrissen, war niemand mehr übrig, der sein Haus noch beanspruchte. Das Land wurde aufgeteilt, noch bevor die Toten kalt waren. Vahls Großvater hat zuerst gezeichnet.“",
+          "Er sieht nicht dich an, sondern die Gasse. „Grete lebt noch. Am Rand. Sie sieht fast nichts. Aber sie hört, ob du mit Zeit kommst — oder nur mit einer Frage, die du schon beantwortet haben willst.“"
+        ],
+        "choices": [
+          "Weiter"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Er sieht nicht dich an, sondern hinüber zur Gasse, als läge dort noch immer etwas, das seine Aufmerksamkeit verdient, auch nach zehn Jahren.",
+          "„Grete lebt noch. Am Rand der Gasse, in dem Haus, das keiner haben wollte, weil es zu nah an den anderen steht. Sie sieht fast nichts mehr, ihre Augen sind trüb geworden wie Brunnenwasser im Winter — aber sie hört gut, und sie hört vor allem, ob du mit Zeit zu ihr kommst oder nur mit einer Frage, auf die du die Antwort schon im Kopf trägst und nur noch bestätigt haben willst. Für Letzteres hat sie kein Gehör übrig. Das hat sie sich in zehn Jahren abgewöhnt.“"
+        ]
+      }
+    },
+    "68badb03": {
+      "original": {
+        "title": "Die leere Gasse",
+        "lines": [
+          "Hinter der Gerberei liegt die Gasse, die niemand mehr betritt. Dabei wäre sie der kürzeste Weg zum Fluss.",
+          "Unkraut reicht einem Kind bis zur Brust. An einer Hauswand laufen Striche in Reihen, zu gleichmäßig für Zufall.",
+          "Fenn hat gefragt, warum dort niemand mehr geht. Die Hand in seiner Tasche hält still, solange du noch da bist.",
+          "In einer Woche rücken die Leute an, die Bretter bringen, nicht Fragen."
+        ],
+        "choices": [
+          "Bei Fenn an der Kirchmauer bleiben",
+          "Ratsherr Vahl im Rathaus aufsuchen",
+          "Die Gasse hinter der Gerberei ansehen",
+          "Die blinde Frau am Gassenrand aufsuchen",
+          "Zurück zum Dorfplatz"
+        ]
+      },
+      "patch": {
+        "lines": [
+          "Hinter der Gerberei liegt sie noch immer, die Gasse, die niemand mehr betritt, obwohl sie der kürzeste Weg zum Fluss wäre. Das Unkraut steht so hoch wie zuvor, dicht genug, einem Kind bis zur Brust zu reichen, und an der Hauswand laufen dieselben Striche in denselben geduldigen Reihen — fünf und ein sechster quer darüber, wieder und wieder, das Werk eines Menschen, dem nichts anderes zu tun blieb als das Zählen der Tage.",
+          "Nur du selbst siehst die Gasse jetzt anders, seit Fenn gefragt hat, warum dort niemand mehr geht, und seit du geblieben bist, um die Antwort zu hören. Irgendwo in seiner Manteltasche hält seine Hand jetzt still um das alte Stück Lattenzaun, solange du noch in seiner Nähe bist — als koste es ihn weniger Kraft, es festzuhalten, wenn er nicht allein damit ist.",
+          "In einer Woche werden die Leute anrücken, die Bretter bringen und Werkzeug, keine Fragen. Das Unkraut wird zum ersten Mal seit zehn Jahren wieder unter Stiefeln knicken, die nicht zufällig hierherfanden — und was darunter liegt, wird entweder endlich ans Licht kommen oder für immer unter neuem Fundament verschwinden."
+        ]
+      }
+    }
+  }
+}

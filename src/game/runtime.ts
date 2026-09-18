@@ -1,3 +1,4 @@
+import { applyPatch, fingerprint, lookupPatch } from "./text-pack";
 import { cloneHeld, type ArtKey, type Held, type PortraitKey, type SceneView } from "./types";
 
 type PresentInput = {
@@ -44,16 +45,24 @@ export class Runtime {
 
     if (input.held) this.setHeld(cloneHeld(input.held));
 
-    const view: SceneView = {
+    const original = {
       title: input.title ?? this.lastTitle,
+      lines: input.lines,
+      choices: input.choices ?? ["Weiter"],
+    };
+    const shown = applyPatch(original, lookupPatch(original));
+    const view: SceneView = {
+      title: shown.title,
       art: input.art ?? this.lastArt,
       portrait: input.portrait === null ? undefined : (input.portrait ?? this.lastPortrait),
-      lines: input.lines,
+      lines: shown.lines,
       held: input.held ? cloneHeld(input.held) : undefined,
       probe: input.probe,
       log: input.log,
       ending: input.ending,
-      choices: input.choices ?? ["Weiter"],
+      choices: shown.choices,
+      textKey: fingerprint(original),
+      original,
     };
     this.setView(view);
 
