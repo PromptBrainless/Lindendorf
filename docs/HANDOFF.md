@@ -11,7 +11,7 @@ Drei Nebenquests, Hauptfluss unberührt.
 |---|---|---|---|
 | Die Schuld der Mühle | `Zur Mühle gehen` | `quest-muehle.ts` | Goldstandard |
 | Das trübe Wasser | `Den trüben Eimer prüfen` | `quest-brunnen.ts` | spielbar, Prosa nachgezogen |
-| Das Kesseljahr | `Zur Gerbereigasse gehen` | `quest-kesseljahr.ts` | spielbar, Prosa mit OpenCode gegengelesen |
+| Das Kesseljahr | `Zur Gerbereigasse gehen` | `quest-kesseljahr.ts` | spielbar, Gasse ausformuliert (Grete/Vahl/Gewölbe/Nachspiele) |
 
 Echo ohne Schloss: `src/game/reihe-versorgung.ts` (Mühle ↔ Brunnen, Gasse färbt beide, Holm/Mara/Wald/Epilog).
 
@@ -47,8 +47,8 @@ OpenCode darf vorschlagen. Der Agent entscheidet, was ins Spiel kommt.
 
 Nicht neu verdrahten. Entweder:
 
-1. Rest der Gasse (Grete, Vahl, Gewölbe, vier Nachspiele) denselben OpenCode-Lauf.
-2. Glockenweg/Wald — kürzester Hauptast, Gewichtsfrage aus der QM.
-3. Dritte Versorgungsquest: anderer Randort als Steg und Zisterne.
+1. Glockenweg/Wald — kürzester Hauptast, Gewichtsfrage aus der QM.
+2. Dritte Versorgungsquest: anderer Randort als Steg und Zisterne.
+3. Zweite Erinnerungsquest der Reihe „Erinnerung des Tals“ — Namen erst nach Kollisionscheck.
 
 Nicht ohne Auftrag: Engine, Auth, Haupt-Endtitel, neue ArtKeys.
