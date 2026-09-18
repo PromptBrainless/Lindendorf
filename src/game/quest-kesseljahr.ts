@@ -1,6 +1,9 @@
 import { probe } from "./engine";
 import type { Runtime } from "./runtime";
 import { LEICHT, MITTEL, SCHWER, tot, type Held } from "./types";
+import { gasseGrete } from "./kesseljahr-grete";
+import { gasseGewoelbe } from "./kesseljahr-gewoelbe";
+import { gasseKonflikt } from "./kesseljahr-schluss";
 
 export async function dorfGasse(rt: Runtime, held: Held) {
   if (held.loesungswegGasse) {
