@@ -1,12 +1,14 @@
 import { Dices, PenLine } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ART, PORTRAITS } from "@/game/art";
+import { ART, PORTRAITS, artSrcFor, isMotion, portraitSrcFor } from "@/game/art";
 import { commitPack, mergedPack, patchCount, upsertPatch } from "@/game/text-pack";
 import type { KartePatch } from "@/game/spielleiter";
-import type { SceneView } from "@/game/types";
+import type { EffektId, SceneView } from "@/game/types";
 import { Hud } from "./Hud";
 import { KnowledgeJournal } from "./KnowledgeJournal";
+import { LageOverlay } from "./LageOverlay";
+import { SeitenFuss } from "./SeitenFuss";
 import { SpielleiterPanel } from "./SpielleiterPanel";
 
 export function SceneStage({
@@ -25,6 +27,12 @@ export function SceneStage({
   onPatch,
   onResetKarte,
   authorMode,
+  onEffekt,
+  onHerkunft,
+  onLageVorlegen,
+  lageIndex,
+  onLageAntwort,
+  onLageSchliessen,
 }: {
   view: SceneView;
   original: SceneView;
@@ -41,6 +49,12 @@ export function SceneStage({
   onPatch: (next: KartePatch) => void;
   onResetKarte: () => void;
   authorMode: boolean;
+  onEffekt: (id: EffektId, an: boolean) => void;
+  onHerkunft: (frageIndex: number, antwortIndex: number) => void;
+  onLageVorlegen: (frageIndex: number) => void;
+  lageIndex: number | null;
+  onLageAntwort: (antwortIndex: number) => void;
+  onLageSchliessen: () => void;
 }) {
   const karte = view.original ?? { title: original.title, lines: original.lines, choices: original.choices };
   const [title, setTitle] = useState(view.title);
@@ -102,12 +116,14 @@ export function SceneStage({
     }
   }
 
-  const hintergrund = view.artSrc || ART[view.art];
-  const portrait = view.portraitSrc || (view.portrait ? PORTRAITS[view.portrait] : "");
+  const hintergrund = artSrcFor(view.art, view.artSrc);
+  const hintergrundPoster = ART[view.art];
+  const portrait = portraitSrcFor(view.portrait, view.portraitSrc);
+  const portraitPoster = view.portrait ? PORTRAITS[view.portrait] : undefined;
 
   return (
     <div className="relative isolate min-h-dvh overflow-x-hidden overflow-y-auto bg-bg text-fg">
-      <img src={hintergrund} alt="" className="absolute inset-0 size-full object-cover" />
+      <StageMedia src={hintergrund} poster={hintergrundPoster} className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/55 to-bg/20" />
       {view.held ? (
         <Hud
@@ -140,9 +156,9 @@ export function SceneStage({
         ) : null}
         <div className="flex items-end gap-4">
           {portrait ? (
-            <img
+            <StageMedia
               src={portrait}
-              alt=""
+              poster={portraitPoster}
               className="hidden h-36 w-24 shrink-0 rounded-lg border border-border object-cover shadow-sm sm:block sm:h-44 sm:w-28"
             />
           ) : null}
@@ -160,7 +176,11 @@ export function SceneStage({
                 <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">{view.title}</h2>
               )}
               {portrait ? (
-                <img src={portrait} alt="" className="h-14 w-10 rounded-md border border-border object-cover sm:hidden" />
+                <StageMedia
+                  src={portrait}
+                  poster={portraitPoster}
+                  className="h-14 w-10 rounded-md border border-border object-cover sm:hidden"
+                />
               ) : null}
             </div>
 
@@ -208,6 +228,13 @@ export function SceneStage({
             ) : null}
 
             {authorMode && status ? <p className="mt-3 text-sm text-accent">{status}</p> : null}
+
+            <SeitenFuss
+              held={view.held}
+              hinzu={view.seiteHinzu}
+              nimmt={view.seiteNimmt}
+              fort={view.seiteFort}
+            />
           </div>
         </div>
 
@@ -250,11 +277,24 @@ export function SceneStage({
           original={original}
           patch={patch}
           schluessel={schluessel}
+          held={view.held ?? null}
           onChange={onPatch}
           onReset={onResetKarte}
           onClose={onLeiter}
+          onEffekt={onEffekt}
+          onLageVorlegen={onLageVorlegen}
         />
+      ) : null}
+      {lageIndex !== null ? (
+        <LageOverlay frageIndex={lageIndex} onAntwort={onLageAntwort} onSchliessen={onLageSchliessen} />
       ) : null}
     </div>
   );
+}
+
+function StageMedia({ src, poster, className }: { src: string; poster?: string; className?: string }) {
+  if (isMotion(src)) {
+    return <video src={src} poster={poster} className={className} autoPlay muted loop playsInline aria-hidden />;
+  }
+  return <img src={src} alt="" className={className} />;
 }

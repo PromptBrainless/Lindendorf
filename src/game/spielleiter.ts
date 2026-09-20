@@ -1,4 +1,4 @@
-import type { ArtKey, PortraitKey, SceneView } from "./types";
+import type { ArtKey, EffektId, PortraitKey, SceneView } from "./types";
 
 export const SPIELLEITER_FLAG = "lindendorf.spielleiter.an";
 export const SPIELLEITER_STORE = "lindendorf.spielleiter.karten.v1";
@@ -11,6 +11,8 @@ export type KartePatch = {
   portraitSrc?: string;
   lines?: string[];
   choices?: string[];
+  effekte?: EffektId[];
+  effekteFort?: EffektId[];
 };
 
 export function spielleiterAktiv(): boolean {
@@ -43,6 +45,19 @@ export function karteSchluessel(view: Pick<SceneView, "title" | "lines" | "choic
   return `k${(hash >>> 0).toString(16)}`;
 }
 
+export function sichtSchluessel(view: SceneView): string[] {
+  const keys = [karteSchluessel(view)];
+  if (view.original) {
+    const orig = karteSchluessel({
+      title: view.original.title,
+      lines: view.original.lines,
+      choices: view.original.choices,
+    });
+    if (!keys.includes(orig)) keys.push(orig);
+  }
+  return keys;
+}
+
 export function ladeKarten(): Record<string, KartePatch> {
   try {
     const roh = window.localStorage.getItem(SPIELLEITER_STORE);
@@ -52,6 +67,25 @@ export function ladeKarten(): Record<string, KartePatch> {
   } catch {
     return {};
   }
+}
+
+export function patchFuerSicht(view: SceneView): { schluessel: string; patch: KartePatch } {
+  const alle = ladeKarten();
+  const keys = sichtSchluessel(view);
+  for (const key of keys) {
+    if (alle[key] && Object.keys(alle[key]).length) return { schluessel: key, patch: alle[key] };
+  }
+  const treffer = Object.entries(alle).filter(([, patch]) => {
+    if (!patch || !Object.keys(patch).length) return false;
+    if (patch.title && patch.title === view.title) return true;
+    if (patch.choices && patch.choices.length === view.choices.length && view.title && patch.lines?.length) {
+      return false;
+    }
+    return false;
+  });
+  const genau = treffer.filter(([, patch]) => patch.title === view.title);
+  if (genau.length === 1) return { schluessel: genau[0][0], patch: genau[0][1] };
+  return { schluessel: keys[0] ?? karteSchluessel(view), patch: {} };
 }
 
 export function speichereKarte(schluessel: string, patch: KartePatch) {
@@ -74,6 +108,11 @@ export function loescheKarte(schluessel: string) {
   }
 }
 
+function uniqueIds(ids: EffektId[]): EffektId[] | undefined {
+  const next = [...new Set(ids)];
+  return next.length ? next : undefined;
+}
+
 export function wendePatchAn(view: SceneView, patch: KartePatch | null | undefined): SceneView {
   if (!patch) return view;
   const portrait =
@@ -90,6 +129,8 @@ export function wendePatchAn(view: SceneView, patch: KartePatch | null | undefin
     portraitSrc: patch.portraitSrc?.trim() || view.portraitSrc,
     lines: patch.lines?.map((line) => line.trim()).filter(Boolean) ?? view.lines,
     choices,
+    seiteHinzu: uniqueIds([...(view.seiteHinzu ?? []), ...(patch.effekte ?? [])]),
+    seiteFort: uniqueIds([...(view.seiteFort ?? []), ...(patch.effekteFort ?? [])]),
   };
 }
 

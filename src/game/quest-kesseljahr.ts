@@ -19,9 +19,9 @@ export async function dorfGasse(rt: Runtime, held: Held) {
       portrait: null,
       held,
       lines: [
-        "Die Kirche steht einen Schritt tiefer als der Platz. An der Schwelle steht Regenwasser und läuft nicht ab.",
-        "Fenn sitzt im Schatten der Kirchmauer, nackte Füße im kalten Wasser der Rinne. Er hebt den Blick, bevor du vorbeigehst. Zum ersten Mal, seit man sich erinnern kann.",
-        "In der Tasche hält er ein morsches Stück Lattenzaun, glatt von zehn Wintern.",
+        "Die Kirche von Lindendorf steht einen Schritt tiefer als der Platz davor, als hätte sie sich in all den Jahrhunderten langsam in die Erde gesenkt, müde von allem, was ihr je gebeichtet wurde. An der Schwelle hat der Stein selbst über die Zeit eine flache Mulde geschliffen, in der sich das Regenwasser sammelt; es läuft nicht ab, sondern steht dort wie ein kleiner, geduldiger Spiegel, in dem sich ein grauer Himmel bricht, und keiner hat in zehn Jahren daran gedacht, einen Abfluss zu schlagen. Vielleicht, weil niemand die Schwelle mehr lange genug betrachtet, um den Mangel zu bemerken.",
+        "Im Schatten der Kirchmauer, dort, wohin selbst im Hochsommer nur für eine Handvoll Stunden am Tag die Sonne findet, sitzt Fenn. Seine nackten Füße liegen im kalten Wasser der Dachrinne, ohne dass er es zu spüren scheint — als sei die Kälte längst ein alter Bekannter, mit dem man keine Umstände mehr macht. Er hebt den Blick, noch bevor du an ihm vorbeigehst, und das allein ist mehr als gewöhnlich: Niemand im Dorf erinnert sich, Fenn je zuerst habe aufsehen sehen. Für gewöhnlich ist er Teil der Mauer, ein Schatten unter Schatten, den man grüßt, ohne ihn wirklich anzuschauen — heute nicht.",
+        "In der Tasche seines vielfach geflickten Mantels, dessen ursprüngliche Farbe niemand mehr benennen könnte, hält er ein morsches Stück Lattenzaun. Zehn Winter haben das Holz glattgeschliffen wie einen Kiesel im Flussbett; die alten Nagellöcher sind zu bloßen Dellen verwittert, doch wer genau hinsieht, erkennt noch, wo einst zwei Bretter im rechten Winkel zusammengeschlagen waren.",
       ],
     });
     await rt.present({
@@ -62,7 +62,7 @@ export async function dorfGasse(rt: Runtime, held: Held) {
 
     const wahl = await rt.present({
       title: "Die leere Gasse",
-      art: "village",
+      art: "gate",
       portrait: null,
       held,
       lines: hubZeilen(held),
@@ -215,9 +215,8 @@ async function gasseFenn(rt: Runtime, held: Held) {
   }
 
   const lines = [
-    "Fenn sitzt so, dass die Kirchentür ihn nicht trifft, wenn sie aufgeht. Das hat Übung.",
-    "Der Stein unter ihm ist abgewetzt. Wer hier sitzt, sitzt nicht zum ersten Winter.",
-    "„Weißt du, warum dort niemand mehr geht?“ Er stellt die Frage, ohne eine Antwort zu erwarten.",
+    "Fenn hat seinen Platz so gewählt, dass die Kirchentür ihn nicht trifft, wenn sie aufschlägt — eine Berechnung, die nur ein Mensch anstellt, der diesen Platz nicht zum ersten Mal einnimmt. Der Stein unter ihm ist abgewetzt zu einer sanften Mulde, genau von der Form, die ein Körper über viele, viele Winter hinterlässt. Wer hier sitzt, sitzt nicht zum ersten Mal, und er sitzt auch nicht zum zehnten.",
+    "„Weißt du, warum dort niemand mehr geht?“ Er stellt die Frage, ohne eine Antwort zu erwarten, als wäre die Frage selbst schon die halbe Last, die er abzugeben hatte.",
   ];
   if (held.fennGedraengt) {
     lines.push(
@@ -257,9 +256,9 @@ async function gasseFenn(rt: Runtime, held: Held) {
   await rt.present({
     held,
     lines: [
-      "Du bleibst. Der Schatten wandert über den Stein, bis er Fenns Knie erreicht.",
-      "Das Betasten wird langsamer. Einmal bleibt die Hand ganz still.",
-      "Von der Gasse her kommt kein Geräusch. Das ist das Lauteste an diesem Ort.",
+      "„Die Gasse wurde zugenagelt. Bretter vor jede Tür, kreuzweise, wie man es sonst nur mit Häusern der Pest macht. Wache davor, Tag und Nacht, zwei Männer, die man kannte, die aber nicht mehr grüßten, sobald sie den Posten bezogen hatten. Drei Männer aus dem Rat hielten den Schlüssel zu der einen Tür, die man offen ließ, für das Korn, das kommen sollte.“",
+      "Seine Hand schließt sich fester um das Stück Lattenzaun in seiner Tasche, ein Reflex, den er selbst vielleicht nicht bemerkt.",
+      "„Das Korn kam nicht. Nicht genug, nicht rechtzeitig, manche Wochen gar nicht. Das Fieber kam dafür pünktlich, wie es das immer tut, wenn der Hunger ihm die Tür schon aufgehalten hat. Als man die Bretter im Frühjahr wieder abriss, war von denen, die im Herbst dort eingeschlossen wurden, kaum noch jemand übrig, der sein eigenes Haus noch hätte beanspruchen können. Und das Land — das Land wurde aufgeteilt, noch bevor die Toten kalt genug waren, um sie ordentlich zu betrauern. Vahls Großvater hat als Erster gezeichnet. Die anderen beiden folgten, wie man einer Spur folgt, die schon jemand anderes gelegt hat, damit man selbst nicht der Erste sein muss, der sie tritt.“",
     ],
   });
 
@@ -267,15 +266,8 @@ async function gasseFenn(rt: Runtime, held: Held) {
   await rt.present({
     held,
     lines: [
-      "„Kesseljahr“, sagt Fenn endlich. Das Wort fällt wie ein Stein in einen Brunnen.",
-      "„Missernte. Dann schwarzer Pilz im Korn. Die Gasse wurde zugenagelt. Bretter vor jede Tür. Wache davor. Drei Männer aus dem Rat hielten den Schlüssel.“",
-    ],
-  });
-  await rt.present({
-    held,
-    lines: [
-      "„Das Korn kam nicht. Das Fieber kam. Als sie die Bretter wieder abrissen, war niemand mehr übrig, der sein Haus noch beanspruchte. Das Land wurde aufgeteilt, noch bevor die Toten kalt waren. Vahls Großvater hat zuerst gezeichnet.“",
-      "Er sieht nicht dich an, sondern die Gasse. „Grete lebt noch. Am Rand. Sie sieht fast nichts. Aber sie hört, ob du mit Zeit kommst — oder nur mit einer Frage, die du schon beantwortet haben willst.“",
+      "Er sieht nicht dich an, sondern hinüber zur Gasse, als läge dort noch immer etwas, das seine Aufmerksamkeit verdient, auch nach zehn Jahren.",
+      "„Grete lebt noch. Am Rand der Gasse, in dem Haus, das keiner haben wollte, weil es zu nah an den anderen steht. Sie sieht fast nichts mehr, ihre Augen sind trüb geworden wie Brunnenwasser im Winter — aber sie hört gut, und sie hört vor allem, ob du mit Zeit zu ihr kommst oder nur mit einer Frage, auf die du die Antwort schon im Kopf trägst und nur noch bestätigt haben willst. Für Letzteres hat sie kein Gehör übrig. Das hat sie sich in zehn Jahren abgewöhnt.“",
     ],
   });
 }
@@ -410,7 +402,7 @@ async function gasseOrt(rt: Runtime, held: Held) {
     ],
   });
   await rt.present({
-    art: "village",
+    art: "gate",
     held,
     lines: [
       "An einer Hauswand laufen Kratzspuren in Reihen. Keine Krallen. Jemand hat gezählt.",

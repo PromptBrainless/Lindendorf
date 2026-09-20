@@ -17,7 +17,11 @@ export function RulesScreen({ onBack }: { onBack: () => void }) {
               leicht 8 · mittel 12 · schwer 15
             </p>
             <p>Erfolg und Misserfolg ändern Text, Gegenstände, Lebenspunkte und den weiteren Weg.</p>
-            <p>Attribute (1–10): Stärke, Geschicklichkeit, Charisma. Lebenspunkte: 10. Bei 0 ist es vorbei.</p>
+            <p>
+              Attribute (1–10): Stärke, Geschicklichkeit, Charisma. Lebenspunkte: 10. Bei 0 ist es vorbei.
+              Neun Gunst, neun Last. Gunst hebt ein Attribut, Last drückt eines. Die Moralgeschichten
+              setzen diese Zustände — die Probe rechnet mit dem geänderten Wert, nicht mit dem Grundwert.
+            </p>
             <p>Inventar: Heiltrank, Schlüssel, Gold — keine Ausrüstungsslots.</p>
             <p>Speichern: Im HUD speichern. Laden setzt dich am Dorfplatz mit deinen Entscheidungen fort.</p>
             <p>Orte: Dorf → Wald → Banditenlager → Ende. Im Lager gehen Schleichen, Reden und Kampf alle durch.</p>

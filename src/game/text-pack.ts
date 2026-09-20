@@ -37,11 +37,13 @@ export function fingerprint(card: CardText): string {
 
 export function applyPatch(card: CardText, patch: CardPatch | undefined): CardText {
   if (!patch) return card;
-  const lines = patch.lines?.length ? patch.lines : card.lines;
+  const lines = patch.lines?.length
+    ? patch.lines.map((line) => line.trimEnd()).filter((line) => line.trim().length > 0)
+    : card.lines;
   const choices = patch.choices?.length === card.choices.length ? patch.choices : card.choices;
   return {
     title: patch.title?.trim() ? patch.title : card.title,
-    lines,
+    lines: lines.length ? lines : card.lines,
     choices,
   };
 }
@@ -138,7 +140,26 @@ export function patchCount(pack: TextPack): number {
 }
 
 export function lookupPatch(original: CardText): CardPatch | undefined {
-  return mergedPack().patches[fingerprint(original)]?.patch;
+  const pack = mergedPack();
+  const direct = pack.patches[fingerprint(original)]?.patch;
+  if (direct) return direct;
+  let best: CardPatch | undefined;
+  let bestScore = 0;
+  for (const entry of Object.values(pack.patches)) {
+    if (entry.original.title !== original.title) continue;
+    const stored = entry.original.lines;
+    const live = original.lines;
+    if (JSON.stringify(stored) === JSON.stringify(live)) return entry.patch;
+    if (!stored[0] || stored[0] !== live[0]) continue;
+    const n = Math.min(stored.length, live.length);
+    let same = 0;
+    for (let i = 0; i < n; i += 1) if (stored[i] === live[i]) same += 1;
+    if (same === n && same > bestScore) {
+      best = entry.patch;
+      bestScore = same;
+    }
+  }
+  return best;
 }
 
 export async function commitPack(

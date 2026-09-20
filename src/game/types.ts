@@ -12,6 +12,25 @@ export type MuehleWeg = "kampf" | "schleich" | "verhandelt" | "verraten" | null;
 export type BrunnenWeg = "zerstoert" | "geoeffnet" | "verhandelt" | "bestochen" | null;
 export type GasseWeg = "veroeffentlicht" | "weitergegeben" | "erpresst" | "vernichtet" | null;
 export type Todesort = "steg" | "rennik" | "zisterne" | null;
+export type EffektId =
+  | "ausgeschlafen"
+  | "satt"
+  | "motiviert"
+  | "konzentriert"
+  | "neugierig"
+  | "trocken"
+  | "zuversichtlich"
+  | "gelassen"
+  | "segen"
+  | "hungrig"
+  | "wunde"
+  | "durstig"
+  | "nass"
+  | "fieber"
+  | "traurig"
+  | "furcht"
+  | "verstossung"
+  | "erschoepfung";
 
 export type ArtKey =
   | "title"
@@ -35,7 +54,7 @@ export type ArtKey =
   | "death"
   | "return";
 
-export type PortraitKey = "holm" | "mara" | "kess" | "miller" | "kern" | "sanna" | "smith" | "beggar";
+export type PortraitKey = "holm" | "mara" | "kess" | "miller" | "kern" | "sanna" | "smith" | "beggar" | "grovin";
 
 export type Held = {
   name: string;
@@ -110,6 +129,8 @@ export type Held = {
   vahlKonfrontiert: boolean;
   loesungswegGasse: GasseWeg;
   todesort: Todesort;
+  effekte: EffektId[];
+  mal: string;
 };
 
 export type ProbeResult = {
@@ -140,6 +161,9 @@ export type SceneView = {
     lines: string[];
     choices: string[];
   };
+  seiteHinzu?: EffektId[];
+  seiteNimmt?: EffektId[];
+  seiteFort?: EffektId[];
 };
 
 export function createHeld(name: string, staerke: number, geschick: number, charisma: number): Held {
@@ -216,11 +240,13 @@ export function createHeld(name: string, staerke: number, geschick: number, char
     vahlKonfrontiert: false,
     loesungswegGasse: null,
     todesort: null,
+    effekte: [],
+    mal: "",
   };
 }
 
 export function cloneHeld(held: Held): Held {
-  return { ...held, inventar: [...held.inventar] };
+  return { ...held, inventar: [...held.inventar], effekte: [...(held.effekte ?? [])] };
 }
 
 export function tot(held: Held): boolean {

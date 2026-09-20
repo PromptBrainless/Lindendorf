@@ -1,15 +1,7 @@
 import { BookOpen, Coins, FlaskConical, Heart, KeyRound, Save, ScrollText } from "lucide-react";
 import { HEILTRANK, MAX_LP, SCHLUESSEL, type Held } from "@/game/types";
+import { werteMitEffekt } from "@/game/effekte";
 import { Button } from "@/components/ui/button";
-
-function Stat({ label, value }: { label: string; value: number }) {
-  return (
-    <span className="inline-flex items-center gap-1 tabular-nums">
-      <span className="text-muted-fg">{label}</span>
-      <span className="text-fg">{value}</span>
-    </span>
-  );
-}
 
 export function Hud({
   held,
@@ -27,10 +19,7 @@ export function Hud({
   leiterOpen: boolean;
 }) {
   const hpPct = Math.max(0, Math.min(100, (held.lp / MAX_LP) * 100));
-  const flags: string[] = [];
-  if (held.verwundet) flags.push("verwundet");
-  if (held.banditenGewarnt) flags.push("gewarnt");
-  if (held.buergermeisterVertraut) flags.push("vertraut");
+  const werte = werteMitEffekt(held);
 
   return (
     <div className="safe-top pointer-events-none absolute inset-x-0 top-0 z-20 p-3 sm:p-4">
@@ -50,10 +39,25 @@ export function Hud({
             />
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-fg">
-          <Stat label="ST" value={held.staerke} />
-          <Stat label="GE" value={held.geschick} />
-          <Stat label="CH" value={held.charisma} />
+        <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-muted-fg">
+          <span className="inline-flex items-center gap-1 tabular-nums">
+            <span className="text-muted-fg">ST</span>
+            <span className={werte.staerke === held.staerke ? "text-fg" : werte.staerke > held.staerke ? "text-ok" : "text-hp"}>
+              {werte.staerke}
+            </span>
+          </span>
+          <span className="inline-flex items-center gap-1 tabular-nums">
+            <span className="text-muted-fg">GE</span>
+            <span className={werte.geschick === held.geschick ? "text-fg" : werte.geschick > held.geschick ? "text-ok" : "text-hp"}>
+              {werte.geschick}
+            </span>
+          </span>
+          <span className="inline-flex items-center gap-1 tabular-nums">
+            <span className="text-muted-fg">CH</span>
+            <span className={werte.charisma === held.charisma ? "text-fg" : werte.charisma > held.charisma ? "text-ok" : "text-hp"}>
+              {werte.charisma}
+            </span>
+          </span>
           <span className="inline-flex items-center gap-1 tabular-nums">
             <Coins className="size-3.5" aria-hidden />
             {held.gold}
@@ -71,7 +75,6 @@ export function Hud({
             </span>
           ) : null}
         </div>
-        {flags.length ? <p className="text-subtle-fg sm:max-w-40 sm:text-right">{flags.join(" · ")}</p> : null}
         <Button
           type="button"
           variant="secondary"

@@ -14,6 +14,7 @@ export function KnowledgeJournal({ held, debug = false, onClose }: { held: Held;
           <X className="size-4" aria-hidden />
         </Button>
       </div>
+      {held.mal ? <p className="mt-3 text-sm leading-relaxed text-fg/90">{held.mal}</p> : null}
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
         <section>
           <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-ok">Sicher</h3>

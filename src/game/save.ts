@@ -47,7 +47,13 @@ export function loadGame(): Held | null {
     const payload = JSON.parse(raw) as Partial<SavePayload>;
     if (payload.version !== 1 || !isHeld(payload.held)) return null;
     const defaults = createHeld(payload.held.name, payload.held.staerke, payload.held.geschick, payload.held.charisma);
-    return { ...defaults, ...payload.held, inventar: [...payload.held.inventar] };
+    return {
+      ...defaults,
+      ...payload.held,
+      inventar: [...payload.held.inventar],
+      effekte: [...(payload.held.effekte ?? [])],
+      mal: payload.held.mal ?? "",
+    };
   } catch {
     return null;
   }

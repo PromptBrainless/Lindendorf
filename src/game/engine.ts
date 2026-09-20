@@ -5,6 +5,7 @@ import {
   type ProbeResult,
   tot,
 } from "./types";
+import { attributMitEffekt, setzeEffekt } from "./effekte";
 
 export function w10(): number {
   return 1 + Math.floor(Math.random() * 10);
@@ -17,12 +18,13 @@ export function probe(
   schwierigkeit: number,
   beschreibung = "",
 ): ProbeResult {
+  const wert = attributMitEffekt(held, attributName, attributWert);
   const wurf = w10();
-  const summe = wurf + attributWert;
+  const summe = wurf + wert;
   return {
     beschreibung,
     attributName,
-    attributWert,
+    attributWert: wert,
     wurf,
     summe,
     schwierigkeit,
@@ -33,7 +35,10 @@ export function probe(
 export function schaden(held: Held, punkte: number, grund = ""): string {
   held.lp -= punkte;
   if (held.lp < 0) held.lp = 0;
-  if (punkte >= 3) held.verwundet = true;
+  if (punkte >= 3) {
+    held.verwundet = true;
+    setzeEffekt(held, "wunde", true);
+  }
   const line = grund
     ? `Du verlierst ${punkte} Lebenspunkte (${grund}). LP: ${held.lp}/${MAX_LP}`
     : `Du verlierst ${punkte} Lebenspunkte. LP: ${held.lp}/${MAX_LP}`;

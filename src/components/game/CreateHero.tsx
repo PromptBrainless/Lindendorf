@@ -1,51 +1,10 @@
-import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ART } from "@/game/art";
-import { createHeld, type Held } from "@/game/types";
-
-function Stepper({
-  label,
-  hint,
-  value,
-  onChange,
-}: {
-  label: string;
-  hint: string;
-  value: number;
-  onChange: (n: number) => void;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface/70 px-3 py-2.5">
-      <div>
-        <p className="font-medium">{label}</p>
-        <p className="text-xs text-muted-fg">{hint}</p>
-      </div>
-      <div className="flex items-center gap-2">
-        <Button
-          type="button"
-          variant="secondary"
-          className="size-11 p-0"
-          aria-label={`${label} verringern`}
-          onClick={() => onChange(Math.max(1, value - 1))}
-        >
-          <Minus className="size-4" />
-        </Button>
-        <span className="w-8 text-center font-display text-2xl tabular-nums">{value}</span>
-        <Button
-          type="button"
-          variant="secondary"
-          className="size-11 p-0"
-          aria-label={`${label} erhöhen`}
-          onClick={() => onChange(Math.min(10, value + 1))}
-        >
-          <Plus className="size-4" />
-        </Button>
-      </div>
-    </div>
-  );
-}
+import { EFFEKTE, werteMitEffekt } from "@/game/effekte";
+import { HERKUNFT_FRAGEN, baueHeldAusHerkunft } from "@/game/herkunft";
+import type { Held } from "@/game/types";
 
 export function CreateHero({
   onReady,
@@ -55,66 +14,169 @@ export function CreateHero({
   onBack: () => void;
 }) {
   const [name, setName] = useState("");
-  const [staerke, setStaerke] = useState(5);
-  const [geschick, setGeschick] = useState(5);
-  const [charisma, setCharisma] = useState(5);
+  const [schritt, setSchritt] = useState(-1);
+  const [antworten, setAntworten] = useState<number[]>([]);
+
+  const frage = schritt >= 0 ? HERKUNFT_FRAGEN[schritt] : undefined;
+  const fertig = schritt >= HERKUNFT_FRAGEN.length;
+  const held = fertig ? baueHeldAusHerkunft(name, antworten) : null;
+
+  function waehle(index: number) {
+    const next = [...antworten.slice(0, schritt), index];
+    setAntworten(next);
+    setSchritt(schritt + 1);
+  }
 
   return (
     <div className="relative min-h-dvh overflow-x-hidden overflow-y-auto bg-bg text-fg">
-      <img src={ART.road} alt="" className="absolute inset-0 size-full object-cover" />
+      <img src={fertig ? ART.village : ART.road} alt="" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/35" />
-      <div className="safe-bottom relative z-10 mx-auto flex min-h-dvh max-w-xl flex-col justify-end px-5 py-8 sm:justify-center">
+      <div
+        className={`safe-bottom relative z-10 mx-auto flex min-h-dvh max-w-xl flex-col px-5 py-8 ${
+          schritt < 0 || fertig ? "justify-end sm:justify-center" : "justify-start pt-16 sm:justify-center"
+        }`}
+      >
         <div className="rounded-xl border border-border bg-ink/80 p-5 shadow-sm backdrop-blur-md sm:p-6">
           <p className="text-xs uppercase tracking-[0.22em] text-accent">Heldenerstellung</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">Aufbruch</h1>
-          <p className="mt-3 text-sm text-fg/90">
-            In Lindendorf braucht man keinen Auserwählten. Man braucht jemanden, der geht, wenn
-            andere bleiben. Es gibt kein Punktelimit — aber 3 in allem ist ein anderer Held als
-            9/2/2.
-          </p>
+          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight">
+            {fertig ? "So siehst du aus" : schritt < 0 ? "Aufbruch" : frage?.titel ?? "Wer geht da"}
+          </h1>
 
-          <label className="mt-5 block text-sm text-muted-fg" htmlFor="hero-name">
-            Name
-          </label>
-          <Input
-            id="hero-name"
-            className="mt-1.5"
-            placeholder="Namenlos"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            maxLength={24}
-            autoComplete="off"
-          />
+          {schritt < 0 ? (
+            <>
+              <p className="mt-3 text-sm text-fg/90">
+                Zehn kurze Geschichten, jede für sich. Was du tust, setzt Gunst oder Last auf die
+                Proben: Motiviert hebt Stärke, Furcht drückt Charisma. Der Grundwert bleibt. Die Probe nicht.
+              </p>
+              <label className="mt-5 block text-sm text-muted-fg" htmlFor="hero-name">
+                Name
+              </label>
+              <Input
+                id="hero-name"
+                className="mt-1.5"
+                placeholder="Namenlos"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                maxLength={24}
+                autoComplete="off"
+              />
+              <div className="mt-6 grid gap-2 sm:grid-cols-2">
+                <Button size="lg" onClick={() => setSchritt(0)}>
+                  Die Geschichten
+                </Button>
+                <Button variant="secondary" size="lg" onClick={onBack}>
+                  Zurück
+                </Button>
+              </div>
+            </>
+          ) : null}
 
-          <div className="mt-4 grid gap-2">
-            <Stepper label="Stärke" hint="Kraft, Kampf, Hindernisse" value={staerke} onChange={setStaerke} />
-            <Stepper
-              label="Geschicklichkeit"
-              hint="Schleichen, Spuren, Fingerfertigkeit"
-              value={geschick}
-              onChange={setGeschick}
-            />
-            <Stepper
-              label="Charisma"
-              hint="Reden, Lügen, Vertrauen"
-              value={charisma}
-              onChange={setCharisma}
-            />
-          </div>
+          {frage ? (
+            <>
+              <p className="mt-1 text-xs text-muted-fg">
+                Geschichte {schritt + 1} von {HERKUNFT_FRAGEN.length}
+              </p>
+              <div className="mt-3 space-y-2.5 text-sm leading-relaxed text-fg sm:text-base">
+                {frage.geschichte.map((absatz) => (
+                  <p key={absatz.slice(0, 28)}>{absatz}</p>
+                ))}
+              </div>
+              <div className="mt-5 grid gap-2">
+                {frage.antworten.map((antwort, index) => (
+                  <Button
+                    key={antwort.label}
+                    type="button"
+                    variant="choice"
+                    size="choice"
+                    onClick={() => waehle(index)}
+                  >
+                    {antwort.label}
+                  </Button>
+                ))}
+              </div>
+              <Button
+                variant="ghost"
+                className="mt-3 h-9 px-2 text-xs"
+                onClick={() => setSchritt(schritt <= 0 ? -1 : schritt - 1)}
+              >
+                Eine Geschichte zurück
+              </Button>
+            </>
+          ) : null}
 
-          <div className="mt-6 grid gap-2 sm:grid-cols-2">
-            <Button
-              size="lg"
-              onClick={() => onReady(createHeld(name, staerke, geschick, charisma))}
-            >
-              Nach Lindendorf
-            </Button>
-            <Button variant="secondary" size="lg" onClick={onBack}>
-              Zurück
-            </Button>
-          </div>
+          {held ? (
+            <>
+              <p className="mt-3 text-sm leading-relaxed text-fg/90">{held.mal}</p>
+              {(() => {
+                const werte = werteMitEffekt(held);
+                return (
+                  <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+                    <Stat label="Stärke" value={werte.staerke} basis={held.staerke} />
+                    <Stat label="Geschick" value={werte.geschick} basis={held.geschick} />
+                    <Stat label="Charisma" value={werte.charisma} basis={held.charisma} />
+                  </div>
+                );
+              })()}
+              <p className="mt-3 text-xs text-muted-fg">
+                LP {held.lp} · Gold {held.gold}
+                {held.inventar.length ? ` · ${held.inventar.join(", ")}` : ""}
+              </p>
+              {held.effekte.length ? (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {held.effekte.map((id) => {
+                    const item = EFFEKTE[id];
+                    const gunst = item.gruppe === "gunst";
+                    return (
+                      <span
+                        key={id}
+                        className={`rounded-xs border px-1.5 py-0.5 text-xs ${
+                          gunst ? "border-ok/40 text-ok" : "border-hp/40 text-hp"
+                        }`}
+                      >
+                        {item.name} {item.hint}
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="mt-2 text-sm text-muted-fg">Keine Zustände. Das Tal wird welche finden.</p>
+              )}
+              <div className="mt-6 grid gap-2 sm:grid-cols-2">
+                <Button size="lg" onClick={() => onReady(held)}>
+                  Nach Lindendorf
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => {
+                    setSchritt(-1);
+                    setAntworten([]);
+                  }}
+                >
+                  Noch einmal
+                </Button>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Stat({ label, value, basis }: { label: string; value: number; basis: number }) {
+  const delta = value - basis;
+  return (
+    <div className="rounded-md border border-border bg-surface/70 px-2 py-2">
+      <p className="text-xs text-muted-fg">{label}</p>
+      <p className={`font-display text-2xl tabular-nums ${delta > 0 ? "text-ok" : delta < 0 ? "text-hp" : ""}`}>
+        {value}
+      </p>
+      {delta !== 0 ? (
+        <p className={`text-xs ${delta > 0 ? "text-ok" : "text-hp"}`}>
+          {delta > 0 ? `+${delta}` : delta} vom Grund {basis}
+        </p>
+      ) : null}
     </div>
   );
 }

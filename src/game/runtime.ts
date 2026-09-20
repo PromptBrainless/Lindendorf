@@ -1,16 +1,21 @@
 import { applyPatch, fingerprint, lookupPatch } from "./text-pack";
-import { cloneHeld, type ArtKey, type Held, type PortraitKey, type SceneView } from "./types";
+import { cloneHeld, type ArtKey, type EffektId, type Held, type PortraitKey, type SceneView } from "./types";
+import { ortZustand, wendeEffektListenAn, wendeOrtWechselAn } from "./seiten-zustaende";
 
 type PresentInput = {
   title?: string;
   art?: ArtKey;
   portrait?: PortraitKey | null;
+  artSrc?: string;
+  portraitSrc?: string;
   lines: string[];
   held?: Held;
   probe?: SceneView["probe"];
   log?: string[];
   ending?: string;
   choices?: string[];
+  effekte?: EffektId[];
+  effekteFort?: EffektId[];
 };
 
 export class Runtime {
@@ -38,12 +43,21 @@ export class Runtime {
 
   async present(input: PresentInput): Promise<number> {
     const gen = this.generation;
+    const vorherArt = this.lastArt;
     if (input.art) this.lastArt = input.art;
     if (input.title) this.lastTitle = input.title;
     if (input.portrait === null) this.lastPortrait = undefined;
     else if (input.portrait) this.lastPortrait = input.portrait;
 
-    if (input.held) this.setHeld(cloneHeld(input.held));
+    const art = this.lastArt;
+    const ort = ortZustand(art);
+    if (input.held) {
+      if (input.art && input.art !== vorherArt) {
+        wendeOrtWechselAn(input.held, vorherArt, input.art);
+      }
+      wendeEffektListenAn(input.held, input.effekte, input.effekteFort);
+      this.setHeld(cloneHeld(input.held));
+    }
 
     const original = {
       title: input.title ?? this.lastTitle,
@@ -53,8 +67,10 @@ export class Runtime {
     const shown = applyPatch(original, lookupPatch(original));
     const view: SceneView = {
       title: shown.title,
-      art: input.art ?? this.lastArt,
+      art,
       portrait: input.portrait === null ? undefined : (input.portrait ?? this.lastPortrait),
+      artSrc: input.artSrc,
+      portraitSrc: input.portraitSrc,
       lines: shown.lines,
       held: input.held ? cloneHeld(input.held) : undefined,
       probe: input.probe,
@@ -63,6 +79,9 @@ export class Runtime {
       choices: shown.choices,
       textKey: fingerprint(original),
       original,
+      seiteHinzu: ort.hinzu,
+      seiteNimmt: ort.nimmt,
+      seiteFort: ort.fort,
     };
     this.setView(view);
 

@@ -242,6 +242,7 @@ async function brunnenUntersuchen(rt: Runtime, held: Held) {
     await rt.present({
       title: "Brunnenschacht",
       art: "well",
+      artSrc: "/art/well-depth.mp4",
       portrait: null,
       held,
       lines: [
@@ -257,6 +258,7 @@ async function brunnenUntersuchen(rt: Runtime, held: Held) {
     await rt.present({
       title: "Brunnenschacht",
       art: "well",
+      artSrc: "/art/well-depth.mp4",
       portrait: null,
       held,
       probe: ergebnis,
@@ -270,6 +272,7 @@ async function brunnenUntersuchen(rt: Runtime, held: Held) {
   await rt.present({
     title: "Brunnenschacht",
     art: "well",
+    artSrc: "/art/well-depth.mp4",
     portrait: null,
     held,
     probe: ergebnis,
@@ -408,13 +411,16 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
   await rt.present({
     title: "Grovins Zisterne",
     art: "ditch",
-    portrait: null,
+    portrait: "grovin",
     held,
     lines,
   });
 
   if (!held.grovinsGrund) {
     const frage = await rt.present({
+      title: "Grovins Zisterne",
+      art: "ditch",
+      portrait: "grovin",
       held,
       lines: [
         "Grovin wartet. Die Hand bleibt auf dem Wasser, als könnte er daran ablesen, ob du fragst oder nimmst.",
@@ -429,6 +435,9 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
       held.grovinsGrund = true;
       held.grovinGenannt = true;
       await rt.present({
+        title: "Grovins Zisterne",
+        art: "ditch",
+        portrait: "grovin",
         held,
         lines: [
           "Grovin legt die Hand erneut aufs Wasser, wie um daran zu prüfen, ob man ihm wirklich zuhört, oder nur eine weitere Frage stellt, auf die man die Antwort längst zu kennen glaubt.",
@@ -467,7 +476,7 @@ async function grovinZisterne(rt: Runtime, held: Held, bewaffnet: boolean) {
   const wahl = await rt.present({
     title: "Grovins Zisterne",
     art: "ditch",
-    portrait: null,
+    portrait: "grovin",
     held,
     lines: [
       "Die Sperre sitzt im Gerinne, unscheinbar wie ein Brett, das jemand zum Trocknen hingelegt hat. Grovin sieht nicht weg.",
