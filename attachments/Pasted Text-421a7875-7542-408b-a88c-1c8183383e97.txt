@@ -1,0 +1,230 @@
+Ich spiele ein vereinfachtes system , Mittelalter dark story line  in kleinem Dorf - es gibt drei Attribute Geschick -Stärke -Charisma . Ich will die Welt aber schön dunkel erzählen und deshalb benötige ich die Liste angepasst an die Welt https://grok.com/share/bGVnYWN5_f8d91f19-6f92-46e8-897d-d0d2fd7f54be
+
+Der Link lässt sich nicht öffnen, aber ich kann dir trotzdem eine perfekt passende Liste für ein düsteres mittelalterliches Dorf-Setting erstellen – basierend auf den drei Attributen **Geschick**, **Stärke**, **Charisma**.
+
+## Erschöpfung (Die Müdigkeit, die nie endet)
+
+- **Erschöpfung I**: −1 auf alle Attribute (Schlafmangel, harte Arbeit)
+- **Erschöpfung II**: −2 auf alle Attribute, Bewegung halbiert (Tage ohne properen Schlaf)
+- **Erschöpfung III**: −3 auf alle Attribute, Bewegung halbiert, Vorteile auf Rettungswürfe verloren (Wochen der Entbehrung)
+- **Erschöpfung IV**: −4 auf alle Attribute, bewegungsunfähig, automatische Fehler bei Würfen von 1-5 (Zusammenbruch)
+- **Erschöpfung V**: −5 auf alle Attribute, bewusstlos bei nächster Anstrengung (Koma)
+- **Erschöpfung VI**: Tod durch Entkräftung
+
+## Körperliche Debuffs (Das Fleisch ist schwach)
+
+- **Verwundet**: −2 auf Stärke/Geschick, blutet (1 Leben/Runde), braucht Verband
+- **Schwere Wunde**: −4 auf Stärke/Geschick, Bewegung halbiert, 1d4 Leben/Runde bis behandelt
+- **Gebrochen**: −3 auf Stärke/Geschick, Bewegung halbiert, braucht Schiene/Ruhe (Wochen)
+- **Prellung**: −1 auf Stärke/Geschick, Schmerzen bei Anstrengung
+- **Verbrennung**: −2 auf Geschick, 1d6 Schaden sofort, Narben bleiben
+- **Erfrierung**: −2 auf Geschick/Stärke, Bewegung halbiert, braucht Wärme (schwarze Finger)
+- **Unterkühlung**: −3 auf alle Attribute, 1d6 Schaden/Runde, braucht Feuer/Unterkunft
+- **Hitzschlag**: −4 auf alle Attribute, 1d8 Schaden/Runde, braucht Schatten/Wasser
+- **Dehydrierung**: −2 auf alle Attribute, 1d4 Schaden/Runde, braucht Wasser
+- **Hunger (leicht)**: −1 auf alle Attribute, 1d4 Schaden/Tag ab Tag 2 ohne Nahrung
+- **Hunger (schwer)**: −3 auf alle Attribute, 2d6 Schaden/Tag, Muskelabbau
+- **Vergiftung (Essen)**: −2 auf Geschick, 1d4 Schaden/Runde, Erbrechen, braucht Gegenmittel/Kohle
+- **Vergiftung (Wunde)**: −3 auf Stärke, 1d6 Schaden/Runde, Fieber, braucht Ausbrennen/Amputation
+- **Infektion**: −2 auf Stärke/Geschick, 1d6 Schaden/Tag, Fieber, braucht Kräuter/Amputation
+- **Fieber**: −1 auf Geschick/Intelligenz, 1d4 Schaden/Tag, braucht Ruhe/Umhänge
+- **Hohes Fieber**: −3 auf alle Attribute, 2d6 Schaden/Tag, Halluzinationen (Dämonen sehen)
+- **Seuche**: −4 auf alle Attribute, 3d6 Schaden/Tag, ansteckend, braucht Quarantäne/Gebet
+- **Pest**: −5 auf alle Attribute, 4d6 Schaden/Tag, schwarze Beulen, fast immer tödlich
+- **Aussatz**: −3 auf Charisma, −2 auf Stärke, Gliedmaßen fallen ab, Verstoßung aus Dorf
+- **Bluthusten**: −3 auf Stärke, 2d6 Schaden/Runde, Tuberkulose, langsamer Tod
+- **Wassersucht**: −2 auf Geschick, Bewegung halbiert, Bauch geschwollen, braucht Aderlass
+- **Schwindsucht**: −3 auf Stärke/Geschick, 1d8 Schaden/Tag, Auszehrung bis Skelett
+- **Gicht**: −2 auf Geschick, Schmerzen bei Wetterwechsel, humpelnd
+- **Rheuma**: −2 auf Stärke/Geschick, steif bei Kälte/Feuchtigkeit
+- **Zahnfäule**: −1 auf Charisma, −1 auf Stärke bei Schmerz, braucht Ziehen ohne Narkose
+- **Augenentzündung**: −2 auf Geschick, Tränen/Blendung, braucht Kräutertropfen
+- **Grauer Star**: −4 auf Geschick, Sicht getrübt, nur Umrisse, braucht Starstechen (schmerzhaft)
+- **Erblindung**: −6 auf Geschick, blind, braucht Stock/Führung (Bettlerdasein)
+- **Taubheit**: −3 auf Charisma, Kommunikation erschwert, Misstrauen der Dorfbewohner
+- **Stummheit**: −4 auf Charisma, keine Sprache, nur Gesten (als Hexe verdächtigt)
+- **Lähmung**: −5 auf Geschick/Stärke, bewegungsunfähig, braucht getragen werden
+- **Schlag**: −4 auf alle Attribute, halbseitig gelähmt, lallend, als Strafe Gottes gesehen
+- **Herzschwäche**: −3 auf Stärke, 1d6 Schaden bei Anstrengung, schneller Tod bei Flucht/Kampf
+- **Atemnot**: −3 auf Stärke, 1d4 Schaden/Runde bei Anstrengung, braucht Kräuterdampf
+- **Blutarmut**: −2 auf Stärke/Geschick, blasse Haut, schnelle Erschöpfung
+- **Gelbsucht**: −2 auf alle Attribute, gelbe Haut, als schlechtes Omen gesehen
+- **Krätze**: −2 auf Charisma, juckende Pusteln, Verstoßung, braucht Schwefelbad
+- **Läuse**: −1 auf Charisma, juckend, als unrein gesehen, braucht Auskochen der Kleider
+- **Würmer**: −2 auf Stärke, Bauchschmerzen, 1d4 Schaden/Tag, braucht Fasten/Kräuter
+- **Brandwunde**: −3 auf Geschick, schwarzes Fleisch, 2d6 Schaden/Runde, braucht Ausbrennen
+- **Wundbrand**: −5 auf Stärke, schwarze Adern, 3d6 Schaden/Runde, Amputation oder Tod
+- **Tetanus**: −4 auf Geschick, Krämpfe, 2d8 Schaden/Runde, Kieferklemme, fast immer tödlich
+- **Rabenfraß**: −3 auf Stärke, offene Wunde, Maden darin, 1d6 Schaden/Runde, Ekel bei anderen
+- **Fleischfressende Seuche**: −6 auf alle Attribute, 5d6 Schaden/Runde, Haut fällt ab, Tod in 1d4 Tagen
+
+## Mentale/Psychologische Debuffs (Der Geist bricht)
+
+- **Furcht**: −1 auf Stärke/Charisma (vor Wölfen, Dunkelheit, dem Wald)
+- **Schrecken**: −2 auf alle Attribute (Leiche gesehen, Schrei gehört)
+- **Panik**: −4 auf alle Attribute, Fluchtreflex, lässt alles fallen
+- **Verzweiflung**: −3 auf alle Attribute, keine Hoffnung, gibt auf
+- **Hoffnungslosigkeit**: −5 auf alle Attribute, keine Buffs möglich, wartet auf Tod
+- **Wahnsinn (leicht)**: −2 auf Charisma, flüstert mit sich selbst, Dorfbewohner meiden dich
+- **Wahnsinn (schwer)**: −4 auf alle Attribute, redet mit Unsichtbaren, als besessen gesehen
+- **Besessenheit**: −6 auf alle Attribute, spricht in fremden Stimmen, braucht Exorzismus/Feuer
+- **Albtraum**: −2 auf alle Attribute, Schlaflosigkeit, sieht Dämonen im Traum
+- **Schlaflosigkeit**: −2 auf alle Attribute nach 3 Nächten, Halluzinationen nach 7 Nächten
+- **Einsamkeit**: −2 auf Charisma nach 1d4 Tagen allein im Wald/Hütte, braucht menschlichen Kontakt
+- **Verstoßung**: −3 auf Charisma, Dorf wirft Steine, niemand hilft, hungern
+- **Hexenverdacht**: −5 auf Charisma, Dorf will dich verbrennen/ertränken, Flucht nötig
+- **Fluchwahn**: −3 auf Charisma, glaubt selbst verflucht zu sein, meidet andere
+- **Schuldwahn**: −3 auf alle Attribute, glaubt Ungeheuer angelockt zu haben, Selbstverstümmelung
+- **Gotteszorn**: −4 auf alle Attribute, glaubt von Gott verlassen, betet bis zur Erschöpfung
+- **Dämonenwahn**: −5 auf alle Attribute, sieht Dämonen überall, greift „Besessene" an
+- **Trauer**: −2 auf alle Attribute für 1d4 Wochen nach Tod eines Angehörigen
+- **Verlust**: −3 auf alle Attribute, Kind/Frau/Mann gestorben, will nicht weiterleben
+- **Rachsucht**: +2 auf Stärke, −3 auf Charisma, will Blutrache, ignoriert Gefahr
+- **Neid**: −2 auf Charisma, Dorf mag dich nicht, als missgünstig gesehen
+- **Habsucht**: −2 auf Charisma, hortet Essen/Geld, als Egoist gesehen
+- **Zorn**: +1 auf Stärke, −2 auf Charisma, Wutausbrüche, Dorf fürchtet dich
+- **Hochmut**: −2 auf Charisma, glaubt besser zu sein, Dorf hasst dich
+- **Völlerei**: −1 auf Geschick, dick, als faul/sündig gesehen
+- **Trägheit**: −2 auf alle Attribute, bewegt sich kaum, als faul verstoßen
+- **Wollust**: −2 auf Charisma, als Hure/Buhle gesehen, Steine werfen
+- **Ketzer**: −5 auf Charisma, glaubt nicht an Gott, Dorf will dich läutern (Feuer)
+- **Heide**: −6 auf Charisma, alte Götter verehrt, Dorf will dich opfern
+- **Paktwahn**: −8 auf alle Attribute, glaubt mit Dämon gepaktet zu haben, will sich opfern
+- **Selbstverstümmelung**: −4 auf Stärke/Geschick, schnitt sich selbst zur „Reinigung", Narben
+- **Suizidwahn**: −10 auf alle Attribute, will sich erhängen/ertränken, braucht Gebet/Wache
+
+## Umwelt-/Situative Debuffs (Die Welt ist feindlich)
+
+- **Dunkelheit**: −2 auf Geschick (ohne Laterne/Fackel), Stolpergefahr
+- **Nacht**: −3 auf Geschick/Charisma, nur Fackeln, Wölfe/Wesen im Wald
+- **Nebel**: −4 auf Geschick, Orientierungsverlust, als Omen gesehen
+- **Regen**: −1 auf Geschick, Kälte, Feuer schwer zu entfachen
+- **Sturm**: −3 auf alle Attribute im Freien, Bäume stürzen, als Zorn der Götter
+- **Schnee**: −2 auf Geschick/Stärke, Bewegung halbiert, Erfrierungsgefahr
+- **Eis**: −3 auf Geschick, Sturzgefahr, Knochenbrüche
+- **Kälte (Winter)**: −1 auf alle Attribute pro Woche ohne warmes Haus/Feuer
+- **Hitze (Sommer)**: −1 auf alle Attribute pro Tag ohne Schatten/Wasser
+- **Dürre**: −2 auf alle Attribute, keine Ernte, Hungersnot im Dorf
+- **Hungerwinter**: −3 auf alle Attribute, Dorf isst Ratten/Hundefleisch, Kannibalismus-Geflüster
+- **Seuchenjahr**: −4 auf alle Attribute, halbes Dorf tot, Massengräber
+- **Krieg**: −5 auf alle Attribute, Söldner plündern, brennen Häuser, töten Kinder
+- **Pestjahr**: −6 auf alle Attribute, Dorf leer, nur Tote und Ratten
+- **Hexenverfolgung**: −5 auf Charisma, Scheiterhaufen, Ertränken, Folter
+- **Inquisition**: −7 auf alle Attribute, Folterbank, Geständnis unter Schmerz, Feuer
+- **Wolfsrudel**: −3 auf Geschick/Stärke im Wald, Angriffe nachts, Kinder gerissen
+- **Bär**: −4 auf Stärke/Geschick, ein Schlag tötet, Flucht unmöglich
+- **Wildschwein**: −2 auf Geschick, Hauer reißen Bauch auf, Infektionsgefahr
+- **Ratten**: −1 auf Charisma, fressen Vorräte, als unrein gesehen
+- **Krähen**: −2 auf Charisma, als Todesboten gesehen, Dorf fürchtet dich wenn sie folgen
+- **Eulen**: −1 auf Geschick nachts, als Hexenboten gesehen
+- **Schlangen**: −3 auf Geschick im Wald/Sumpf, Gift tödlich ohne Kräuter
+- **Spinnen**: −2 auf Geschick, als Dämonenspinnen gesehen, Biss = Fieber/Wahn
+- **Wald**: −2 auf alle Attribute, kein Sonnenlicht, Wesen lauern, Dorf warnt davor
+- **Sumpf**: −3 auf Geschick, Bewegung halbiert, Irrlichter, Ertrinken, Seuchengefahr
+- **Höhle**: −4 auf Geschick/Charisma, Dunkelheit, Fledermäuse, alte Knochen, Flüche
+- **Ruine**: −3 auf Charisma, als verflucht gesehen, niemand betritt sie (außer du)
+- **Galgen**: −5 auf Charisma, dort gehängt, als Omen, Dorf meidet Ort
+- **Friedhof**: −4 auf Charisma, Tote gehen um, Dorf fürchtet dich wenn du dort schläfst
+- **Kirche**: −2 auf Charisma wenn Ketzer, +2 wenn fromm, Beichte lindert −1 Wahn
+- **Kloster**: −1 auf alle Attribute wenn Sünder, +1 wenn reuig, Fasten/Arbeit heilt
+- **Pranger**: −3 auf Charisma, Dorf wirft Dreck, Hunger/Durst während Angebundensein
+- **Folterkammer**: −8 auf alle Attribute, Zangen, Räder, Streckbank, Geständnis erzwungen
+- **Kerker**: −5 auf alle Attribute, Dunkelheit, Hunger, Ratten, verzweifeln
+- **Scheiterhaufen**: −10 auf alle Attribute, Verbrennung, qualvoller Tod, Schreie
+- **Ertränken**: −8 auf alle Attribute, Wasser in Lunge, Panik, Tod
+- **Vierteilen**: −15 auf alle Attribute, Pferde ziehen Glieder ab, langsamer Tod
+- **Köpfen**: Sofortiger Tod, wenn nicht „begnadigt"
+- **Rädern**: −20 auf alle Attribute, Knochen gebrochen, Tage des Leidens, dann Tod
+- **Pfählen**: −12 auf alle Attribute, Holz durch Körper, als Vampir verdächtigt, Tod
+
+## Positive Buffs (Gnaden in der Dunkelheit)
+
+- **Adrenalin (Todesangst)**: +2 Stärke/Geschick für 1d4 Runden, danach −2 Erschöpfung
+- **Zorn**: +2 Stärke, −1 Charisma für 1d4 Runden (Wutausbruch)
+- **Verzweiflungswut**: +3 Stärke, −2 Charisma, ignoriert −2 Wunden, danach Zusammenbruch
+- **Gebet**: +1 auf alle Attribute für 1d4 Stunden nach aufrichtigem Gebet in Kirche
+- **Glaube**: +2 auf alle Würfe gegen Furcht/Wahn, −1 bei Ketzerei/Zweifel
+- **Beichte**: Entfernt −1 Wahn/Schuld nach ehrlicher Beichte beim Priester
+- **Abendmahl**: +1 auf alle Attribute für 1d4 Tage, als gesegnet gesehen
+- **Pilgerfahrt**: +2 auf alle Attribute nach beschwerlicher Reise zu heiligem Ort
+- **Reliquie**: +1 auf alle Attribute bei Tragen (Knochen, Stoff, Holz), als gesegnet gesehen
+- **Amulett**: +1 Charisma, als Schutz vor bösem Blick gesehen (wirkt nur placebo)
+- **Kräuter**: +1 auf Stärke/Geschick nach Trank (Weidenrinde, Mohn, Baldrian)
+- **Schlaftrunk**: Entfernt −2 Erschöpfung, −1 auf Geschick für 1d4 Stunden (benommen)
+- **Schmerztrunk**: Entfernt −2 Wundschmerz, −1 auf Charisma (benommen, rotierende Pupillen)
+- **Fiebertrank**: +2 Konstitution gegen Fieber, schwitzt stark, riecht übel (−1 Charisma)
+- **Wundsalbe**: Heilt 1d4 Leben, entfernt −1 Verwundet, Narbe bleibt
+- **Aderlass**: Entfernt −2 Fieber/Infektion, −2 Stärke für 1d4 Tage (geschwächt)
+- **Ausbrennen**: Entfernt −3 Gift/Infektion, 2d6 Schaden sofort, Narbe, −1 Geschick dauerhaft
+- **Amputation**: Entfernt −5 Brand/Wundbrand, −3 Geschick/Stärke dauerhaft, Holzbein/Arm
+- **Schlaf**: Entfernt −2 Erschöpfung nach 8+ Stunden sicherem Schlaf (ohne Albträume)
+- **Wärme**: Entfernt −2 Kälte/Erfrierung nach Feuer/Ofen/Unterkunft
+- **Essen**: Entfernt −1 Hunger nach Mahlzeit (Brot, Suppe, Fleisch), +1 Stärke für 1d4 Stunden
+- **Wasser**: Entfernt −1 Dehydrierung, +1 Geschick für 1d4 Stunden
+- **Sauberkeit**: Entfernt −1 Läuse/Krätze nach Bad/Asche/Seife, +1 Charisma
+- **Neue Kleider**: +1 Charisma, als anständig gesehen, Dorf akzeptiert dich eher
+- **Fürsorge**: +2 auf alle Attribute wenn jemand dich pflegt (Mutter, Frau, Kind)
+- **Liebe**: +2 Charisma, −1 Stärke (Ablenkung), für 1d4 Wochen nach Heirat/Verlobung
+- **Kind**: +2 auf alle Attribute wenn eigenes Kind gesund, Motivation zu überleben
+- **Familie**: +1 auf alle Attribute mit Familie im Dorf, Schutz vor Verstoßung
+- **Freund**: +1 Charisma wenn einer für dich bürgt, vor Hexenverdacht
+- **Lehre**: +1 auf Geschick/Stärke nach 1d4 Jahren Lehre beim Schmied/Bäcker/Jäger
+- **Meisterschaft**: +2 auf Geschick/Stärke in erlerntem Handwerk, als respektiert gesehen
+- **Waffe**: +1 Stärke im Kampf mit vertrauter Waffe (Axt, Messer, Gabel)
+- **Rüstung**: +1 Geschick im Schutz (Ledermantel, Kettenhemd des Vaters)
+- **Pferd**: +2 Bewegung, +1 Stärke beim Reiten, als wohlhabend gesehen (+1 Charisma)
+- **Hund**: +1 Geschick bei Jagd/Wache, treuer Begleiter, −1 Charisma wenn als „unrein" gesehen
+- **Haus**: +2 auf alle Attribute mit eigenem Dach, Schutz vor Wetter/Verstoßung
+- **Herdfeuer**: +1 auf alle Attribute bei eigenem Feuer, als „zu Hause" gesehen
+- **Vorrat**: +1 Stärke bei vollem Speicher, keine Hungerangst
+- **Münzen**: +1 Charisma wenn du zahlen kannst, als Händler/Bürger gesehen
+- **Brief**: +2 Charisma wenn du lesen/schreiben kannst, als Gelehrter gesehen (Misstrauen)
+- **Siegel**: +3 Charisma wenn du Adelsbrief hast, als Herr gesehen, Dorf gehorcht
+- **Kreuz**: +2 gegen Furcht/Wahn, als fromm gesehen, Priester hilft dir
+- **Roskranz**: +1 gegen Furcht, als gläubig gesehen, Dorf vertraut eher
+- **Bibel**: +2 Charisma bei Predigt, als fromm gesehen, aber −2 wenn du sie nicht lesen kannst
+- **Fasten**: +1 Charisma nach 3 Tagen Fasten, als heilig gesehen, −2 Stärke (Hunger)
+- **Buße**: Entfernt −2 Schuld nach Selbstgeißelung/Pranger, Narben bleiben
+- **Wunder**: +5 auf alle Attribute für 1d4 Tage nach „göttlichem Zeichen" (selten, Dorf staunt)
+- **Prophezeiung**: +3 Charisma wenn als Seher gesehen, −2 wenn Prophezeiung falsch (Steine)
+- **Hexenzeichen**: −5 Charisma wenn Muttermal/6. Finger, Dorf will dich töten
+- **Dämonenmal**: −8 Charisma wenn schwarzes Mal, Dorf ruft Inquisition, Feuer
+
+## Kombinierte Zustände (Komplex, aber düster)
+
+- **Todgeweiht**: −5 auf alle Attribute, Wundbrand + Fieber + Verzweiflung, 1d4 Tage zu leben
+- **Gezeichnet**: −3 Charisma, −2 Geschick, als Hexe/Verfluchter gesehen, Dorf meidet
+- **Gebrochen**: −4 alle Attribute, Folter + Wahn + Verstoßung, will nicht mehr leben
+- **Erlöst**: +3 alle Attribute, nach Beichte/Abendmahl/Wunder, als gesegnet gesehen
+- **Verdammt**: −6 alle Attribute, Ketzer + Hexe + Dämonenwahn, Inquisition kommt
+- **Überlebender**: +2 alle Attribute, nach Pest/Krieg/Feuer, als „von Gott geliebt" gesehen
+- **Gejagt**: −3 alle Attribute, Wolf/Mensch/Inquisition hinter dir, Flucht nötig
+- **Rächer**: +3 Stärke, −2 Charisma, will Rache für Familie/Dorf, ignoriert Tod
+- **Märtyrer**: +4 alle Attribute, will für Glauben sterben, ignoriert −5 Schmerz
+- **Ketzer**: −5 Charisma, −3 alle Attribute, Inquisition brennt dich, keine Reue
+- **Heiliger**: +5 alle Attribute, nach Wunder/Wunden/Stigmata, Dorf kniet, aber −10 wenn Lüge auffliegt
+- **Dämon**: −10 alle Attribute, als besessen gesehen, Dorf will dich köpfen/verbrennen
+- **Vampir**: −8 alle Attribute, als Blutsauger gesehen, Pfahl/Feuer nötig
+- **Werwolf**: −6 alle Attribute, als Bestie gesehen, Silber/Kugel nötig
+- **Hexe**: −7 alle Attribute, als Teufelsbuhle gesehen, Scheiterhaufen
+- **Warlock**: −8 alle Attribute, als Teufelspaktierer gesehen, langsamste Hinrichtung
+- **Nekromant**: −10 alle Attribute, als Totenbeschwörer gesehen, Dorf + Inquisition gegen dich
+- **Alchemist**: −4 Charisma, als Giftmischer gesehen, Misstrauen, aber +2 wenn Heiltrank
+- **Heiler**: +2 Charisma, als Kräuterfrau/Mann gesehen, Dorf kommt, aber −5 wenn Patient stirbt
+- **Priester**: +3 Charisma, als Gottes Mann gesehen, Dorf gehorcht, aber −10 wenn Sünde auffliegt
+- **Nonne**: +2 Charisma, als rein gesehen, aber −8 wenn schwanger (Steinigung)
+- **Ritter**: +3 Stärke/Charisma, als Beschützer gesehen, aber −5 wenn feige (Rüstung abgenommen)
+- **Bauer**: +1 Stärke, als hart arbeitend gesehen, aber −2 Charisma (als dumm betrachtet)
+- **Bettler**: −3 alle Attribute, als unrein gesehen, niemand hilft, Steine
+- **Dieb**: −4 Charisma, als Dieb gehängt wenn erwischt, Dorf hasst dich
+- **Mörder**: −6 alle Attribute, als Mörder gebrandmarkt, Rad/Feuer, keine Gnade
+- **Vergewaltiger**: −8 alle Attribute, als Triebtäter gesehen, Kastration/Steinigung/Feuer
+- **Kindsmörder**: −10 alle Attribute, als Abscheulichkeit gesehen, langsamste Folter, dann Feuer
+- **Vatermörder**: −9 alle Attribute, als Gotteslästerer gesehen, Herz herausgeschnitten, verbrannt
+- **Muttermörder**: −9 alle Attribute, als unnatürlich gesehen, lebendig begraben
+- **Brudermörder**: −8 alle Attribute, als Kain gesehen, Zeichen auf Stirn, ewige Jagd
+- **Schwestermörder**: −8 alle Attribute, als Ungeheuer gesehen, Ertränken im Fluss
+- **Dorfmörder**: −7 alle Attribute, als Pestbringer gesehen, ganzes Dorf gegen dich, keine Flucht
+
+Diese Liste ist komplett auf dein 3-Attribut-System (Geschick, Stärke, Charisma) und ein düsteres mittelalterliches Dorf-Setting zugeschnitten – keine hohe Magie, nur Fleisch, Blut, Glaube, Angst und die unerbittliche Härte des Lebens im Dunkel.
+

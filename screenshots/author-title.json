@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "How to be a Hero",
+      "hasCanvas": false,
+      "bodyTextLen": 327,
+      "bodyTextHash": "afd5be5f025407b598103c508fadc6b387d4ca8a80f3cf73f4dca956cf98fa06",
+      "bodyTextPrefix": "HOW TO BE A HERO Lindendorf Ein ausführliches Dark-Fantasy-Abent",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/author-title.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "How to be a Hero",
+      "hasCanvas": false,
+      "bodyTextLen": 327,
+      "bodyTextHash": "afd5be5f025407b598103c508fadc6b387d4ca8a80f3cf73f4dca956cf98fa06",
+      "bodyTextPrefix": "HOW TO BE A HERO Lindendorf Ein ausführliches Dark-Fantasy-Abent",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/author-title-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/author-title.json"
+}
