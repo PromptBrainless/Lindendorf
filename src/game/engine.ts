@@ -5,10 +5,17 @@ import {
   type ProbeResult,
   tot,
 } from "./types";
-import { attributMitEffekt, setzeEffekt } from "./effekte";
+import { attributMitEffekt, hatEffekt, setzeEffekt } from "./effekte";
 
 export function w10(): number {
   return 1 + Math.floor(Math.random() * 10);
+}
+
+export function situationsModifikator(held: Held, lage?: "nebel"): number {
+  let extra = 0;
+  if (lage === "nebel") extra -= 2;
+  if (hatEffekt(held, "erschoepfung")) extra -= 2;
+  return extra;
 }
 
 export function probe(
@@ -17,8 +24,9 @@ export function probe(
   attributWert: number,
   schwierigkeit: number,
   beschreibung = "",
+  lage?: "nebel",
 ): ProbeResult {
-  const wert = attributMitEffekt(held, attributName, attributWert);
+  const wert = attributMitEffekt(held, attributName, attributWert) + situationsModifikator(held, lage);
   const wurf = w10();
   const summe = wurf + wert;
   return {

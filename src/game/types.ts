@@ -1,3 +1,5 @@
+import type { Entscheidung } from "./heldSchema";
+
 export const LEICHT = 8;
 export const MITTEL = 12;
 export const SCHWER = 15;
@@ -7,7 +9,16 @@ export const MAX_LP = 10;
 export const HEILTRANK = "Heiltrank";
 export const SCHLUESSEL = "Schlüssel";
 
-export type Loesungsweg = "kampf" | "schleich" | "ueberreden" | null;
+export type { Entscheidung };
+export type Loesungsweg =
+  | "kampf"
+  | "schleich"
+  | "ueberreden"
+  | "seitentor"
+  | "schleich_ablenkung"
+  | "wissen_anfuehrer"
+  | "banditen_geholfen"
+  | null;
 export type MuehleWeg = "kampf" | "schleich" | "verhandelt" | "verraten" | null;
 export type BrunnenWeg = "zerstoert" | "geoeffnet" | "verhandelt" | "bestochen" | null;
 export type GasseWeg = "veroeffentlicht" | "weitergegeben" | "erpresst" | "vernichtet" | null;
@@ -131,6 +142,7 @@ export type Held = {
   todesort: Todesort;
   effekte: EffektId[];
   mal: string;
+  entscheidungen: Entscheidung[];
 };
 
 export type ProbeResult = {
@@ -242,11 +254,17 @@ export function createHeld(name: string, staerke: number, geschick: number, char
     todesort: null,
     effekte: [],
     mal: "",
+    entscheidungen: [],
   };
 }
 
 export function cloneHeld(held: Held): Held {
-  return { ...held, inventar: [...held.inventar], effekte: [...(held.effekte ?? [])] };
+  return {
+    ...held,
+    inventar: [...held.inventar],
+    effekte: [...(held.effekte ?? [])],
+    entscheidungen: [...(held.entscheidungen ?? [])],
+  };
 }
 
 export function tot(held: Held): boolean {

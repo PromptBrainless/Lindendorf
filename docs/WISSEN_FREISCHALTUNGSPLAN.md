@@ -1,6 +1,9 @@
 # Wissen und Freischaltungen in Lindendorf
 
+Gültig. `deriveKnowledge()` bleibt. Metadaten (`KNOWLEDGE_META`) kommen in Block B, `docs/ERNEUERUNGSPLAN.md`.
+
 ## Grundregel
+
 
 Eine Option darf erst erscheinen, wenn der Spieler die Information erhalten hat, die ihren Sinn erklärt. Eine Entscheidung darf jedoch auch ohne vollständiges Wissen möglich bleiben. In diesem Fall zeigt das Spiel die Unsicherheit ausdrücklich, statt den Weg künstlich zu sperren.
 

@@ -1,6 +1,7 @@
 import { applyPatch, fingerprint, lookupPatch } from "./text-pack";
 import { cloneHeld, type ArtKey, type EffektId, type Held, type PortraitKey, type SceneView } from "./types";
 import { ortZustand, wendeEffektListenAn, wendeOrtWechselAn } from "./seiten-zustaende";
+import { synchronisiereLog } from "./taten";
 
 type PresentInput = {
   title?: string;
@@ -52,6 +53,7 @@ export class Runtime {
     const art = this.lastArt;
     const ort = ortZustand(art);
     if (input.held) {
+      synchronisiereLog(input.held, input.title ?? this.lastTitle);
       if (input.art && input.art !== vorherArt) {
         wendeOrtWechselAn(input.held, vorherArt, input.art);
       }

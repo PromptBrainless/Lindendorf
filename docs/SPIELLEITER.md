@@ -4,23 +4,21 @@ Während des Spiels die **aktuelle Karte** anfassen, ohne Quest-Logik umzuschrei
 
 ## Öffnen
 
-- Knopf **Spielleiter** in der Leiste
-- Taste `Alt+S`
-- oder URL `?spielleiter=1`
+Knopf **Spielleiter** in der oberen Leiste, `Alt+S`, oder `?spielleiter=1`.
 
-## Was geht jetzt
+## Abschnitte (aufklappbar)
 
-Auf der sichtbaren Karte: Titel, Absätze, Wahltexte, vorhandenes ArtKey/Portrait, optionale Bild-URL.
-Sofort sichtbar. Liegt im Browser unter `lindendorf.spielleiter.karten.v1`.
-**Patch kopieren** gibt JSON für die Quest-Datei.
+- Held: Gunst/Last sofort auf den Spieler
+- Lage vorlegen: eine Herkunftsgeschichte, Spieler wählt
+- Ereignis: **leer**, erst nach Auftrag (Wetter, Würfel, Gold/LP, Begegnung)
+- Karte Bild/Portrait, Zustände festmachen/abnehmen, Text und Wahlen
 
-## Was nicht geht (absichtlich)
+Patch liegt im Browser unter `lindendorf.spielleiter.karten.v1`.
 
-- Anzahl der Wahlen ändern — der Lauf liest den Index, nicht den Text.
-- Flags, Proben, Verzweigungen umbauen.
-- Neue ArtKeys ohne Bildplan.
-- Automatisch ins Git schreiben.
+## Was nicht geht
 
-Karten haben noch keine festen IDs. Der Speicher erkennt eine Karte am Text. Ändert der Quelltext, gilt der alte Patch nicht mehr.
+Wahl-Anzahl ändern. Flags/Proben/Verzweigungen umbauen. Neue ArtKeys ohne Bildplan.
+Automatisch Git. Entscheidungs-Log schreiben (kommt erst mit Block A, `docs/ERNEUERUNGSPLAN.md`).
 
-Nächste Schicht, falls nötig: `id` an `present()`, dann sitzt der Patch unabhängig vom Wortlaut.
+Karten ohne feste IDs: Speicher am Text. Quelltext ändert sich → alter Patch tot.
+Spätere Schicht: `id` an `present()`.

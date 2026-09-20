@@ -11,6 +11,9 @@ import {
 } from "./engine";
 import type { Runtime } from "./runtime";
 import { INTRO_ARTIFACT_CONTENT } from "./content";
+import { LAGER_CONTENT, LAGER_WEGE, mitPreis } from "./lager-content";
+import { schliesseLager } from "./taten";
+import { rufAus } from "./reputation";
 import { dorfMuehle } from "./quest-muehle";
 import { dorfTruebesWasser, kernWasser } from "./quest-brunnen";
 import { dorfGasse } from "./quest-kesseljahr";
@@ -175,7 +178,7 @@ async function introArtefakt(rt: Runtime, held: Held) {
   const attribut = contentChoice.attribute ?? "Stärke";
   const wert = [held.staerke, held.geschick, held.charisma][wahl] ?? held.staerke;
   const schwierigkeit = contentChoice.difficulty ?? MITTEL;
-  const ergebnis = probe(held, attribut, wert, schwierigkeit, "das silberne Artefakt");
+  const ergebnis = probe(held, attribut, wert, schwierigkeit, "das silberne Artefakt", "nebel");
   held.artefaktWeg = wege[wahl] ?? "kampf";
 
   if (ergebnis.erfolg) {
@@ -1626,7 +1629,7 @@ async function szeneWald(rt: Runtime, held: Held) {
   let spurenGefunden = false;
 
   if (wahl === 0) {
-    const ergebnis = probe(held, "Geschicklichkeit", held.geschick, LEICHT, "Spuren lesen");
+    const ergebnis = probe(held, "Geschicklichkeit", held.geschick, LEICHT, "Spuren lesen", "nebel");
     if (ergebnis.erfolg) {
       spurenGefunden = true;
       const stochern = await rt.present({
@@ -1648,7 +1651,7 @@ async function szeneWald(rt: Runtime, held: Held) {
       await rt.present({ held, probe: ergebnis, lines });
     }
   } else if (wahl === 1) {
-    const ergebnis = probe(held, "Stärke", held.staerke, MITTEL, "Unterholz durchbrechen");
+    const ergebnis = probe(held, "Stärke", held.staerke, MITTEL, "Unterholz durchbrechen", "nebel");
     if (ergebnis.erfolg) {
       const lines = [
         "Du machst dir einen Weg. Laut, aber schnell.",
@@ -1669,7 +1672,7 @@ async function szeneWald(rt: Runtime, held: Held) {
       });
     }
   } else {
-    const ergebnis = probe(held, "Charisma", held.charisma, MITTEL, "Hilfe im Wald");
+    const ergebnis = probe(held, "Charisma", held.charisma, MITTEL, "Hilfe im Wald", "nebel");
     if (ergebnis.erfolg) {
       const item = nimm(held, HEILTRANK);
       spurenGefunden = true;
@@ -1721,7 +1724,7 @@ async function szeneWald(rt: Runtime, held: Held) {
 
   if (graben === 0) {
     const schwierigkeit = held.verwundet ? SCHWER : MITTEL;
-    const ergebnis = probe(held, "Geschicklichkeit", held.geschick, schwierigkeit, "Sprung über den Graben");
+    const ergebnis = probe(held, "Geschicklichkeit", held.geschick, schwierigkeit, "Sprung über den Graben", "nebel");
     if (ergebnis.erfolg) {
       await rt.present({
         held,
@@ -1737,7 +1740,7 @@ async function szeneWald(rt: Runtime, held: Held) {
       });
     }
   } else if (graben === 1) {
-    const ergebnis = probe(held, "Stärke", held.staerke, MITTEL, "Stamm bewegen");
+    const ergebnis = probe(held, "Stärke", held.staerke, MITTEL, "Stamm bewegen", "nebel");
     if (ergebnis.erfolg) {
       await rt.present({
         held,
@@ -1866,34 +1869,17 @@ async function waldBeute(rt: Runtime, held: Held) {
 }
 
 async function szeneLager(rt: Runtime, held: Held) {
-  const lines = [
-    "Der Steinbruch ist eine Wunde im Hügel.",
-    "Drei Zelte. Ein Feuer. Eine Kiste mit dem Siegel der Kirche von Lindendorf.",
-    "Ein Mann mit einer Narbe über der Lippe — das wird Kess sein — würfelt mit zwei anderen.",
-    "Ein vierter steht oben auf dem Felsen und schaut den Weg entlang, den du gekommen bist.",
-    "Die Felswand trägt noch die schwarzen Streifen der alten Sprengungen. Zwischen ihnen wachsen dünne weiße Pilze, die im Feuerlicht wie Zähne aussehen.",
-    "Neben der Kiste liegt ein Kinderumhang. Er ist zu klein für jeden Menschen hier. Niemand tritt darauf. Niemand hebt ihn auf.",
-    "Kess würfelt mit zwei stumpfen Knochen. Einer der Männer lacht zu laut. Der andere hält die Hand auf der Tasche, in der vermutlich das Geld liegt, das dem Dorf fehlt.",
-  ];
-  if (hat(held, SCHLUESSEL)) {
-    lines.push("An der Felsschräge sitzt ein altes Gittertor. Dein Schlüssel juckt im Beutel.");
-  }
-  if (held.banditenGewarnt) {
-    lines.push("Die Würfelpause ist zu kurz. Kess hebt den Kopf. „Na. Der Gast aus der Taverne.“");
-  } else {
-    lines.push("Noch sitzen sie. Noch ist der Posten oben gelangweilt.");
-  }
+  const lager = LAGER_CONTENT;
+  const lines = [...lager.lines];
+  if (hat(held, SCHLUESSEL)) lines.push(lager.schluessel);
+  lines.push(held.banditenGewarnt ? lager.gewarnt : lager.unbemerkt);
 
-  const choices = [
-    "Anschleichen (Geschick)",
-    "Heraustreten und reden (Charisma)",
-    "Angreifen (Stärke)",
-  ];
-  if (hat(held, SCHLUESSEL)) choices.push("Mit dem Schlüssel das Seitentor nutzen");
+  const choices = [...lager.choices];
+  if (hat(held, SCHLUESSEL)) choices.push(lager.choiceTor);
 
   const wahl = await rt.present({
-    title: "Banditenlager",
-    art: "camp",
+    title: lager.title,
+    art: lager.art,
     portrait: "kess",
     held,
     lines,
@@ -1910,37 +1896,31 @@ async function szeneLager(rt: Runtime, held: Held) {
       art: "camp",
       portrait: null,
       held,
-      lines: [
-        "Das Feuer brennt noch. Die Kiste der Kirche ist leichter, als sie aussieht.",
-        "Unter dem Silber liegen Listen mit Namen, Mengen und Tagen. Manche Namen kennst du aus dem Dorf. Neben anderen steht nur ein Kreuz.",
-        "Im letzten Zelt findest du keine Schätze. Nur feuchte Decken, Salzkrusten an einem Topf und vier Paar Stiefel, die länger halten sollen als ihre Besitzer.",
-        "Der Steinbruch wird still. Nicht friedlich. Nur leer genug, dass du dein eigenes Atmen wieder hörst.",
-      ],
+      lines: lager.nachspiel,
     });
   }
 }
 
 async function lagerSchleichen(rt: Runtime, held: Held) {
+  const weg = LAGER_WEGE.schleich;
   let schwierigkeit = held.banditenGewarnt ? SCHWER : MITTEL;
   const extra: string[] = [];
   if (held.maraGeholfen) {
     schwierigkeit = Math.max(LEICHT, schwierigkeit - 2);
-    extra.push("Mara hat dir den schmalen Pfad hinter der Taverne gezeigt. Der Umweg kostet weniger als ein Fehler.");
+    extra.push(weg.extraMara);
   }
   if (held.glockeGestoppt) {
     schwierigkeit = Math.max(LEICHT, schwierigkeit - 1);
-    extra.push("Die Kapelle bleibt still. Ein Warnsignal fehlt.");
+    extra.push(weg.extraGlocke);
   }
   if (held.verwundet) {
     schwierigkeit = Math.min(18, schwierigkeit + 2);
-    extra.push("Die Wunde zerrt. Schleichen mit einem Hinken ist ein Widerspruch.");
+    extra.push(weg.extraWunde);
   }
 
-  const ergebnis = probe(held, "Geschicklichkeit", held.geschick, schwierigkeit, "Anschleichen");
+  const ergebnis = probe(held, "Geschicklichkeit", held.geschick, schwierigkeit, "Anschleichen", "nebel");
   if (ergebnis.erfolg) {
-    held.loesungsweg = "schleich";
-    held.lagerGeloest = true;
-    held.beuteGerettet = true;
+    schliesseLager(held, "schleich", true, "lager-schleich");
     const log = [goldPlus(held, 6, "aus der unbewachten Kiste")];
     if (chance(2) && !hat(held, HEILTRANK)) log.push(nimm(held, HEILTRANK));
     await rt.present({
@@ -1949,14 +1929,7 @@ async function lagerSchleichen(rt: Runtime, held: Held) {
       held,
       probe: ergebnis,
       log,
-      lines: [
-        ...extra,
-        "Du nimmst das Kirchensilber, zwei Säcke Getreide markierst du dir nur im Kopf.",
-        "Kess würfelt eine Acht und flucht über das Glück, das nicht seines ist.",
-        "Du bist schon im Gestrüpp, als der Posten endlich blinzelt.",
-        "Die Kiste ist schwerer, sobald du sie trägst. Nicht wegen des Silbers, sondern wegen der Namen, die in Lindendorf daran hängen.",
-        "Hinter dir lacht einer der Männer über einen schlechten Wurf. Er weiß noch nicht, dass der Einsatz bereits verschwunden ist.",
-      ],
+      lines: [...extra, ...weg.erfolg],
     });
   } else {
     const dmg = schaden(held, 2, "ein geworfener Becher, dann eine Klinge, die nur streift");
@@ -1964,19 +1937,13 @@ async function lagerSchleichen(rt: Runtime, held: Held) {
       art: "sneak",
       held,
       probe: ergebnis,
-      lines: [
-        ...extra,
-        "Ein Stein. Ein Fluch. Drei Köpfe drehen sich.",
-        "Der Posten reißt den Speer hoch. Kess stößt den Würfel mit dem Handrücken vom Tisch, und die Männer bewegen sich, bevor er einen Befehl gibt.",
-        dmg,
-        "Du bist nicht mehr Teil des Schattens. Du bist der Grund, warum er jetzt voller Klingen ist.",
-      ],
+      lines: [...extra, weg.fehlschlag[0]!, weg.fehlschlag[1]!, dmg, weg.fehlschlag[2]!],
     });
     if (tot(held)) return;
     const next = await rt.present({
       held,
-      lines: ["Jetzt bleibt Reden oder Schlagen."],
-      choices: ["Jetzt reden", "Jetzt kämpfen"],
+      lines: [weg.weiter],
+      choices: [...weg.choicesWeiter],
     });
     if (next === 0) await lagerReden(rt, held, true);
     else await lagerKampf(rt, held, false);
@@ -1984,50 +1951,27 @@ async function lagerSchleichen(rt: Runtime, held: Held) {
 }
 
 async function lagerReden(rt: Runtime, held: Held, erwischt = false) {
+  const weg = LAGER_WEGE.reden;
   let schwierigkeit = held.banditenGewarnt || erwischt ? SCHWER : MITTEL;
   if (held.letzterGastGefunden) schwierigkeit = Math.max(LEICHT, schwierigkeit - 2);
+  const lines = [...weg.lines];
+  if (held.letzterGastGefunden) lines.splice(2, 0, weg.gast);
   const wahl = await rt.present({
-    title: "Banditenlager",
+    title: weg.title,
     art: "camp",
     portrait: "kess",
     held,
-    lines: [
-      "Kess hat eine Stimme wie ein stumpfer Säbel.",
-      "„Lindendorf schickt keine Wache. Lindendorf schickt... dich.“",
-      ...(held.letzterGastGefunden ? ["Du erinnerst dich an den Satz aus der Taverne. Kess würfelt nicht. Noch nicht."] : []),
-      "Er spricht deinen Namen nicht aus. Er hat ihn vielleicht nie gehört. Trotzdem liegt in seiner Pause die Art von Sicherheit, die Menschen nur zeigen, wenn sie vorbereitet sind.",
-      "Hinter ihm brennt das Feuer niedrig. Im Rauch hängt der Geruch von nassem Leder und gekochtem Knochen.",
-    ],
-    choices: [
-      "Drohen: Das Dorf hat genug (Charisma)",
-      "Handel: Abzug gegen Gold und eine Nacht Vorsprung",
-      "Lügen: Hinter dir kommt die Stadtwache",
-    ],
+    lines,
+    choices: [...weg.choices],
   });
 
   if (wahl === 0) {
     const ergebnis = probe(held, "Charisma", held.charisma, schwierigkeit, "Drohung");
     if (ergebnis.erfolg) {
-      held.loesungsweg = "ueberreden";
-      held.lagerGeloest = true;
-      held.beuteGerettet = true;
-      await rt.present({
-        held,
-        probe: ergebnis,
-        lines: [
-          "Kess sieht deine Augen länger an als dein Schwert.",
-          "„Packen. Bevor ich es mir anders überlege.“",
-          "Sie lassen die Kirchenkiste. Mehr Großmut steckt nicht in diesem Steinbruch.",
-          "Kess nimmt den stumpfen Würfel vom Boden und schiebt ihn mit dem Stiefel ins Feuer. „Das Dorf hat euch geschickt“, sagt er. „Aber das, was hier passiert, hat längst angefangen.“",
-          "Die Männer lösen ihre Hände von den Waffen. Nicht aus Vertrauen. Aus Müdigkeit und weil du ihnen einen Moment gegeben hast, in dem niemand zuerst schlagen musste.",
-        ],
-      });
+      schliesseLager(held, "ueberreden", true, "lager-drohen");
+      await rt.present({ held, probe: ergebnis, lines: weg.drohenErfolg });
     } else {
-      await rt.present({
-        held,
-        probe: ergebnis,
-        lines: ["Lachen. Kurzes Lachen. Dann Stahl."],
-      });
+      await rt.present({ held, probe: ergebnis, lines: weg.drohenFail });
       await lagerKampf(rt, held, false);
     }
   } else if (wahl === 1) {
@@ -2035,80 +1979,48 @@ async function lagerReden(rt: Runtime, held: Held, erwischt = false) {
     if (held.gold >= preis) {
       const pay = await rt.present({
         held,
-        lines: [`Kess will ${preis} Gold, sofort, und dass du den Mund hältst.`],
-        choices: [`${preis} Gold zahlen`, "Nicht zahlen"],
+        lines: [mitPreis(weg.handelFrage, preis)],
+        choices: [mitPreis(weg.handelZahlen, preis), weg.handelNicht],
       });
       if (pay === 0) {
         held.gold -= preis;
-        held.loesungsweg = "ueberreden";
-        held.lagerGeloest = true;
-        held.beuteGerettet = false;
+        schliesseLager(held, "ueberreden", false, "lager-handel");
         await rt.present({
           held,
-          lines: [
-            `Du zahlst ${preis} Gold. Die Kiste bleibt — leer genug, voll genug.`,
-            "Kess nickt. Das ist kein Frieden. Das ist eine Pause mit Preis.",
-            "Er zählt die Münzen nicht. Er beißt nur in eine, legt sie auf die Zunge und spuckt sie wieder aus. „Münzen halten länger als Männer“, sagt er.",
-            "Als du gehst, hörst du hinter dir das Scharren von Stiefeln. Niemand folgt dir. Noch nicht.",
-          ],
+          lines: weg.handelErfolg.map((zeile) => mitPreis(zeile, preis)),
         });
         return;
       }
     } else {
       await rt.present({
         held,
-        lines: [
-          `Kess will ${preis} Gold, sofort, und dass du den Mund hältst.`,
-          "Ohne Münzen ist Handel nur Theater.",
-        ],
+        lines: [mitPreis(weg.handelFrage, preis), weg.handelKeinGold],
       });
     }
-    await rt.present({
-      held,
-      lines: ["Ohne Münzen ist Handel nur Theater. Theater endet hier mit Messern."],
-    });
+    await rt.present({ held, lines: [weg.handelTheater] });
     await lagerKampf(rt, held, false);
   } else {
     const luegeSchwer = held.banditenGewarnt ? SCHWER : MITTEL;
     const ergebnis = probe(held, "Charisma", held.charisma, luegeSchwer, "Lüge von der Wache");
     if (ergebnis.erfolg) {
-      held.loesungsweg = "ueberreden";
-      held.lagerGeloest = true;
-      held.beuteGerettet = true;
-      await rt.present({
-        held,
-        probe: ergebnis,
-        lines: [
-          "Kess glaubt nicht an Helden. Er glaubt an Galgen.",
-          "In zehn Atemzügen ist das Lager halb leer. Die Kiste bleibt, weil sie schwer ist.",
-          "Er hebt die Hand, und die Männer sehen zuerst zu ihm, dann zum Grat. Einer flucht. Einer rennt. Kess bleibt stehen, bis du weit genug weg bist, um nicht mehr zurückzuschlagen.",
-          "Du weißt nicht, ob er dir geglaubt hat. Du weißt nur, dass er die Angst besser kennt als du.",
-        ],
-      });
+      schliesseLager(held, "ueberreden", true, "lager-luege");
+      await rt.present({ held, probe: ergebnis, lines: weg.luegeErfolg });
     } else {
       held.banditenGewarnt = true;
-      await rt.present({
-        held,
-        probe: ergebnis,
-        lines: ["„Die Wache. Natürlich. Und ich bin der Bischof.“"],
-      });
+      await rt.present({ held, probe: ergebnis, lines: [weg.luegeFail] });
       await lagerKampf(rt, held, false);
     }
   }
 }
 
 async function lagerKampf(rt: Runtime, held: Held, ueberrascht = true) {
+  const weg = LAGER_WEGE.kampf;
   await rt.present({
-    title: "Steinbruch",
+    title: weg.title,
     art: "combat",
     portrait: "kess",
     held,
-    lines: [
-      "Kein Duell. Ein Gedränge aus Stahl, Feuerlicht und schlechtem Boden.",
-      "Der erste Schlag trifft nicht dort, wo du ihn erwartest. Jemand rutscht im Schlamm aus, ein Zelt kippt, und plötzlich kämpfen alle in einem Raum, der für keinen von euch groß genug ist.",
-      "Kess trägt kein Wappen. Er trägt eine Narbe, einen stumpfen Säbel und die Gewissheit, dass derjenige gewinnt, der nach dem Lärm noch zählen kann.",
-      "Hinter dir steht die Kirchenkiste. Vor dir stehen Männer, die wissen, dass sie ohne sie nichts mehr haben, was ein Dorf zurückkaufen würde.",
-    ],
+    lines: weg.auf,
   });
 
   let s1 = ueberrascht && !held.banditenGewarnt ? MITTEL : SCHWER;
@@ -2118,18 +2030,10 @@ async function lagerKampf(rt: Runtime, held: Held, ueberrascht = true) {
   const erster = probe(held, "Stärke", held.staerke, s1, "erster Schlag");
   let s2 = MITTEL;
   if (erster.erfolg) {
-    await rt.present({
-      held,
-      probe: erster,
-      lines: ["Der erste geht zu Boden. Die anderen zögern — das ist mehr wert als Blut."],
-    });
+    await rt.present({ held, probe: erster, lines: [weg.ersterErfolg] });
   } else {
     const dmg = schaden(held, 4, "Kess' Messer findet Stoff und Haut");
-    await rt.present({
-      held,
-      probe: erster,
-      lines: [dmg, "Du bleibst stehen, weil Hinfallen hier das Ende wäre."],
-    });
+    await rt.present({ held, probe: erster, lines: [dmg, weg.ersterFail] });
     if (tot(held)) return;
     s2 = SCHWER;
   }
@@ -2139,126 +2043,52 @@ async function lagerKampf(rt: Runtime, held: Held, ueberrascht = true) {
 
   const zweiter = probe(held, "Stärke", held.staerke, s2, "den Steinbruch halten");
   if (zweiter.erfolg) {
-    held.loesungsweg = "kampf";
-    held.lagerGeloest = true;
-    held.beuteGerettet = true;
+    schliesseLager(held, "kampf", true, "lager-kampf");
     const gold = goldPlus(held, 5, "von den Gürteln der Fliehenden");
-    await rt.present({
-      held,
-      probe: zweiter,
-      log: [gold],
-      lines: [
-        "Kess flieht nicht wie ein Anführer, sondern wie ein Mann, der zählen kann.",
-        "Zwei bleiben liegen. Einer stöhnt. Das Lager gehört dem Rauch und dir.",
-        "Du siehst Kess am Rand des Steinbruchs verschwinden. Er blickt nicht zurück. Auf dem Boden bleibt sein Würfel liegen, die abgeschabte Acht nach oben.",
-        "Der Sieg riecht nach Eisen, nassem Holz und etwas Süßlichem, das du nicht benennen willst.",
-        "Als der Lärm endet, hörst du Wasser von der Felswand tropfen. Der Steinbruch hat schon vor euch Geräusche verschluckt. Er wird auch diese behalten.",
-      ],
-    });
+    await rt.present({ held, probe: zweiter, log: [gold], lines: weg.sieg });
   } else {
     const dmg = schaden(held, 5, "zu viele Klingen, zu wenig Platz");
-    await rt.present({
-      held,
-      probe: zweiter,
-      lines: [dmg, "Du reißt dir die Kirchenkiste unter den Arm und taumelst in den Wald."],
-    });
+    await rt.present({ held, probe: zweiter, lines: [dmg, weg.taumeln] });
     if (tot(held)) return;
-    const flucht = probe(held, "Geschicklichkeit", held.geschick, MITTEL, "mit der Beute entkommen");
-    held.loesungsweg = "kampf";
-    held.lagerGeloest = true;
-    if (flucht.erfolg) {
-      held.beuteGerettet = true;
-      await rt.present({
-        art: "forest",
-        portrait: null,
-        held,
-        probe: flucht,
-        lines: [
-          "Sie folgen nicht weit. Verwundete Jäger sind schlechte Jäger.",
-          "Die Kiste schlägt bei jedem Schritt gegen deine Hüfte. Im Inneren klirrt das Silber der Kirche, unversehrt und gleichgültig.",
-          "Hinter dir ruft Kess einen Namen. Du weißt nicht, ob er einen seiner Männer meint oder dich.",
-        ],
-      });
-    } else {
-      held.beuteGerettet = false;
-      await rt.present({
-        art: "forest",
-        portrait: null,
-        held,
-        probe: flucht,
-        lines: [
-          "Die Kiste bleibt im Farn. Du behältst dein Leben, nicht den Auftrag.",
-          "Hinter dir lacht jemand, dem das reicht.",
-        ],
-      });
-    }
+    const flucht = probe(held, "Geschicklichkeit", held.geschick, MITTEL, "mit der Beute entkommen", "nebel");
+    schliesseLager(held, "kampf", flucht.erfolg, "lager-flucht");
+    await rt.present({
+      art: "forest",
+      portrait: null,
+      held,
+      probe: flucht,
+      lines: flucht.erfolg ? weg.fluchtErfolg : weg.fluchtFail,
+    });
   }
 }
 
 async function lagerSeitetor(rt: Runtime, held: Held) {
+  const weg = LAGER_WEGE.tor;
   const wahl = await rt.present({
-    title: "Seitentor",
+    title: weg.title,
     art: "gate",
     portrait: null,
     held,
-    lines: [
-      "Der Schlüssel dreht sich schwer. Rost redet mit, gibt aber nach.",
-      "Du kommst hinter dem Holzstapel raus — näher an der Kiste als am Feuer.",
-      "Der Gang hinter dem Tor ist niedrig und riecht nach Moder. An der Wand stehen Zahlen, mit Kreide geschrieben und immer wieder durchgestrichen.",
-      "Unter deinen Stiefeln liegen alte Lederriemen und ein verrosteter Meißel. Der Steinbruch war einmal ein Arbeitsplatz. Das Lager hat nur gelernt, seine Knochen zu benutzen.",
-      "Durch die Spalten des Holzstapels siehst du Kess am Feuer. Er würfelt nicht mehr. Er wartet.",
-    ],
-    choices: [
-      "Nur die Beute nehmen und verschwinden (Geschick, leicht)",
-      "Die Seile der Zelte kappen und Chaos nutzen (Geschick, mittel)",
-      "Kess von hinten stellen (Stärke, mittel)",
-    ],
+    lines: weg.lines,
+    choices: [...weg.choices],
   });
 
   if (wahl === 0) {
     const ergebnis = probe(held, "Geschicklichkeit", held.geschick, LEICHT, "Beute am Seitentor");
     if (ergebnis.erfolg) {
-      held.loesungsweg = "schleich";
-      held.lagerGeloest = true;
-      held.beuteGerettet = true;
+      schliesseLager(held, "seitentor", true, "lager-seitentor");
       const gold = goldPlus(held, 6, "Kirchensilber");
-      await rt.present({
-        art: "sneak",
-        held,
-        probe: ergebnis,
-        log: [gold],
-        lines: [
-          "Kein Heldenepos. Eine offene Tür und ein geschlossener Mund.",
-          "Du schiebst die Kiste durch den niedrigen Gang. Das Holz kratzt über Stein, doch das Feuer knackt im selben Augenblick laut genug.",
-          "Als du das Tor wieder schließt, bleibt der Schlüssel innen stecken. Manche Wege benutzt man nur einmal.",
-        ],
-      });
+      await rt.present({ art: "sneak", held, probe: ergebnis, log: [gold], lines: weg.beuteErfolg });
     } else {
-      await rt.present({
-        held,
-        probe: ergebnis,
-        lines: ["Die Kiste schabt über Stein. Kess hört das."],
-      });
+      await rt.present({ held, probe: ergebnis, lines: [weg.beuteFail] });
       await lagerKampf(rt, held, false);
     }
   } else if (wahl === 1) {
     const ergebnis = probe(held, "Geschicklichkeit", held.geschick, MITTEL, "Zelte sabotieren");
     if (ergebnis.erfolg) {
-      held.loesungsweg = "schleich";
-      held.lagerGeloest = true;
-      held.beuteGerettet = true;
+      schliesseLager(held, "schleich_ablenkung", true, "lager-zelte");
       const gold = goldPlus(held, 4, "in der Verwirrung");
-      await rt.present({
-        art: "combat",
-        held,
-        probe: ergebnis,
-        log: [gold],
-        lines: [
-          "Stoff stürzt, Glut springt, Männer fluchen auf das Wetter und auf dich.",
-          "Ein Zelt fällt über den Vorratstisch. Die Knochenwürfel verschwinden im Schlamm, und für einen Atemzug weiß niemand mehr, wo die Gefahr steht.",
-          "Du nutzt diesen Atemzug. Im Steinbruch ist Zeit das einzige Gut, das niemand zurückfordern kann.",
-        ],
-      });
+      await rt.present({ art: "combat", held, probe: ergebnis, log: [gold], lines: weg.zelteErfolg });
     } else {
       const dmg = schaden(held, 2, "ein Wachposten sieht dich am Tau");
       await rt.present({ held, probe: ergebnis, lines: [dmg] });
@@ -2267,9 +2097,7 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
   } else {
     const ergebnis = probe(held, "Stärke", held.staerke, MITTEL, "Kess stellen");
     if (ergebnis.erfolg) {
-      held.loesungsweg = "kampf";
-      held.lagerGeloest = true;
-      held.beuteGerettet = true;
+      schliesseLager(held, "kampf", true, "lager-kess-hinten");
       const gold = goldPlus(held, 5, "Kess' Beutel");
       await rt.present({
         art: "combat",
@@ -2277,22 +2105,11 @@ async function lagerSeitetor(rt: Runtime, held: Held) {
         held,
         probe: ergebnis,
         log: [gold],
-        lines: [
-          "Kess ist ein Schwätzer. Schwätzer drehen sich zu langsam um.",
-          "Die anderen rennen, als ihr Anführer kniet.",
-          "Sein Säbel fällt in den Staub. Kess hebt beide Hände, aber sein Blick sucht noch immer nach einer Rechnung, die dich lebend aus diesem Lager bringt.",
-          "„Wenn du mich tötest, wird Lindendorf nicht voller“, sagt er. Du weißt, dass das stimmt. Es macht die Entscheidung nicht leichter.",
-        ],
+        lines: weg.kessErfolg,
       });
     } else {
       const dmg = schaden(held, 3, "Kess ist schneller als sein Mund");
-      await rt.present({
-        art: "combat",
-        portrait: "kess",
-        held,
-        probe: ergebnis,
-        lines: [dmg],
-      });
+      await rt.present({ art: "combat", portrait: "kess", held, probe: ergebnis, lines: [dmg] });
       if (!tot(held)) await lagerKampf(rt, held, false);
     }
   }
@@ -2417,7 +2234,12 @@ async function szeneEnde(rt: Runtime, held: Held) {
       lines,
       choices: ["Zurück ins Menü"],
     });
-  } else if (held.loesungsweg === "schleich" && held.beuteGerettet) {
+  } else if (
+    (held.loesungsweg === "schleich" ||
+      held.loesungsweg === "seitentor" ||
+      held.loesungsweg === "schleich_ablenkung") &&
+    held.beuteGerettet
+  ) {
     const log: string[] = [];
     const lines = [
       "Kein Blut auf dem Marktplatz. Nur eine Kiste, die wieder da ist.",
@@ -2560,6 +2382,9 @@ function epilog(held: Held): string[] {
   }
   if (held.verwundet) bits.push("Die Wunde bleibt eine Weile. Narben sind in Lindendorf eine Art Ausweis.");
   if (hat(held, SCHLUESSEL)) bits.push("Der Schlüssel zum Seitentor ist noch da. Türen bleiben eine Versuchung.");
+  if (rufAus(held, "holm") >= 15) bits.push("Holm sieht dich länger an als das Amt verlangt.");
+  if (rufAus(held, "mara") >= 8) bits.push("Mara stellt den Becher hin, bevor du sitzt.");
+  if (rufAus(held, "kess") <= -10) bits.push("Kess wird deinen Namen nicht vergessen. Das ist kein Ruhm.");
   if (!bits.length) bits.push("Du gehst leichter, als du gekommen bist. Das ist selten.");
   return bits.map((b) => `— ${b}`);
 }

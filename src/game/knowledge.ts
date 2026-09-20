@@ -23,6 +23,32 @@ export type KnowledgeKey =
   | "kesseljahr"
   | "ilses_liste";
 
+export type WissensTyp = "material" | "sozial" | "ort" | "übernatürlich";
+
+export const KNOWLEDGE_META: Record<KnowledgeKey, { typ: WissensTyp; label: string }> = {
+  dorf_ankunft: { typ: "ort", label: "Du bist in Lindendorf angekommen." },
+  artefakt_gesehen: { typ: "übernatürlich", label: "Ein silbernes Kirchenzeichen am Weg." },
+  artefakt_erhalten: { typ: "material", label: "Das silberne Artefakt liegt bei dir." },
+  holm_besucht: { typ: "sozial", label: "Du warst im Rathaus bei Holm." },
+  auftrag_erhalten: { typ: "sozial", label: "Holm hat dir den Auftrag gegeben." },
+  banditen_bekannt: { typ: "ort", label: "Banditen sitzen im Steinbruch." },
+  rotes_siegel_gesehen: { typ: "material", label: "Rotes Wachs, ein gebrochenes Siegel." },
+  hang_hinweis: { typ: "ort", label: "Der Hang über dem Dorf trägt eine Spur." },
+  glockenweg_bekannt: { typ: "ort", label: "Der alte Glockenweg ist kein Gerücht mehr." },
+  glocke_vorteil: { typ: "material", label: "Die Glocke am Hang bleibt still." },
+  banditen_gewarnt: { typ: "sozial", label: "Die Banditen wissen, dass jemand kommt." },
+  muehle_stillstand: { typ: "material", label: "Die Mühle liefert kein Mehl." },
+  renniks_druck: { typ: "sozial", label: "Jemand presst die Mühle vom Ufer her." },
+  fluechtlinge_muehle: { typ: "sozial", label: "In der Kornkammer versteckt Bertok Menschen." },
+  wasser_truebung: { typ: "material", label: "Das Brunnenwasser ist trüb." },
+  grovin_zisterne: { typ: "ort", label: "Grovin leitet Wasser in eine Zisterne." },
+  dennek_schuld: { typ: "sozial", label: "Dennek hat Grovin nie bezahlt." },
+  versorgung_muster: { typ: "sozial", label: "Mehl und Wasser werden dem Tal auf dieselbe Art genommen." },
+  gasse_leer: { typ: "ort", label: "Hinter der Gerberei liegt eine leere Gasse." },
+  kesseljahr: { typ: "sozial", label: "Im Kesseljahr wurde die Gasse abgeriegelt." },
+  ilses_liste: { typ: "material", label: "Ilse Brandtner hat die Toten unter der Kirche versteckt." },
+};
+
 export type KnowledgeState = ReadonlySet<KnowledgeKey>;
 
 export function deriveKnowledge(held: Held): KnowledgeState {

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { exportiereModul } from "./export-modul";
 
 const AttributeSchema = z.enum(["Stärke", "Geschicklichkeit", "Charisma"]);
 const RouteSchema = z.enum(["kampf", "schleich", "ueberreden"]);
@@ -64,3 +65,7 @@ export const INTRO_ARTIFACT_CONTENT = IntroArtifactContentSchema.parse({
     "Du hast nichts gewonnen. Aber du hast dich entschieden, nicht jede fremde Not zu deinem Vorteil zu machen. Später wirst du nicht wissen, ob das ein Maßstab oder nur Bequemlichkeit war.",
   ],
 });
+
+export function exportiereIntro() {
+  return exportiereModul("intro-fremder.json", IntroArtifactContentSchema, INTRO_ARTIFACT_CONTENT);
+}

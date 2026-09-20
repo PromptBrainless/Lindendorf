@@ -21,11 +21,13 @@ export function SeitenFuss({
   hinzu,
   nimmt,
   fort,
+  kompakt = false,
 }: {
   held?: Held;
   hinzu?: EffektId[];
   nimmt?: EffektId[];
   fort?: EffektId[];
+  kompakt?: boolean;
 }) {
   if (!held) return null;
   const aktiv = heldEffekte(held);
@@ -34,10 +36,10 @@ export function SeitenFuss({
   const faellt = fort?.length ? fort : [];
 
   return (
-    <div className="mt-4 border-t border-border pt-3">
-      <ZustandLeiste held={held} />
+    <div className={kompakt ? "mt-2" : "mt-4 border-t border-border pt-3"}>
+      {kompakt ? null : <ZustandLeiste held={held} />}
       {legt.length || nimmtListe.length || faellt.length ? (
-        <div className="mt-2 space-y-1.5 text-xs text-muted-fg">
+        <div className="mt-1 space-y-1.5 text-xs text-muted-fg">
           {legt.length ? (
             <p className="flex flex-wrap items-center gap-1">
               <span>Dieser Ort legt auf</span>

@@ -8,7 +8,6 @@ import type { EffektId, SceneView } from "@/game/types";
 import { Hud } from "./Hud";
 import { KnowledgeJournal } from "./KnowledgeJournal";
 import { LageOverlay } from "./LageOverlay";
-import { SeitenFuss } from "./SeitenFuss";
 import { SpielleiterPanel } from "./SpielleiterPanel";
 
 export function SceneStage({
@@ -123,8 +122,6 @@ export function SceneStage({
 
   return (
     <div className="relative isolate min-h-dvh overflow-x-hidden overflow-y-auto bg-bg text-fg">
-      <StageMedia src={hintergrund} poster={hintergrundPoster} className="absolute inset-0 size-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/55 to-bg/20" />
       {view.held ? (
         <Hud
           held={view.held}
@@ -133,13 +130,27 @@ export function SceneStage({
           onKnowledge={onKnowledge}
           onLeiter={onLeiter}
           leiterOpen={leiterOpen}
+          hinzu={view.seiteHinzu}
+          nimmt={view.seiteNimmt}
+          fort={view.seiteFort}
         />
       ) : null}
       {knowledgeOpen && view.held ? <KnowledgeJournal held={view.held} debug={debug} onClose={onKnowledge} /> : null}
 
-      <div className="safe-bottom relative z-10 mx-auto flex min-h-dvh max-w-5xl flex-col justify-end gap-3 px-3 pb-6 pt-32 sm:gap-4 sm:px-6 sm:pb-8 sm:pt-28">
+      <div className="relative h-[36vh] min-h-52 w-full bg-surface sm:h-[42vh]">
+        <StageMedia src={hintergrund} poster={hintergrundPoster} className="size-full object-cover" />
+        {portrait ? (
+          <StageMedia
+            src={portrait}
+            poster={portraitPoster}
+            className="absolute bottom-3 right-3 h-28 w-20 rounded-lg border border-border object-cover shadow-sm sm:h-36 sm:w-24"
+          />
+        ) : null}
+      </div>
+
+      <div className="safe-bottom relative z-10 mx-auto flex max-w-3xl flex-col gap-3 px-3 py-4 sm:gap-4 sm:px-6 sm:py-6">
         {authorMode ? (
-          <div className="flex flex-col gap-2 rounded-lg border border-accent/40 bg-ink/90 px-3 py-2.5 text-xs text-fg shadow-lg sm:flex-row sm:items-center sm:justify-between sm:text-sm">
+          <div className="flex flex-col gap-2 rounded-lg border border-accent/40 bg-ink px-3 py-2.5 text-xs text-fg shadow-lg sm:flex-row sm:items-center sm:justify-between sm:text-sm">
             <p className="inline-flex items-center gap-2">
               <PenLine className="size-3.5 text-accent" aria-hidden />
               Textmodus. {patchCount(mergedPack())} Karten merken auf Übernehmen.
@@ -154,35 +165,18 @@ export function SceneStage({
             </div>
           </div>
         ) : null}
-        <div className="flex items-end gap-4">
-          {portrait ? (
-            <StageMedia
-              src={portrait}
-              poster={portraitPoster}
-              className="hidden h-36 w-24 shrink-0 rounded-lg border border-border object-cover shadow-sm sm:block sm:h-44 sm:w-28"
+        <div className="rounded-xl border border-border bg-ink p-3.5 shadow-lg sm:p-5">
+          {authorMode ? (
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={remember}
+              className="mb-3 w-full rounded-sm border border-border bg-surface px-2 py-1 font-display text-xl font-semibold tracking-tight text-fg outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-2xl"
+              aria-label="Kartentitel"
             />
-          ) : null}
-          <div className="min-w-0 flex-1 rounded-xl border border-border bg-ink/82 p-3.5 shadow-lg backdrop-blur-md sm:p-5">
-            <div className="mb-3 flex items-start justify-between gap-3">
-              {authorMode ? (
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  onBlur={remember}
-                  className="w-full rounded-sm border border-border bg-ink/70 px-2 py-1 font-display text-xl font-semibold tracking-tight text-fg outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-2xl"
-                  aria-label="Kartentitel"
-                />
-              ) : (
-                <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">{view.title}</h2>
-              )}
-              {portrait ? (
-                <StageMedia
-                  src={portrait}
-                  poster={portraitPoster}
-                  className="h-14 w-10 rounded-md border border-border object-cover sm:hidden"
-                />
-              ) : null}
-            </div>
+          ) : (
+            <h2 className="mb-3 font-display text-xl font-semibold tracking-tight sm:text-2xl">{view.title}</h2>
+          )}
 
             {view.probe ? (
               <div className="mb-3 flex items-start gap-2 rounded-md border border-border bg-surface/80 px-3 py-2 text-sm" role="status" aria-live="polite">
@@ -228,14 +222,6 @@ export function SceneStage({
             ) : null}
 
             {authorMode && status ? <p className="mt-3 text-sm text-accent">{status}</p> : null}
-
-            <SeitenFuss
-              held={view.held}
-              hinzu={view.seiteHinzu}
-              nimmt={view.seiteNimmt}
-              fort={view.seiteFort}
-            />
-          </div>
         </div>
 
         <div className="grid gap-2">

@@ -15,8 +15,11 @@ user-invocable: true
 # Lindendorf-Questreihe
 
 Schreibe **keine neue Engine und kein neues Kapitel**. Schreibe eine
-spielbare Nebenquest-Reihe **in der Dorf-Schleife**, die sich anfühlt, als
-läge sie schon immer im Tal — mit Erinnerung, Preis und späterem Widerhall.
+spielbare Nebenquest-Reihe **in der Dorf-Schleife**.
+
+Technischer Ausbau (Schema, Log, Lager): `docs/ERNEUERUNGSPLAN.md`.
+Während Block A und während der Lager-Extraktion keine neue Quest.
+
 
 Goldstandard (lesen, nicht kopieren):
 

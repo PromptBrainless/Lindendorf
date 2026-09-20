@@ -1,14 +1,27 @@
 # Lindendorf — Projekthinweise
 
-Nebenquests und Questreihen: zuerst
-`.grok/skills/lindendorf-questreihe/SKILL.md` laden und die sieben Phasen
-dort abarbeiten. Nutzer-Prompt: `docs/PROMPT_QUESTREIHE.md`.
-Belegte Namen/Flags/Labels: `docs/QUESTREGISTER.md`.
-Letzter Stand: `docs/HANDOFF.md`.
+Technische Reihenfolge: `docs/ERNEUERUNGSPLAN.md`.
+Sitzung: `docs/HANDOFF.md`.
+Namen/Flags: `docs/QUESTREGISTER.md`.
 
-Spielertext nachziehen: OpenCode kopflos, Modell `xai/grok-4.20-0309-non-reasoning`,
-nur `lines` und Dialoge, danach Diff + `npm run typecheck && npm run check:knowledge && npm run check:questreihe`.
-Stimme: schön, hart, düster. Vorbild `quest-muehle.ts`. Kein Telegramm, kein Barock.
+Nebenquests: `.grok/skills/lindendorf-questreihe/SKILL.md`, Prompt
+`docs/PROMPT_QUESTREIHE.md`. Eine Quest pro Block, nicht während Lager-Extraktion.
 
-Nicht ohne Auftrag: Engine, Runtime, Auth, Datenbank, Haupt-Endtitel,
+## Drei Zustandmuster
+
+1. Booleans/Enums am Held (`sannaGeholfen`) — bestehende Quests.
+2. `held.effekte` — Gunst/Last, Probe vor `probe()`.
+3. `held.entscheidungen` — Log für Ruf und Erinnerung. Noch nicht verdrahtet.
+   Ruf nicht als Feld speichern. `rufAus()` über das Log, kein Decay.
+
+## Stimme
+
+Deutsch, Du, Präsens. Schön, hart, düster. Vorbild `quest-muehle.ts`.
+OpenCode nur `lines`/Dialoge, dann Diff +
+`npm run typecheck && npm run check:knowledge && npm run check:questreihe`.
+
+## Nicht ohne Auftrag
+
+Engine, Runtime, Auth, DB, Haupt-Endtitel, Zod-Vollumbau von `types.ts`,
+neue ArtKeys, Lager-Refactor vor Dead-Node-Checkliste.
 Grundfluss Heldenerstellung → Dorf → Glockenweg/Wald → Lager → Ende.

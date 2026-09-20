@@ -24,7 +24,7 @@ function Stat({
   );
 }
 
-export function ZustandLeiste({ held }: { held: Held }) {
+export function ZustandLeiste({ held, nurWerte = false }: { held: Held; nurWerte?: boolean }) {
   const werte = werteMitEffekt(held);
   const liste = heldEffekte(held);
   const schluessel = liste.join(",");
@@ -57,30 +57,34 @@ export function ZustandLeiste({ held }: { held: Held }) {
         <Stat label="GE" basis={held.geschick} wert={werte.geschick} />
         <Stat label="CH" basis={held.charisma} wert={werte.charisma} />
       </div>
-      {liste.length ? (
-        <div className="mt-1.5 flex flex-wrap gap-1">
-          {liste.map((id) => {
-            const item = EFFEKTE[id];
-            const gunst = item.gruppe === "gunst";
-            return (
-              <span
-                key={id}
-                title={item.hint}
-                className={`rounded-xs border px-1.5 py-0.5 text-xs ${
-                  gunst ? "border-ok/40 text-ok" : "border-hp/40 text-hp"
-                }`}
-              >
-                {item.name}
-              </span>
-            );
-          })}
-        </div>
-      ) : null}
-      {meldung ? (
-        <p className="mt-1 text-xs text-accent" role="status" aria-live="polite">
-          {meldung}
-        </p>
-      ) : null}
+      {nurWerte ? null : (
+        <>
+          {liste.length ? (
+            <div className="mt-1.5 flex flex-wrap gap-1">
+              {liste.map((id) => {
+                const item = EFFEKTE[id];
+                const gunst = item.gruppe === "gunst";
+                return (
+                  <span
+                    key={id}
+                    title={item.hint}
+                    className={`rounded-xs border px-1.5 py-0.5 text-xs ${
+                      gunst ? "border-ok/40 text-ok" : "border-hp/40 text-hp"
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                );
+              })}
+            </div>
+          ) : null}
+          {meldung ? (
+            <p className="mt-1 text-xs text-accent" role="status" aria-live="polite">
+              {meldung}
+            </p>
+          ) : null}
+        </>
+      )}
     </div>
   );
 }

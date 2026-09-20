@@ -1,6 +1,9 @@
 # Autorenhandbuch für illustrierte Textabenteuer
 
+Lindendorf-Reihenfolge des Code-Ausbaus: `docs/ERNEUERUNGSPLAN.md`. Dieses Handbuch gilt fürs Schreiben, nicht für Schema/Log/Lager.
+
 ## Das System in einem Satz
+
 
 Dieses System erzählt kurze, illustrierte Abenteuer über **wenige Attribute, W10-Proben und sichtbare Konsequenzen**. Der Held ist kein Auserwählter. Er ist eine Person mit begrenzten Möglichkeiten, die handeln muss, während andere abwarten.
 

@@ -7,4 +7,6 @@ Goldstandard (nicht hierher verschieben):
 - `attachments/quest-das-truebe-wasser.md`
 
 Reihenüberblick und belegte Namen: `docs/QUESTREGISTER.md`.
-Schreibprompt: `docs/PROMPT_QUESTREIHE.md`.
+Technische Ausbau-Reihenfolge (Schema, Log, Lager): `docs/ERNEUERUNGSPLAN.md`.
+Keine neue Quest während Block A (HeldSchema + Log) und nicht während der Lager-Extraktion.
+

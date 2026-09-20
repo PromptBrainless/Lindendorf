@@ -2,7 +2,7 @@
 
 ## Zweck
 
-`PROJEKTKONTEXT.md` ist der kompakte Übergabepunkt für neue Sitzungen. Er ersetzt nicht die vollständige Projektgeschichte und enthält keine langen Gesprächsprotokolle. Er hält nur Entscheidungen, stabile Regeln, offene Risiken, Teststatus und den nächsten sicheren Schritt fest.
+`PROJEKTKONTEXT.md` ist der kompakte Übergabepunkt. Die technische Reihenfolge steht in `docs/ERNEUERUNGSPLAN.md`. Der Kontext ersetzt nicht das Register und enthält keine Gesprächsprotokolle.
 
 ## Aktualisierungspunkte
 

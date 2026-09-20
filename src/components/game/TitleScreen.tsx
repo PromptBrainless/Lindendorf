@@ -1,4 +1,4 @@
-import { BookOpen, FolderOpen, PenLine, Play, ScrollText } from "lucide-react";
+import { BookOpen, FolderOpen, PenLine, Play, ScrollText, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ART } from "@/game/art";
 
@@ -53,6 +53,13 @@ export function TitleScreen({
             <PenLine className="size-4" aria-hidden />
             {authorMode ? "Textmodus an — im Spiel Zeilen ändern" : "Texte im Spiel bearbeiten"}
           </Button>
+          <a
+            href="/editor"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-border bg-surface-2 px-4 text-sm text-fg"
+          >
+            <Wrench className="size-4" aria-hidden />
+            Werkstatt — Fluss, Proben, Wissen
+          </a>
         </div>
         <p className="mt-6 inline-flex items-center gap-2 text-xs text-muted-fg">
           <BookOpen className="size-3.5" aria-hidden />

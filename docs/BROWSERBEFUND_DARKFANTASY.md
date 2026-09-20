@@ -1,5 +1,10 @@
 # Browserbefund der Dark-Fantasy-Langfassung
 
+**Historisch:** 17. September 2026. Layout seit 20. September: Bildstreifen **über** dem Text, HUD oben aufklappbar, kein Verlauf über dem Bild. Neue Prüfung nötig, dieser Befund gilt nicht als aktuelle Abnahme.
+
+---
+
+
 **Prüfzeit:** 17. September 2026, 17:55 Uhr
 
 Der neue Titeltext wird korrekt angezeigt und positioniert das Projekt als ausführliches Dark-Fantasy-Abenteuer. Heldenerstellung und Navigation bleiben unverändert funktionsfähig.

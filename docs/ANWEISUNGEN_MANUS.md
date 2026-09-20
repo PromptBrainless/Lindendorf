@@ -1,16 +1,19 @@
 # Anweisungen für Manus — How to be a Hero (Lindendorf)
 
-Du arbeitest an einem **illustrierten Textabenteuer**. Es ist bereits spielbar. Deine Aufgabe ist nicht ein neues Spiel, nicht ein neues Regelwerk und nicht ein UI-Redesign. Deine Aufgabe ist, den **bestehenden Vertical Slice mit liebevollem Inhalt auszuarbeiten**: mehr Seele, mehr Wiedererkennen, mehr Konsequenz — ohne die Kälte und Präzision der Stimme zu verraten.
+Du arbeitest an einem **illustrierten Textabenteuer**. Es ist bereits spielbar. Nicht neues Spiel, nicht neues Regelwerk, nicht UI-Redesign.
 
-Arbeite im bestehenden React/TypeScript-Projekt. Die Geschichte lebt in `src/game/script.ts`. Die Bilder liegen in `public/art/`. Die Regeln in `src/game/engine.ts`.
+Technische Reihenfolge: `docs/ERNEUERUNGSPLAN.md`.
+Kanon: `docs/QUESTREGISTER.md`.
+Stimme und Bogen: `docs/ERZAEHLREVISION_DARKFANTASY.md`.
+
+Die Geschichte lebt in `src/game/script.ts` **und** `src/game/quest-*.ts`. Bilder `public/art/`. Regeln `src/game/engine.ts`.
 
 ## Aktuelle Stilrevision — 17. September 2026
 
-Die frühere Vorgabe, Texte grundsätzlich kurz zu halten, ist aufgehoben. Das gesamte Abenteuer wird zu einer ausführlichen, düsteren Dark-Fantasy-Mittelaltererzählung ausgebaut. Kernregeln, Figurenfundament und Grundfluss bleiben bestehen. Ausführliche Szenenkarten sind ausdrücklich erwünscht, wenn sie Handlung, Atmosphäre, Figurenentwicklung oder Konsequenzen tragen. Leere Ausschmückung, Wiederholung und Pathos bleiben verboten.
-
-Die vollständige Ausbauplanung steht in `ERZAEHLREVISION_DARKFANTASY.md`. Dieses Dokument hat für die neue Erzählform Vorrang vor älteren Kurztext-Hinweisen in diesem Dokument.
+Kurze Karten sind aufgehoben. Ausführlich, düster, Dark Fantasy. Kernregeln und Grundfluss bleiben.
 
 ---
+
 
 ## 1. Was das Spiel ist
 
@@ -22,11 +25,11 @@ Heldenerstellung → Prolog/Fremder → Dorf (Schleife) → Glockenweg oder Wald
 
 **Regeln (unantastbar):**
 
-- Drei Attribute 1–10: Stärke, Geschicklichkeit, Charisma. Kein Punktelimit.
+- Drei Attribute, Start 10/10/10: Stärke, Geschicklichkeit, Charisma. Probe nutzt Gunst/Last (`held.effekte`).
 - Probe: `W10 + Attribut ≥ Schwierigkeit` (leicht 8, mittel 12, schwer 15).
 - 10 Lebenspunkte. Bei 0 tot.
 - Inventar: nur `Heiltrank`, `Schlüssel`, `Gold` (Gold als Zahl).
-- Flags steuern späteren Text: `banditenGewarnt`, `buergermeisterVertraut`, `verwundet`, `auftragErhalten`, `lagerGeloest`, `loesungsweg`, `beuteGerettet`.
+- Flags steuern späteren Text. Zusätzlich `held.effekte`. Entscheidungs-Log kommt additiv (`docs/ERNEUERUNGSPLAN.md`), ersetzt die Flags nicht.
 
 Inspiriert von *How to be a Hero* (wenige Werte, W10, Konsequenzen). Es ist **kein** High-Fantasy-Epos, kein D&D-Klon, kein Scherz-RPG.
 

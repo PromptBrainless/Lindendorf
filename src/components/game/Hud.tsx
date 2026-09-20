@@ -1,7 +1,10 @@
-import { BookOpen, Coins, FlaskConical, Heart, KeyRound, Save, ScrollText } from "lucide-react";
-import { HEILTRANK, MAX_LP, SCHLUESSEL, type Held } from "@/game/types";
-import { werteMitEffekt } from "@/game/effekte";
+import { useState } from "react";
+import { BookOpen, ChevronDown, Coins, FlaskConical, Heart, KeyRound, Save, ScrollText } from "lucide-react";
+import { HEILTRANK, MAX_LP, SCHLUESSEL, type EffektId, type Held } from "@/game/types";
+import { rufListe } from "@/game/reputation";
 import { Button } from "@/components/ui/button";
+import { SeitenFuss } from "./SeitenFuss";
+import { ZustandLeiste } from "./ZustandLeiste";
 
 export function Hud({
   held,
@@ -10,6 +13,9 @@ export function Hud({
   onKnowledge,
   onLeiter,
   leiterOpen,
+  hinzu,
+  nimmt,
+  fort,
 }: {
   held: Held;
   onSave: () => void;
@@ -17,69 +23,47 @@ export function Hud({
   onKnowledge: () => void;
   onLeiter: () => void;
   leiterOpen: boolean;
+  hinzu?: EffektId[];
+  nimmt?: EffektId[];
+  fort?: EffektId[];
 }) {
+  const [offen, setOffen] = useState(false);
   const hpPct = Math.max(0, Math.min(100, (held.lp / MAX_LP) * 100));
-  const werte = werteMitEffekt(held);
+  const anzahl = held.effekte?.length ?? 0;
+  const rufe = rufListe(held);
 
   return (
-    <div className="safe-top pointer-events-none absolute inset-x-0 top-0 z-20 p-3 sm:p-4">
-      <div className="mx-auto flex max-w-5xl flex-col gap-2 rounded-lg border border-border bg-ink/82 px-3 py-2.5 text-xs text-fg shadow-lg backdrop-blur-md sm:flex-row sm:items-center sm:gap-4 sm:text-sm">
+    <div className="sticky top-0 z-20 border-b border-border bg-ink/94 px-3 py-2 shadow-sm backdrop-blur-md sm:px-4">
+      <div className="mx-auto flex max-w-5xl items-center gap-2 text-xs text-fg sm:gap-3 sm:text-sm">
         <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
             <p className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">{held.name}</p>
-            <span className="inline-flex items-center gap-1.5 tabular-nums text-muted-fg">
+            <span className="inline-flex shrink-0 items-center gap-1 tabular-nums text-muted-fg">
               <Heart className="size-3.5 text-hp" aria-hidden />
               {held.lp}/{MAX_LP}
             </span>
           </div>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-2">
+          <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-surface-2">
             <div
               className="h-full rounded-full bg-hp transition-[width] duration-[var(--motion-fast)]"
               style={{ width: `${hpPct}%` }}
             />
           </div>
         </div>
-        <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-muted-fg">
-          <span className="inline-flex items-center gap-1 tabular-nums">
-            <span className="text-muted-fg">ST</span>
-            <span className={werte.staerke === held.staerke ? "text-fg" : werte.staerke > held.staerke ? "text-ok" : "text-hp"}>
-              {werte.staerke}
-            </span>
-          </span>
-          <span className="inline-flex items-center gap-1 tabular-nums">
-            <span className="text-muted-fg">GE</span>
-            <span className={werte.geschick === held.geschick ? "text-fg" : werte.geschick > held.geschick ? "text-ok" : "text-hp"}>
-              {werte.geschick}
-            </span>
-          </span>
-          <span className="inline-flex items-center gap-1 tabular-nums">
-            <span className="text-muted-fg">CH</span>
-            <span className={werte.charisma === held.charisma ? "text-fg" : werte.charisma > held.charisma ? "text-ok" : "text-hp"}>
-              {werte.charisma}
-            </span>
-          </span>
-          <span className="inline-flex items-center gap-1 tabular-nums">
-            <Coins className="size-3.5" aria-hidden />
-            {held.gold}
-          </span>
-          {held.inventar.includes(HEILTRANK) ? (
-            <span className="inline-flex items-center gap-1">
-              <FlaskConical className="size-3.5" aria-hidden />
-              Trank
-            </span>
-          ) : null}
-          {held.inventar.includes(SCHLUESSEL) ? (
-            <span className="inline-flex items-center gap-1">
-              <KeyRound className="size-3.5" aria-hidden />
-              Schlüssel
-            </span>
-          ) : null}
-        </div>
+        <ZustandLeiste held={held} nurWerte />
+        <button
+          type="button"
+          className="pointer-events-auto inline-flex h-11 shrink-0 items-center gap-1 rounded-sm border border-border px-2 text-xs text-muted-fg"
+          onClick={() => setOffen((wert) => !wert)}
+          aria-expanded={offen}
+        >
+          {anzahl ? `${anzahl} Zustände` : "Status"}
+          <ChevronDown className={`size-4 transition-transform duration-[var(--motion-fast)] ${offen ? "rotate-180" : ""}`} />
+        </button>
         <Button
           type="button"
           variant="secondary"
-          size="default"
-          className="pointer-events-auto h-9 shrink-0 px-2 text-xs sm:px-3"
+          className="pointer-events-auto h-11 shrink-0 px-2 text-xs sm:px-3"
           onClick={onSave}
           title="Spielstand speichern"
         >
@@ -89,8 +73,7 @@ export function Hud({
         <Button
           type="button"
           variant="secondary"
-          size="default"
-          className="pointer-events-auto h-9 shrink-0 px-2 text-xs sm:px-3"
+          className="pointer-events-auto h-11 shrink-0 px-2 text-xs sm:px-3"
           onClick={onKnowledge}
           title="Wissenstagebuch öffnen"
         >
@@ -100,20 +83,49 @@ export function Hud({
         <Button
           type="button"
           variant={leiterOpen ? "default" : "secondary"}
-          size="default"
-          className="pointer-events-auto h-9 shrink-0 px-2 text-xs sm:px-3"
+          className="pointer-events-auto h-11 shrink-0 px-2 text-xs sm:px-3"
           onClick={onLeiter}
           title="Spielleiter-Modus (Alt+S)"
         >
           <ScrollText className="size-3.5" aria-hidden />
           <span className="hidden sm:inline">Spielleiter</span>
         </Button>
-        {saveMessage ? (
-          <p className="text-[11px] text-ok sm:max-w-52" aria-live="polite">
-            {saveMessage}
-          </p>
-        ) : null}
       </div>
+      {offen ? (
+        <div className="mx-auto mt-2 max-w-5xl border-t border-border pt-2">
+          <ZustandLeiste held={held} />
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-fg">
+            <span className="inline-flex items-center gap-1 tabular-nums">
+              <Coins className="size-3.5" aria-hidden />
+              {held.gold}
+            </span>
+            {held.inventar.includes(HEILTRANK) ? (
+              <span className="inline-flex items-center gap-1">
+                <FlaskConical className="size-3.5" aria-hidden />
+                Trank
+              </span>
+            ) : null}
+            {held.inventar.includes(SCHLUESSEL) ? (
+              <span className="inline-flex items-center gap-1">
+                <KeyRound className="size-3.5" aria-hidden />
+                Schlüssel
+              </span>
+            ) : null}
+            {saveMessage ? <span className="text-ok">{saveMessage}</span> : null}
+          </div>
+          {rufe.length ? (
+            <p className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-fg">
+              {rufe.map((item) => (
+                <span key={item.ziel} className={item.wert > 0 ? "text-ok" : "text-hp"}>
+                  {item.ziel} {item.wert > 0 ? "+" : ""}
+                  {item.wert}
+                </span>
+              ))}
+            </p>
+          ) : null}
+          <SeitenFuss held={held} hinzu={hinzu} nimmt={nimmt} fort={fort} kompakt />
+        </div>
+      ) : null}
     </div>
   );
 }

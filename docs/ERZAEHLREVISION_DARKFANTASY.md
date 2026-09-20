@@ -1,6 +1,10 @@
 # Erzählrevision: Lindendorf als ausführliches Dark-Fantasy-Mittelalterabenteuer
 
+Technische Reihenfolge steht **nicht** hier, sondern in `docs/ERNEUERUNGSPLAN.md`.
+Dieses Blatt gilt für Stimme, Bogen und was eine Karte tragen darf.
+
 ## Freigegebene Stiländerung
+
 
 Die bisherige Vorgabe, Texte grundsätzlich kurz zu halten, ist durch die Entscheidung vom 17. September 2026 ersetzt. Lindendorf soll als ausführlich erzähltes, düsteres Dark-Fantasy-Mittelalterabenteuer funktionieren. Die Kernregeln und der Grundfluss bleiben unverändert:
 

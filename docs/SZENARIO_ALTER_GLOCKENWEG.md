@@ -1,6 +1,10 @@
 # Der alte Glockenweg
 
+Inhaltsspec. **Nicht** vor Block A des `docs/ERNEUERUNGSPLAN.md` ausbauen.
+Technische Reihenfolge: Schema und Log zuerst.
+
 ## Grundidee
+
 
 Oberhalb von Lindendorf führt ein alter Versorgungsweg zu einer verlassenen Kapelle. Früher kamen dort Salz, Mehl und Nachrichten über den Pass. Seit die Straße aufgegeben wurde, hängt in der Kapelle noch eine kleine Signalglocke.
 

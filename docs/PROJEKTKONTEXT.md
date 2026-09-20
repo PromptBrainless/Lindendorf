@@ -1,33 +1,27 @@
 # Projektkontext — How to be a Hero: Lindendorf
 
-**Snapshot:** 18. September 2026, 00:30 Uhr
-**Status:** Versorgungsreihe (Mühle + Brunnen) spielt zusammen; Questreihen-Skill und Echo-Schnittstelle sitzen. Preview läuft.
+**Snapshot:** 20. September 2026  
+**Status:** Spielbar. Schema, Log, Ruf, Erinnerung, Lager-Hub-Extrakt sitzen.
 
-## Verbindliche Richtung
-
-Lindendorf bleibt ein ausführlich erzähltes, düsteres Dark-Fantasy-Mittelalterabenteuer.
+## Richtung
 
 > Heldenerstellung → Dorf-Schleife → Glockenweg/Wald → Banditenlager → Ende
 
-Regeln unverändert: ST/GE/CH, W10, 10 LP, Heiltrank, Schlüssel, Gold.
+ST/GE/CH Start 10/10/10. W10. 10 LP. Heiltrank, Schlüssel, Gold.
+Gunst/Last über `held.effekte`. Booleans am Held bleiben. Entscheidungs-Log kommt additiv.
+
+Technische Reihenfolge: `docs/ERNEUERUNGSPLAN.md`.  
+Quest-Kanon: `docs/QUESTREGISTER.md`.
 
 ## Erzählstand
 
-Hauptplot und Bildrunde wie zuvor. Zwei Nebenquests der Versorgungsreihe sind spielbar und **echoen einander** (Methode und Ausgang), ohne sich zu sperren.
-
-- Mühle: Dorf → *Zur Mühle gehen*
-- Wasser: Brunnen und Dorfplatz → *Den trüben Eimer prüfen*
-- Schnittstelle: `src/game/reihe-versorgung.ts`
-- Journal-Faden: `versorgung_muster`
-
-## Autorensystem
-
-Skill `.grok/skills/lindendorf-questreihe/`, Prompt `docs/PROMPT_QUESTREIHE.md`, Register `docs/QUESTREGISTER.md`, Prüfer `npm run check:questreihe`.
+Mühle, Brunnen, Kesseljahr spielbar, Echo ohne Schloss.
+Lager und Hauptfluss in `script.ts`. Intro-Pilot in `content.ts`.
 
 ## Nächster sicherer Schritt
 
-Keine dritte Quest, bevor die Echo-Pfade (Mühle→Brunnen und umgekehrt, Verrat/Bestechung) einmal von Hand gespielt sind. Dritte Lücke erst, wenn ein Mangel feststeht, der nicht Mehl, Wasser, Salz oder Kirchensilber ist.
+HeldSchema, Log, Ruf und Lager-Hub sitzen. Restliche Lager-Wege extrahieren **oder** Glockenweg — nicht beides.
 
 ## Git
 
-Arbeitsbaum enthält uncommittete Questmodule plus Echo. Zielrepo laut Übergabe: `PromptBrainless/Lindendorf`. Local `origin` zeigte zeitweise auf `PromptBrainless/Dice` — vor dem Push prüfen.
+Ziel: `PromptBrainless/SpielVersion1.0` (Tag SpielVersion1.0). Spiegel: Lindendorf, mixure.

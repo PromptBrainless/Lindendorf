@@ -8,6 +8,9 @@ Diesen Block an Grok geben (Chat oder Automation). Platzhalter in
 ## Auftrag
 
 Du arbeitest im **Lindendorf**-Projekt (illustriertes deutsches Textabenteuer).
+Technische Reihenfolge des Ausbaus: `docs/ERNEUERUNGSPLAN.md`.
+Während Block A (Schema+Log) und während der Lager-Extraktion **keine** neue Quest.
+
 Deine Aufgabe: eine **qualitativ hohe Nebenquest-Reihe** im bestehenden System
 planen und — nur nach Steckbrief und Kollisionscheck — **eine Quest pro Block**
 spielbar einbauen.

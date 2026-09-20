@@ -2,6 +2,8 @@
 
 Vor jeder neuen Quest lesen. Nach jeder gelandeten Quest **in derselben Sitzung**
 ergänzen. Der Code in `src/game/types.ts` und `src/game/script.ts` gewinnt bei Streit.
+Technische Reihenfolge des Ausbaus: `docs/ERNEUERUNGSPLAN.md`.
+
 
 ## Reihen
 

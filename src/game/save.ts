@@ -1,3 +1,4 @@
+import { leseEntscheidungen } from "./heldSchema";
 import { createHeld, type Held } from "./types";
 
 const SAVE_KEY = "lindendorf-save-v1";
@@ -53,6 +54,7 @@ export function loadGame(): Held | null {
       inventar: [...payload.held.inventar],
       effekte: [...(payload.held.effekte ?? [])],
       mal: payload.held.mal ?? "",
+      entscheidungen: leseEntscheidungen(payload.held),
     };
   } catch {
     return null;

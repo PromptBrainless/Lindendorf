@@ -2,6 +2,9 @@
 
 **Lindendorf** ist ein illustriertes, browserbasiertes Dark-Fantasy-Textabenteuer. Ein gewöhnlicher Mensch erreicht ein armes Tal, dessen Vorräte verschwinden, dessen Glocke für die falschen Leute läutet und dessen alter Steinbruch wieder bewohnt ist.
 
+Aktueller Ausbau: [`docs/ERNEUERUNGSPLAN.md`](docs/ERNEUERUNGSPLAN.md). Register: [`docs/QUESTREGISTER.md`](docs/QUESTREGISTER.md). Repo: [SpielVersion1.0](https://github.com/PromptBrainless/SpielVersion1.0).
+
+
 Das Spiel verbindet ausführliche deutsche Erzähltexte mit drei Attributen, W10-Proben, wissensbasierten Freischaltungen, Nebenquests, mehreren Lösungswegen und unterschiedlichen Enden. Entscheidungen verändern spätere Szenen und den Epilog.
 
 ## Spielumfang

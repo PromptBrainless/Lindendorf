@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ART, PORTRAITS } from "@/game/art";
 import { EFFEKT_IDS, EFFEKTE, effekteDerGruppe, hatEffekt, type EffektId } from "@/game/effekte";
 import { HERKUNFT_FRAGEN } from "@/game/herkunft";
+import { rufListe } from "@/game/reputation";
 import { ladeSpielleiterBild } from "@/game/sl-upload";
 import type { ArtKey, Held, PortraitKey, SceneView } from "@/game/types";
 import type { KartePatch } from "@/game/spielleiter";
@@ -99,6 +100,32 @@ function EffektReihe({
   );
 }
 
+function Abschnitt({
+  titel,
+  startOffen = false,
+  children,
+}: {
+  titel: string;
+  startOffen?: boolean;
+  children: ReactNode;
+}) {
+  const [offen, setOffen] = useState(startOffen);
+  return (
+    <div className="mb-2 rounded-sm border border-border bg-surface/40">
+      <button
+        type="button"
+        className="flex h-11 w-full items-center justify-between px-2 text-left text-sm text-fg"
+        onClick={() => setOffen((wert) => !wert)}
+        aria-expanded={offen}
+      >
+        {titel}
+        <span className="text-xs text-muted-fg">{offen ? "zu" : "auf"}</span>
+      </button>
+      {offen ? <div className="border-t border-border px-2 py-2">{children}</div> : null}
+    </div>
+  );
+}
+
 export function SpielleiterPanel({
   original,
   patch,
@@ -155,105 +182,38 @@ export function SpielleiterPanel({
   }
 
   return (
-    <aside className="safe-bottom pointer-events-auto absolute inset-x-0 bottom-0 z-30 max-h-[70dvh] overflow-y-auto border-t border-border bg-ink/94 px-3 py-3 shadow-lg backdrop-blur-md sm:inset-x-auto sm:bottom-6 sm:right-4 sm:max-h-[80dvh] sm:w-[24rem] sm:rounded-xl sm:border">
+    <aside className="pointer-events-auto absolute inset-x-0 bottom-0 z-30 max-h-[min(52dvh,28rem)] overflow-y-auto border-t border-border bg-ink px-3 py-3 shadow-lg sm:inset-x-auto sm:bottom-4 sm:right-4 sm:max-h-[min(70dvh,calc(100dvh-42vh-6rem))] sm:w-[24rem] sm:rounded-xl sm:border">
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-lg font-semibold">Spielleiter</p>
-          <p className="text-xs text-muted-fg">
-            Nur diese Karte. Wahl-Anzahl bleibt {original.choices.length}, sonst bricht der Lauf.
-          </p>
+          <p className="text-xs text-muted-fg">Karte · Held · Ereignis. Bild bleibt frei.</p>
         </div>
         <Button type="button" variant="ghost" className="h-8 px-2 text-xs" onClick={onClose}>
           Schließen
         </Button>
       </div>
 
-      <label className="mb-2 block text-xs text-muted-fg">
-        Titel
-        <input
-          className="mt-1 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
-          value={patch.title ?? original.title}
-          onChange={(event) => onChange({ ...patch, title: event.target.value })}
-        />
-      </label>
-
-      <div className="mb-2 grid grid-cols-2 gap-2">
-        <label className="text-xs text-muted-fg">
-          Bild
-          <select
-            className="mt-1 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
-            value={patch.art ?? original.art}
-            onChange={(event) => onChange({ ...patch, art: event.target.value as ArtKey })}
-          >
-            {ART_KEYS.map((key) => (
-              <option key={key} value={key}>
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="text-xs text-muted-fg">
-          Portrait
-          <select
-            className="mt-1 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
-            value={patch.portrait === null ? "" : (patch.portrait ?? original.portrait ?? "")}
-            onChange={(event) => {
-              const value = event.target.value;
-              onChange({ ...patch, portrait: value ? (value as PortraitKey) : null });
-            }}
-          >
-            <option value="">keins</option>
-            {PORTRAIT_KEYS.map((key) => (
-              <option key={key} value={key}>
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      <BildFeld
-        label="Eigenes Bild — URL oder Datei"
-        src={patch.artSrc ?? ""}
-        onSrc={(artSrc) => onChange({ ...patch, artSrc })}
-      />
-      <BildFeld
-        label="Eigenes Portrait — URL oder Datei"
-        src={patch.portraitSrc ?? ""}
-        onSrc={(portraitSrc) => onChange({ ...patch, portraitSrc })}
-      />
-
-      <div className="mb-3">
-        <p className="text-xs text-muted-fg">Gunst — Bonus auf Proben</p>
+      <Abschnitt titel="Held — Gunst und Last" startOffen>
+        <p className="mb-1 text-xs text-muted-fg">Gunst</p>
         <EffektReihe ids={effekteDerGruppe("gunst")} an={(id) => hatEffekt(held, id)} onToggle={onEffekt} />
-        <p className="mt-2 text-xs text-muted-fg">Last — Malus auf Proben</p>
+        <p className="mt-2 mb-1 text-xs text-muted-fg">Last</p>
         <EffektReihe ids={effekteDerGruppe("last")} an={(id) => hatEffekt(held, id)} onToggle={onEffekt} />
-        <p className="mt-2 text-xs text-muted-fg">An dieser Karte festmachen</p>
-        <EffektReihe
-          ids={EFFEKT_IDS}
-          an={(id) => kartenEffekte.includes(id)}
-          onToggle={(id, wert) => {
-            if (wert === kartenEffekte.includes(id)) return;
-            toggleKarte(id);
-          }}
-        />
-        <p className="mt-2 text-xs text-muted-fg">Beim Verlassen dieser Karte abnehmen</p>
-        <EffektReihe
-          ids={EFFEKT_IDS}
-          an={(id) => kartenFort.includes(id)}
-          onToggle={(id, wert) => {
-            if (wert === kartenFort.includes(id)) return;
-            toggleFort(id);
-          }}
-        />
-        <p className="mt-1 text-xs text-subtle-fg">
-          Jedes Mal ist Gunst oder Last. Grün hebt, rot drückt. Die Probe nimmt den geänderten Wert.
-        </p>
-      </div>
+        {held ? (
+          <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-fg">
+            {rufListe(held).length
+              ? rufListe(held).map((item) => (
+                  <span key={item.ziel}>
+                    Ruf {item.ziel} {item.wert > 0 ? "+" : ""}
+                    {item.wert}
+                  </span>
+                ))
+              : "Noch kein Ruf im Log."}
+          </p>
+        ) : null}
+      </Abschnitt>
 
-      <div className="mb-3">
-        <p className="text-xs text-muted-fg">Lage dem Helden vorlegen</p>
-        <div className="mt-1.5 flex gap-2">
+      <Abschnitt titel="Lage vorlegen">
+        <div className="flex gap-2">
           <select
             className="h-11 min-w-0 flex-1 rounded-sm border border-border bg-surface px-2 text-sm text-fg"
             value={lageWahl}
@@ -274,41 +234,123 @@ export function SpielleiterPanel({
             Vorlegen
           </Button>
         </div>
-        <p className="mt-1 text-xs text-subtle-fg">Er sieht die Geschichte und wählt. Die Antwort setzt den Zustand.</p>
-      </div>
+      </Abschnitt>
 
-      <label className="mb-2 block text-xs text-muted-fg">
-        Text — eine Leerzeile trennt Absätze
-        <textarea
-          className="mt-1 min-h-36 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm leading-relaxed text-fg"
-          value={linesText}
-          onChange={(event) =>
-            onChange({
-              ...patch,
-              lines: event.target.value
-                .split(/\n\s*\n/)
-                .map((line) => line.replace(/\n/g, " ").trim())
-                .filter(Boolean),
-            })
-          }
-        />
-      </label>
+      <Abschnitt titel="Ereignis">
+        <p className="text-xs leading-relaxed text-muted-fg">
+          Noch leer. Welche Funktion soll hier sitzen — Wetter, Uhr, Würfel am Tisch, Gold/LP setzen, Zufallsbegegnung?
+        </p>
+      </Abschnitt>
 
-      <div className="mb-3 space-y-1.5">
-        <p className="text-xs text-muted-fg">Wahlen (Reihenfolge = Logik)</p>
-        {original.choices.map((_, index) => (
+      <Abschnitt titel="Karte — Bild und Portrait">
+        <label className="mb-2 block text-xs text-muted-fg">
+          Titel
           <input
-            key={index}
-            className="w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
-            value={choices[index] ?? original.choices[index]}
-            onChange={(event) => {
-              const next = [...(patch.choices ?? original.choices)];
-              next[index] = event.target.value;
-              onChange({ ...patch, choices: next });
-            }}
+            className="mt-1 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
+            value={patch.title ?? original.title}
+            onChange={(event) => onChange({ ...patch, title: event.target.value })}
           />
-        ))}
-      </div>
+        </label>
+        <div className="mb-2 grid grid-cols-2 gap-2">
+          <label className="text-xs text-muted-fg">
+            Bild
+            <select
+              className="mt-1 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
+              value={patch.art ?? original.art}
+              onChange={(event) => onChange({ ...patch, art: event.target.value as ArtKey })}
+            >
+              {ART_KEYS.map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="text-xs text-muted-fg">
+            Portrait
+            <select
+              className="mt-1 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
+              value={patch.portrait === null ? "" : (patch.portrait ?? original.portrait ?? "")}
+              onChange={(event) => {
+                const value = event.target.value;
+                onChange({ ...patch, portrait: value ? (value as PortraitKey) : null });
+              }}
+            >
+              <option value="">keins</option>
+              {PORTRAIT_KEYS.map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <BildFeld
+          label="Eigenes Bild — URL oder Datei"
+          src={patch.artSrc ?? ""}
+          onSrc={(artSrc) => onChange({ ...patch, artSrc })}
+        />
+        <BildFeld
+          label="Eigenes Portrait — URL oder Datei"
+          src={patch.portraitSrc ?? ""}
+          onSrc={(portraitSrc) => onChange({ ...patch, portraitSrc })}
+        />
+      </Abschnitt>
+
+      <Abschnitt titel="Karte — Zustände">
+        <p className="mb-1 text-xs text-muted-fg">Beim Betreten festmachen</p>
+        <EffektReihe
+          ids={EFFEKT_IDS}
+          an={(id) => kartenEffekte.includes(id)}
+          onToggle={(id, wert) => {
+            if (wert === kartenEffekte.includes(id)) return;
+            toggleKarte(id);
+          }}
+        />
+        <p className="mt-2 mb-1 text-xs text-muted-fg">Beim Verlassen abnehmen</p>
+        <EffektReihe
+          ids={EFFEKT_IDS}
+          an={(id) => kartenFort.includes(id)}
+          onToggle={(id, wert) => {
+            if (wert === kartenFort.includes(id)) return;
+            toggleFort(id);
+          }}
+        />
+      </Abschnitt>
+
+      <Abschnitt titel="Karte — Text und Wahlen">
+        <label className="mb-2 block text-xs text-muted-fg">
+          Text — eine Leerzeile trennt Absätze
+          <textarea
+            className="mt-1 min-h-28 w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm leading-relaxed text-fg"
+            value={linesText}
+            onChange={(event) =>
+              onChange({
+                ...patch,
+                lines: event.target.value
+                  .split(/\n\s*\n/)
+                  .map((line) => line.replace(/\n/g, " ").trim())
+                  .filter(Boolean),
+              })
+            }
+          />
+        </label>
+        <div className="space-y-1.5">
+          <p className="text-xs text-muted-fg">Wahlen (Reihenfolge = Logik)</p>
+          {original.choices.map((_, index) => (
+            <input
+              key={index}
+              className="w-full rounded-sm border border-border bg-surface px-2 py-1.5 text-sm text-fg"
+              value={choices[index] ?? original.choices[index]}
+              onChange={(event) => {
+                const next = [...(patch.choices ?? original.choices)];
+                next[index] = event.target.value;
+                onChange({ ...patch, choices: next });
+              }}
+            />
+          ))}
+        </div>
+      </Abschnitt>
 
       <div className="flex flex-wrap gap-2">
         <Button type="button" variant="secondary" className="h-9 px-3 text-xs" onClick={onReset}>
@@ -323,9 +365,7 @@ export function SpielleiterPanel({
           Patch kopieren
         </Button>
       </div>
-      <p className="mt-2 text-xs text-subtle-fg">
-        Gespeichert im Browser unter {schluessel}. Ins Spiel kommt der Text erst, wenn er in der Quest-Datei landet.
-      </p>
+      <p className="mt-2 text-xs text-subtle-fg">Browser: {schluessel}</p>
     </aside>
   );
 }
